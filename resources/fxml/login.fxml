@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="454.0" prefWidth="810.0" style="-fx-background-color: #2D3447; -fx-text-inner-color: grey;" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.LoginController">
+   <stylesheets>
+      <URL value="@/css/login.css" />
+   </stylesheets>
+
+   <children>
+      <Label layoutX="349.0" layoutY="61.0" prefHeight="33.0" prefWidth="56.0" text="Blue" textFill="#5bb8ff">
+         <font>
+            <Font size="27.0" />
+         </font>
+      </Label>
+      <Label layoutX="405.0" layoutY="61.0" prefHeight="33.0" prefWidth="84.0" text="Ring" textFill="#a0a2ab">
+         <font>
+            <Font size="27.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="imgLogin" fitHeight="46.0" fitWidth="47.0" layoutX="382.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../Desktop/br-logo-trans-blue-trans.png" />
+         </image></ImageView>
+      <Button fx:id="btnSignUp" layoutX="725.0" layoutY="22.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="71.0" style="-fx-background-color: #151928;" text="SignUp" textFill="#a0a2ab" />
+      <Label layoutX="632.0" layoutY="29.0" text="Not member?" textFill="#a0a2ab" />
+      <ImageView fitHeight="46.0" fitWidth="32.0" layoutX="14.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../Desktop/strela.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="tfUserName" layoutX="270.0" layoutY="185.0" prefHeight="28.0" prefWidth="271.0" promptText="Username" style="-fx-background-color: #2D3447; -fx-text-inner-color: grey;" />
+      <ImageView fitHeight="28.0" fitWidth="32.0" layoutX="232.0" layoutY="185.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../Desktop/user.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="28.0" fitWidth="32.0" layoutX="232.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../Desktop/lock2.png" />
+         </image></ImageView>
+      <CheckBox fx:id="cbRemember" layoutX="232.0" layoutY="307.0" mnemonicParsing="false" text="Remember me" textFill="#a0a2ab" />
+      <Button fx:id="btnExit" layoutX="39.0" layoutY="25.0" mnemonicParsing="false" onAction="#actionExit" style="-fx-background-color: #2D3447;" text="Exit from app" textFill="#a0a2ab" />
+      <Button fx:id="btnLogin" layoutX="447.0" layoutY="297.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="100.0" style="-fx-background-color: #5bb8ff;" text="Login" textFill="WHITE" />
+      <Button fx:id="btnForgot" layoutX="308.0" layoutY="369.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="181.0" style="-fx-background-color: #2D3447;" text="Forgot password ?" textFill="#a0a2ab">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <PasswordField fx:id="pfPassword" layoutX="270.0" layoutY="242.0" prefHeight="27.0" prefWidth="271.0" promptText="Password" style="-fx-background-color: #2D3447;" />
+   </children>
+</AnchorPane>
