@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="336.0" prefWidth="762.0" style="-fx-background-color: #2D3447; -fx-text-inner-color: grey;" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.SignUpController">
+   <stylesheets>
+      <URL value="@/css/signup.css" />
+   </stylesheets>
+   <children>
+      <TextField fx:id="tfFirstName" layoutX="131.0" layoutY="65.0" prefHeight="28.0" prefWidth="220.0" promptText="First name" style="-fx-background-color: #2D3447; -fx-text-inner-color: grey;" />
+      <TextField fx:id="tfLastName" layoutX="410.0" layoutY="65.0" prefHeight="28.0" prefWidth="220.0" promptText="Last name" style="-fx-background-color: #2D3447; -fx-text-inner-color: grey;" />
+      <TextField fx:id="tfUserName" layoutX="131.0" layoutY="136.0" prefHeight="28.0" prefWidth="220.0" promptText="Username" style="-fx-background-color: #2D3447; -fx-text-inner-color: grey;" />
+      <TextField fx:id="tfEmail" layoutX="410.0" layoutY="136.0" prefHeight="28.0" prefWidth="220.0" promptText="E-mail" style="-fx-background-color: #2D3447; -fx-text-inner-color: grey;" />
+      <PasswordField fx:id="pfPassword1" layoutX="131.0" layoutY="216.0" prefHeight="27.0" prefWidth="220.0" promptText="Password" style="-fx-background-color: #2D3447;" />
+      <PasswordField fx:id="pfPassword2" layoutX="410.0" layoutY="216.0" prefHeight="27.0" prefWidth="220.0" promptText="Repeat password" style="-fx-background-color: #2D3447;" />
+      <Button fx:id="btnContinue" layoutX="662.0" layoutY="277.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="86.0" style="-fx-background-color: #151928;" text="Continue" textFill="#a0a2ab" />
+      <Button fx:id="btnCancel" layoutX="14.0" layoutY="277.0" mnemonicParsing="false" onAction="#actionCancel" prefHeight="33.0" prefWidth="86.0" style="-fx-background-color: #151928;" text="Cancel" textFill="#a0a2ab" />
+   </children>
+</AnchorPane>

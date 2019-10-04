@@ -1,0 +1,65 @@
+#tfFirstName {
+    -fx-border-color: grey;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color: transparent;
+}
+
+#tfFirstName:focused{
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #0093EF;
+}
+
+#tfLastName{
+    -fx-border-color: grey;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color: transparent;
+}
+
+#tfLastName:focused{
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #0093EF;
+}
+
+#tfUserName {
+    -fx-border-color: grey;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color: transparent;
+}
+
+#tfUserName:focused{
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #0093EF;
+}
+
+#tfEmail{
+    -fx-border-color: grey;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color: transparent;
+}
+
+#tfEmail:focused{
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #0093EF;
+}
+
+#pfPassword1 {
+    -fx-border-color: grey;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color: transparent;
+}
+
+#pfPassword1:focused{
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #0093EF;
+}
+
+#pfPassword2{
+    -fx-border-color: grey;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color: transparent;
+}
+
+#pfPassword2:focused{
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #0093EF;
+}

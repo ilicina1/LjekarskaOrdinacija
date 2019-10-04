@@ -31,7 +31,7 @@
          <image>
             <Image url="@/img/logic.png" />
          </image></ImageView>
-      <Button fx:id="btnSignUp" layoutX="725.0" layoutY="22.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="71.0" style="-fx-background-color: #151928;" text="SignUp" textFill="#a0a2ab" />
+      <Button fx:id="btnSignUp" layoutX="725.0" layoutY="22.0" mnemonicParsing="false" onAction="#actionSignUp" prefHeight="33.0" prefWidth="71.0" style="-fx-background-color: #151928;" text="SignUp" textFill="#a0a2ab" />
       <Label layoutX="632.0" layoutY="29.0" text="Not member?" textFill="#a0a2ab" />
       <ImageView fitHeight="46.0" fitWidth="32.0" layoutX="14.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -50,7 +50,7 @@
          </image></ImageView>
       <CheckBox fx:id="cbRemember" layoutX="232.0" layoutY="307.0" mnemonicParsing="false" text="Remember me" textFill="#a0a2ab" />
       <Button fx:id="btnExit" layoutX="39.0" layoutY="25.0" mnemonicParsing="false" onAction="#actionExit" style="-fx-background-color: #2D3447;" text="Exit from app" textFill="#a0a2ab" />
-      <Button fx:id="btnLogin" layoutX="447.0" layoutY="297.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="100.0" style="-fx-background-color: #5bb8ff;" text="Login" textFill="WHITE" />
+      <Button fx:id="btnLogin" layoutX="447.0" layoutY="297.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="100.0" style="-fx-background-color: #5BB8FF;" text="Login" textFill="WHITE" />
       <Button fx:id="btnForgot" layoutX="308.0" layoutY="369.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="181.0" style="-fx-background-color: #2D3447;" text="Forgot password ?" textFill="#a0a2ab">
          <font>
             <Font size="14.0" />
