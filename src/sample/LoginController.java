@@ -28,7 +28,6 @@ public class LoginController {
 
     public LoginController() {
         dao = KlasaDAO.getInstance();
-        //listGradovi = FXCollections.observableArrayList(dao.gradovi());
     }
 
     public void actionExit(ActionEvent actionEvent) {
@@ -42,21 +41,11 @@ public class LoginController {
         Parent root = null;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/signup.fxml"));
-            //SignUpController signUpController = new SignUpController();
-           // loader.setController(signUpController);
             root = loader.load();
             stage.setTitle("Sign Up");
             stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             stage.setResizable(false);
             stage.show();
-
-//            stage.setOnHiding( event -> {
-//                Grad grad = gradController.getGrad();
-//                if (grad != null) {
-//                    dao.dodajGrad(grad);
-//                    listGradovi.setAll(dao.gradovi());
-//                }
-//            } );
         } catch (IOException e) {
             e.printStackTrace();
         }
