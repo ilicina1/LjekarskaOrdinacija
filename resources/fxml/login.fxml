@@ -29,24 +29,24 @@
       </Label>
       <ImageView fx:id="imgLogin" fitHeight="46.0" fitWidth="47.0" layoutX="382.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Desktop/br-logo-trans-blue-trans.png" />
+            <Image url="@/img/logic.png" />
          </image></ImageView>
       <Button fx:id="btnSignUp" layoutX="725.0" layoutY="22.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="71.0" style="-fx-background-color: #151928;" text="SignUp" textFill="#a0a2ab" />
       <Label layoutX="632.0" layoutY="29.0" text="Not member?" textFill="#a0a2ab" />
       <ImageView fitHeight="46.0" fitWidth="32.0" layoutX="14.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Desktop/strela.png" />
+            <Image url="@/img/strela.png" />
          </image>
       </ImageView>
       <TextField fx:id="tfUserName" layoutX="270.0" layoutY="185.0" prefHeight="28.0" prefWidth="271.0" promptText="Username" style="-fx-background-color: #2D3447; -fx-text-inner-color: grey;" />
       <ImageView fitHeight="28.0" fitWidth="32.0" layoutX="232.0" layoutY="185.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Desktop/user.png" />
+            <Image url="@/img/user.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="28.0" fitWidth="32.0" layoutX="232.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Desktop/lock2.png" />
+            <Image url="@/img/lock2.png" />
          </image></ImageView>
       <CheckBox fx:id="cbRemember" layoutX="232.0" layoutY="307.0" mnemonicParsing="false" text="Remember me" textFill="#a0a2ab" />
       <Button fx:id="btnExit" layoutX="39.0" layoutY="25.0" mnemonicParsing="false" onAction="#actionExit" style="-fx-background-color: #2D3447;" text="Exit from app" textFill="#a0a2ab" />
