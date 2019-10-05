@@ -2,22 +2,41 @@
 
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="336.0" prefWidth="762.0" style="-fx-background-color: #2D3447; -fx-text-inner-color: grey;" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.SignUpController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="454.0" prefWidth="810.0" style="-fx-background-color: #2D3447; -fx-text-inner-color: grey;" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.SignUpController">
    <stylesheets>
       <URL value="@/css/signup.css" />
    </stylesheets>
    <children>
-      <TextField fx:id="tfFirstName" layoutX="131.0" layoutY="65.0" prefHeight="28.0" prefWidth="220.0" promptText="First name" style="-fx-background-color: #2D3447; -fx-text-inner-color: grey;" />
-      <TextField fx:id="tfLastName" layoutX="410.0" layoutY="65.0" prefHeight="28.0" prefWidth="220.0" promptText="Last name" style="-fx-background-color: #2D3447; -fx-text-inner-color: grey;" />
-      <TextField fx:id="tfUserName" layoutX="131.0" layoutY="136.0" prefHeight="28.0" prefWidth="220.0" promptText="Username" style="-fx-background-color: #2D3447; -fx-text-inner-color: grey;" />
-      <TextField fx:id="tfEmail" layoutX="410.0" layoutY="136.0" prefHeight="28.0" prefWidth="220.0" promptText="E-mail" style="-fx-background-color: #2D3447; -fx-text-inner-color: grey;" />
-      <PasswordField fx:id="pfPassword1" layoutX="131.0" layoutY="216.0" prefHeight="27.0" prefWidth="220.0" promptText="Password" style="-fx-background-color: #2D3447;" />
-      <PasswordField fx:id="pfPassword2" layoutX="410.0" layoutY="216.0" prefHeight="27.0" prefWidth="220.0" promptText="Repeat password" style="-fx-background-color: #2D3447;" />
-      <Button fx:id="btnContinue" layoutX="662.0" layoutY="277.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="86.0" style="-fx-background-color: #151928;" text="Continue" textFill="#a0a2ab" />
-      <Button fx:id="btnCancel" layoutX="14.0" layoutY="277.0" mnemonicParsing="false" onAction="#actionCancel" prefHeight="33.0" prefWidth="86.0" style="-fx-background-color: #151928;" text="Cancel" textFill="#a0a2ab" />
+      <TextField fx:id="tfFirstName" layoutX="161.0" layoutY="138.0" prefHeight="28.0" prefWidth="220.0" promptText="First name" style="-fx-background-color: #2D3447; -fx-text-inner-color: grey;" />
+      <TextField fx:id="tfLastName" layoutX="440.0" layoutY="138.0" prefHeight="28.0" prefWidth="220.0" promptText="Last name" style="-fx-background-color: #2D3447; -fx-text-inner-color: grey;" />
+      <TextField fx:id="tfUserName" layoutX="161.0" layoutY="209.0" prefHeight="28.0" prefWidth="220.0" promptText="Username" style="-fx-background-color: #2D3447; -fx-text-inner-color: grey;" />
+      <TextField fx:id="tfEmail" layoutX="440.0" layoutY="209.0" prefHeight="28.0" prefWidth="220.0" promptText="E-mail" style="-fx-background-color: #2D3447; -fx-text-inner-color: grey;" />
+      <PasswordField fx:id="pfPassword1" layoutX="161.0" layoutY="289.0" prefHeight="27.0" prefWidth="220.0" promptText="Password" style="-fx-background-color: #2D3447;" />
+      <PasswordField fx:id="pfPassword2" layoutX="440.0" layoutY="289.0" prefHeight="27.0" prefWidth="220.0" promptText="Repeat password" style="-fx-background-color: #2D3447;" />
+      <Button fx:id="btnContinue" layoutX="710.0" layoutY="407.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="86.0" style="-fx-background-color: #151928;" text="Continue" textFill="#a0a2ab" />
+      <Button fx:id="btnCancel" layoutX="14.0" layoutY="407.0" mnemonicParsing="false" onAction="#actionCancel" prefHeight="33.0" prefWidth="86.0" style="-fx-background-color: #151928;" text="Back" textFill="#a0a2ab" />
+      <Label layoutX="354.0" layoutY="60.0" prefHeight="33.0" prefWidth="56.0" text="Blue" textFill="#5bb8ff">
+         <font>
+            <Font size="27.0" />
+         </font>
+      </Label>
+      <Label layoutX="410.0" layoutY="60.0" prefHeight="33.0" prefWidth="84.0" text="Ring" textFill="#a0a2ab">
+         <font>
+            <Font size="27.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="imgLogin" fitHeight="46.0" fitWidth="47.0" layoutX="382.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/img/logic.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

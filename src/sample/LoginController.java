@@ -37,6 +37,8 @@ public class LoginController {
 
 
     public void actionSignUp(ActionEvent actionEvent) {
+        Stage stage1 = (Stage) tfUserName.getScene().getWindow();
+        stage1.close();
         Stage stage = new Stage();
         Parent root = null;
         try {
