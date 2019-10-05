@@ -63,3 +63,12 @@
     -fx-border-width: 0 0 1 0;
     -fx-border-color: #0093EF;
 }
+
+.poljeIspravno {
+    -fx-control-inner-background: greenyellow;
+    -fx-text-fill: greenyellow;
+}
+.poljeNijeIspravno {
+    -fx-control-inner-background: #FF4500;
+    -fx-text-fill: #FF4500;
+}
