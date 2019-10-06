@@ -21,10 +21,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
-
-
-public class SignUpController implements Initializable {
+public class SignUpController  {
     public TextField tfFirstName;
     public TextField tfLastName;
     public TextField tfUserName;
@@ -114,6 +111,7 @@ public class SignUpController implements Initializable {
             LoginController ctrl = new LoginController();
             loader.setController(ctrl);
             root = loader.load();
+            stage.setTitle("Login");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -164,10 +162,5 @@ public class SignUpController implements Initializable {
         }
         if(broj && velikoSlovo && str.length() >= 8) return true;
         return false;
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
     }
 }

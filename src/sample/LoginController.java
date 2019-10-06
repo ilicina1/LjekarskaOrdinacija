@@ -26,7 +26,7 @@ import java.util.ResourceBundle;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
-public class LoginController implements Initializable {
+public class LoginController {
     public Button btnExit;
     public Button btnSignUp;
     public Button btnForgot;
@@ -55,6 +55,7 @@ public class LoginController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/signup.fxml"));
             SignUpController ctrl = new SignUpController();
             loader.setController(ctrl);
+            stage.setTitle("SignUp");
             root = loader.load();
         } catch (IOException e) {
             e.printStackTrace();
@@ -72,10 +73,5 @@ public class LoginController implements Initializable {
             anchor.getChildren().remove(anchor);
         });
         timeline.play();
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
     }
 }
