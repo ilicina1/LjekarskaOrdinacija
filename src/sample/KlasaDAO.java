@@ -16,26 +16,26 @@ public class KlasaDAO {
         return instance;
     }
 
-    private KlasaDAO(){
+    KlasaDAO(){
         try {
             conn = DriverManager.getConnection("jdbc:sqlite:Doktori.db");
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-//        try {
-//            dajUserNameUpit = conn.prepareStatement("SELECT doktorUser.user_name, FROM doktorUser WHERE user_name=?");
-//        } catch (SQLException e) {
-//            regenerisiBazu();
-//            try {
-//                dajUserNameUpit = conn.prepareStatement("SELECT doktorUser.user_name, FROM doktorUser WHERE user_name=?");
-//            } catch (SQLException e1) {
-//                e1.printStackTrace();
-//            }
-//        }
+        try {
+            dajUserNameUpit = conn.prepareStatement("SELECT Doktori.user_name, FROM Doktori WHERE user_name=?");
+        } catch (SQLException e) {
+            regenerisiBazu();
+            try {
+                dajUserNameUpit = conn.prepareStatement("SELECT Doktori.user_name, FROM Doktori WHERE user_name=?");
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+        }
 
         try {
-            dajEmailUpit = conn.prepareStatement("SELECT e_mail FROM doktorUser WHERE e_mail=?");
+            dajEmailUpit = conn.prepareStatement("SELECT e_mail FROM Doktori WHERE e_mail=?");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -45,7 +45,7 @@ public class KlasaDAO {
     private void regenerisiBazu() {
         Scanner ulaz = null;
         try {
-            ulaz = new Scanner(new FileInputStream("doktorUser.sql"));
+            ulaz = new Scanner(new FileInputStream("Doktori.sql"));
             String sqlUpit = "";
             while (ulaz.hasNext()) {
                 sqlUpit += ulaz.nextLine();

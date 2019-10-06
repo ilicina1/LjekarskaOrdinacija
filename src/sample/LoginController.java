@@ -22,6 +22,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
@@ -73,5 +74,12 @@ public class LoginController {
             anchor.getChildren().remove(anchor);
         });
         timeline.play();
+    }
+
+    public void actionLogin(ActionEvent actionEvent) throws IOException, SQLException {
+        KlasaDAO jdbcDao = new KlasaDAO();
+        boolean flag = jdbcDao.validateEmail("ilicina1@outlook.com");
+        if(flag == true) System.out.println("Ne postoji mail u bazi");
+        else System.out.println("Postoji mail u bazi");
     }
 }
