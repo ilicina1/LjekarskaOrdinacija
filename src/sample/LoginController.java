@@ -1,8 +1,13 @@
 package sample;
 
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -10,13 +15,18 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
-public class LoginController {
+public class LoginController implements Initializable {
     public Button btnExit;
     public Button btnSignUp;
     public Button btnForgot;
@@ -26,6 +36,8 @@ public class LoginController {
     public ImageView imgLogin;
     public KlasaDAO dao;
 
+    public AnchorPane anchor;
+    public StackPane stackPane;
     public LoginController() {
         dao = KlasaDAO.getInstance();
     }
@@ -36,20 +48,25 @@ public class LoginController {
     }
 
 
-    public void actionSignUp(ActionEvent actionEvent) {
-        Stage stage1 = (Stage) tfUserName.getScene().getWindow();
-        stage1.close();
-        Stage stage = new Stage();
-        Parent root = null;
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/signup.fxml"));
-            root = loader.load();
-            stage.setTitle("Sign Up");
-            stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-            stage.setResizable(false);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void actionSignUp(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/signup.fxml"));
+        Scene scene = btnSignUp.getScene();
+        root.translateYProperty().set(-454);
+
+        anchor.getChildren().add(root);
+
+        Timeline timeline = new Timeline();
+        KeyValue kv = new KeyValue(root.translateYProperty(), 0, Interpolator.EASE_IN);
+        KeyFrame kf = new KeyFrame(Duration.seconds(0.45), kv);
+        timeline.getKeyFrames().add(kf);
+        timeline.setOnFinished(t -> {
+            anchor.getChildren().remove(anchor);
+        });
+        timeline.play();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
     }
 }

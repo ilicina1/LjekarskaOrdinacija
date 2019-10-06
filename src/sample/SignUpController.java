@@ -1,26 +1,39 @@
 package sample;
 
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
 
-public class SignUpController {
+public class SignUpController implements Initializable {
     public TextField tfFirstName;
     public TextField tfLastName;
     public TextField tfUserName;
     public TextField tfEmail;
     public PasswordField pfPassword1;
     public PasswordField pfPassword2;
+    public Button btnCancel;
+    public Button btnContinue;
+    public AnchorPane anchorSign;
 
     @FXML
     public void initialize() {
@@ -93,21 +106,21 @@ public class SignUpController {
         });
     }
 
-    public void actionCancel(ActionEvent actionEvent) {
-        Stage stage1 = (Stage) tfUserName.getScene().getWindow();
-        stage1.close();
-        Stage stage = new Stage();
-        Parent root = null;
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
-            root = loader.load();
-            stage.setTitle("Ljekarska Ordinacija");
-            stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-            stage.setResizable(false);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void actionCancel(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"));
+        Scene scene = btnCancel.getScene();
+        root.translateYProperty().set(scene.getHeight());
+
+        anchorSign.getChildren().add(root);
+
+        Timeline timeline = new Timeline();
+        KeyValue kv = new KeyValue(root.translateYProperty(), 0, Interpolator.EASE_IN);
+        KeyFrame kf = new KeyFrame(Duration.seconds(0.45), kv);
+        timeline.getKeyFrames().add(kf);
+        timeline.setOnFinished(t -> {
+            anchorSign.getChildren().remove(anchorSign);
+        });
+        timeline.play();
     }
 
     public boolean provjeriImeiPrezime(String str){
@@ -142,5 +155,10 @@ public class SignUpController {
         }
         if(broj && velikoSlovo && str.length() >= 8) return true;
         return false;
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
     }
 }
