@@ -24,11 +24,11 @@ public class KlasaDAO {
         }
 
         try {
-            dajUserNameUpit = conn.prepareStatement("SELECT Doktori.user_name, FROM Doktori WHERE user_name=?");
+            dajUserNameUpit = conn.prepareStatement("SELECT id FROM Doktori WHERE user_name=?");
         } catch (SQLException e) {
             regenerisiBazu();
             try {
-                dajUserNameUpit = conn.prepareStatement("SELECT Doktori.user_name, FROM Doktori WHERE user_name=?");
+                dajUserNameUpit = conn.prepareStatement("SELECT id FROM Doktori WHERE user_name=?");
             } catch (SQLException e1) {
                 e1.printStackTrace();
             }
@@ -42,10 +42,24 @@ public class KlasaDAO {
 
     }
 
+    public static void removeInstance() {
+        if (instance == null) return;
+        instance.close();
+        instance = null;
+    }
+
+    public void close() {
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void regenerisiBazu() {
         Scanner ulaz = null;
         try {
-            ulaz = new Scanner(new FileInputStream("Doktori.sql"));
+            ulaz = new Scanner(new FileInputStream("Doktori.db.sql"));
             String sqlUpit = "";
             while (ulaz.hasNext()) {
                 sqlUpit += ulaz.nextLine();

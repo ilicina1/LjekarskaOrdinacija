@@ -78,7 +78,7 @@ public class LoginController {
 
     public void actionLogin(ActionEvent actionEvent) throws IOException, SQLException {
         KlasaDAO jdbcDao = new KlasaDAO();
-        boolean flag = jdbcDao.validateEmail("ilicina1@outlook.com");
+        boolean flag = jdbcDao.validateUserName("hiljo1");
         if(flag == true) System.out.println("Ne postoji mail u bazi");
         else System.out.println("Postoji mail u bazi");
     }
