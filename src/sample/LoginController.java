@@ -49,8 +49,17 @@ public class LoginController implements Initializable {
 
 
     public void actionSignUp(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/signup.fxml"));
-        Scene scene = btnSignUp.getScene();
+        Stage stage = new Stage();
+        Parent root = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/signup.fxml"));
+            SignUpController ctrl = new SignUpController();
+            loader.setController(ctrl);
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         root.translateYProperty().set(-454);
 
         anchor.getChildren().add(root);

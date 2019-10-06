@@ -107,9 +107,18 @@ public class SignUpController implements Initializable {
     }
 
     public void actionCancel(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"));
-        Scene scene = btnCancel.getScene();
-        root.translateYProperty().set(scene.getHeight());
+        Stage stage = new Stage();
+        Parent root = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
+            LoginController ctrl = new LoginController();
+            loader.setController(ctrl);
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        root.translateYProperty().set(454);
 
         anchorSign.getChildren().add(root);
 
