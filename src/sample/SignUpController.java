@@ -1,5 +1,6 @@
 package sample;
 
+import com.sun.jdi.connect.Transport;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -17,6 +18,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.io.IOException;
 import java.sql.SQLException;
+
 
 public class SignUpController {
     public TextField tfFirstName;
