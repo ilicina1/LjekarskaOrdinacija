@@ -7,6 +7,7 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -69,9 +70,17 @@ public class LoginController {
     }
 
     public void actionLogin(ActionEvent actionEvent) throws IOException, SQLException {
-        KlasaDAO jdbcDao = new KlasaDAO();
-        boolean flag = jdbcDao.validateUserName("patka");
-        if(flag == false) System.out.println("Ne postoji mail u bazi");
-        else System.out.println("Postoji mail u bazi");
+        String password = dao.returnPassword(tfUserName.getText().trim());
+
+        if (password.equals(pfPassword.getText().trim())){
+
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Information Dialog");
+            alert.setHeaderText(null);
+            alert.setContentText("The username or password is incorrect!");
+
+            alert.showAndWait();
+        }
     }
 }

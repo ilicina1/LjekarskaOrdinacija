@@ -15,6 +15,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -146,6 +147,7 @@ public class SignUpController {
         if(user){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Dialog");
+            alert.initStyle(StageStyle.UTILITY);
             alert.setHeaderText("Ooops, there was an error!");
             alert.setContentText("Username is taken!");
             alert.showAndWait();
@@ -196,7 +198,6 @@ public class SignUpController {
         });
         timeline.play();
 
-      //  System.out.println("aa");
     }
 
     public boolean provjeriImeiPrezime(String str){

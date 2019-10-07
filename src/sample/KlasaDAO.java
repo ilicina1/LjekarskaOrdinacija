@@ -9,7 +9,7 @@ public class KlasaDAO {
     private static KlasaDAO instance;
     private Connection conn;
 
-    private PreparedStatement dajUserNameUpit, dajEmailUpit, dodajDoktoraUpit;
+    private PreparedStatement dajUserNameUpit, dajEmailUpit, dodajDoktoraUpit, dajPasswordUpit;
 
     public static KlasaDAO getInstance() {
         if (instance == null) instance = new KlasaDAO();
@@ -37,6 +37,7 @@ public class KlasaDAO {
         try {
             dajEmailUpit = conn.prepareStatement("SELECT e_mail FROM Doktori WHERE e_mail=?");
             dodajDoktoraUpit = conn.prepareStatement("INSERT INTO Doktori VALUES(?,?,?,?,?)");
+            dajPasswordUpit = conn.prepareStatement("SELECT password FROM Doktori WHERE user_name=?");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -101,5 +102,11 @@ public class KlasaDAO {
         ResultSet rs = dajEmailUpit.executeQuery();
         if(!rs.next()) return false;
         return true;
+    }
+    public String returnPassword(String userName) throws SQLException {
+        dajPasswordUpit.setString(1,userName);
+        ResultSet rs = dajPasswordUpit.executeQuery();
+        if(!rs.next()) return null;
+        return rs.getString(1);
     }
 }
