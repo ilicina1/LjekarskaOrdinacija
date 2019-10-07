@@ -1,15 +1,13 @@
 package sample;
 
 public class UserDoktor {
-    private int id;
     private String firstName;
     private String lastName;
     private String userName;
     private String password;
     private String eMail;
 
-    public UserDoktor(int id, String firstName, String lastName, String userName, String password, String eMail) {
-        this.id = id;
+    public UserDoktor(String firstName, String lastName, String userName, String password, String eMail) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
@@ -58,13 +56,5 @@ public class UserDoktor {
 
     public void seteMail(String eMail) {
         this.eMail = eMail;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 }

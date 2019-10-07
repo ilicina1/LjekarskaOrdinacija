@@ -7,21 +7,18 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.sql.SQLException;
 
-public class SignUpController  {
+public class SignUpController {
     public TextField tfFirstName;
     public TextField tfLastName;
     public TextField tfUserName;
@@ -31,76 +28,16 @@ public class SignUpController  {
     public Button btnCancel;
     public Button btnContinue;
     public AnchorPane anchorSign;
+    public KlasaDAO dao;
+
+    public SignUpController() {
+        dao = KlasaDAO.getInstance();
+    }
+
 
     @FXML
     public void initialize() {
-        tfFirstName.textProperty().addListener((obs, oldIme, newIme) -> {
-            if (provjeriImeiPrezime(newIme)) {
-                tfFirstName.getStyleClass().removeAll("poljeNijeIspravno");
-                tfFirstName.getStyleClass().add("poljeIspravno");
-            } else {
-                tfFirstName.getStyleClass().removeAll("poljeIspravno");
-                tfFirstName.getStyleClass().add("poljeNijeIspravno");
-            }
-        });
 
-        tfLastName.textProperty().addListener((obs, oldIme, newIme) -> {
-            if (provjeriImeiPrezime(newIme)) {
-                tfLastName.getStyleClass().removeAll("poljeNijeIspravno");
-                tfLastName.getStyleClass().add("poljeIspravno");
-            } else {
-                tfLastName.getStyleClass().removeAll("poljeIspravno");
-                tfLastName.getStyleClass().add("poljeNijeIspravno");
-            }
-        });
-
-        tfUserName.textProperty().addListener((obs, oldIme, newIme) -> {
-            if (provjeriUserName(newIme)) {
-                tfUserName.getStyleClass().removeAll("poljeNijeIspravno");
-                tfUserName.getStyleClass().add("poljeIspravno");
-            } else {
-                tfUserName.getStyleClass().removeAll("poljeIspravno");
-                tfUserName.getStyleClass().add("poljeNijeIspravno");
-            }
-        });
-
-        tfEmail.textProperty().addListener((obs, oldIme, newIme) -> {
-            if (provjeriEmail(newIme)) {
-                tfEmail.getStyleClass().removeAll("poljeNijeIspravno");
-                tfEmail.getStyleClass().add("poljeIspravno");
-            } else {
-                tfEmail.getStyleClass().removeAll("poljeIspravno");
-                tfEmail.getStyleClass().add("poljeNijeIspravno");
-            }
-        });
-
-        pfPassword1.textProperty().addListener((obs, oldIme, newIme) -> {
-            if (provjeriPassword(newIme) && newIme.equals(pfPassword2.getText())) {
-                pfPassword1.getStyleClass().removeAll("poljeNijeIspravno");
-                pfPassword1.getStyleClass().add("poljeIspravno");
-                pfPassword2.getStyleClass().removeAll("poljeNijeIspravno");
-                pfPassword2.getStyleClass().add("poljeIspravno");
-            } else {
-                pfPassword1.getStyleClass().removeAll("poljeIspravno");
-                pfPassword1.getStyleClass().add("poljeNijeIspravno");
-                pfPassword2.getStyleClass().removeAll("poljeIspravno");
-                pfPassword2.getStyleClass().add("poljeNijeIspravno");
-            }
-        });
-
-        pfPassword2.textProperty().addListener((obs, oldIme, newIme) -> {
-            if (provjeriPassword(newIme) && newIme.equals(pfPassword1.getText())) {
-                pfPassword1.getStyleClass().removeAll("poljeNijeIspravno");
-                pfPassword1.getStyleClass().add("poljeIspravno");
-                pfPassword2.getStyleClass().removeAll("poljeNijeIspravno");
-                pfPassword2.getStyleClass().add("poljeIspravno");
-            } else {
-                pfPassword1.getStyleClass().removeAll("poljeIspravno");
-                pfPassword1.getStyleClass().add("poljeNijeIspravno");
-                pfPassword2.getStyleClass().removeAll("poljeIspravno");
-                pfPassword2.getStyleClass().add("poljeNijeIspravno");
-            }
-        });
     }
 
     public void actionCancel(ActionEvent actionEvent) throws IOException {
@@ -128,6 +65,136 @@ public class SignUpController  {
             anchorSign.getChildren().remove(anchorSign);
         });
         timeline.play();
+    }
+
+    public void actionContinue(ActionEvent actionEvent) throws IOException {
+        boolean sveOk = true;
+        boolean user = false;
+        boolean mail = false;
+
+        try {
+            user = dao.validateUserName(tfUserName.getText().trim());
+            mail = dao.validateEmail(tfEmail.getText().trim());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if (provjeriImeiPrezime(tfFirstName.getText().trim())) {
+            tfFirstName.getStyleClass().removeAll("poljeNijeIspravno");
+            tfFirstName.getStyleClass().add("poljeIspravno");
+        } else {
+            tfFirstName.getStyleClass().removeAll("poljeIspravno");
+            tfFirstName.getStyleClass().add("poljeNijeIspravno");
+            sveOk = false;
+        }
+
+        if(provjeriImeiPrezime(tfLastName.getText().trim())) {
+            tfLastName.getStyleClass().removeAll("poljeNijeIspravno");
+            tfLastName.getStyleClass().add("poljeIspravno");
+        } else {
+            tfLastName.getStyleClass().removeAll("poljeIspravno");
+            tfLastName.getStyleClass().add("poljeNijeIspravno");
+            sveOk = false;
+        }
+
+        if (provjeriUserName(tfUserName.getText().trim()) && !user) {
+            tfUserName.getStyleClass().removeAll("poljeNijeIspravno");
+            tfUserName.getStyleClass().add("poljeIspravno");
+        } else {
+            tfUserName.getStyleClass().removeAll("poljeIspravno");
+            tfUserName.getStyleClass().add("poljeNijeIspravno");
+            sveOk = false;
+        }
+
+        if (provjeriEmail(tfEmail.getText().trim()) && !mail) {
+            tfEmail.getStyleClass().removeAll("poljeNijeIspravno");
+            tfEmail.getStyleClass().add("poljeIspravno");
+        } else {
+            tfEmail.getStyleClass().removeAll("poljeIspravno");
+            tfEmail.getStyleClass().add("poljeNijeIspravno");
+            sveOk = false;
+        }
+
+        if (provjeriPassword(pfPassword1.getText().trim()) && pfPassword1.getText().trim().equals(pfPassword2.getText())) {
+            pfPassword1.getStyleClass().removeAll("poljeNijeIspravno");
+            pfPassword1.getStyleClass().add("poljeIspravno");
+            pfPassword2.getStyleClass().removeAll("poljeNijeIspravno");
+            pfPassword2.getStyleClass().add("poljeIspravno");
+        } else {
+            pfPassword1.getStyleClass().removeAll("poljeIspravno");
+            pfPassword1.getStyleClass().add("poljeNijeIspravno");
+            pfPassword2.getStyleClass().removeAll("poljeIspravno");
+            pfPassword2.getStyleClass().add("poljeNijeIspravno");
+            sveOk = false;
+        }
+
+        if (provjeriPassword(pfPassword2.getText().trim()) && pfPassword2.getText().trim().equals(pfPassword1.getText())) {
+            pfPassword1.getStyleClass().removeAll("poljeNijeIspravno");
+            pfPassword1.getStyleClass().add("poljeIspravno");
+            pfPassword2.getStyleClass().removeAll("poljeNijeIspravno");
+            pfPassword2.getStyleClass().add("poljeIspravno");
+        } else {
+            pfPassword1.getStyleClass().removeAll("poljeIspravno");
+            pfPassword1.getStyleClass().add("poljeNijeIspravno");
+            pfPassword2.getStyleClass().removeAll("poljeIspravno");
+            pfPassword2.getStyleClass().add("poljeNijeIspravno");
+            sveOk = false;
+        }
+
+        if(user){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText("Ooops, there was an error!");
+            alert.setContentText("Username is taken!");
+            alert.showAndWait();
+        } else if(mail){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText("Ooops, there was an error!");
+            alert.setContentText("That email address is already in use!");
+            alert.showAndWait();
+        }
+        if(!sveOk) return;
+
+        try {
+            dao.registerDoctor(tfFirstName.getText().trim(), tfLastName.getText().trim(), tfUserName.getText().trim(), pfPassword1.getText().trim(), tfEmail.getText().trim());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText("You have successfully registered!");
+
+        alert.showAndWait();
+
+        Stage stage = new Stage();
+        Parent root = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
+            LoginController ctrl = new LoginController();
+            loader.setController(ctrl);
+            root = loader.load();
+            stage.setTitle("Login");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        root.translateYProperty().set(454);
+
+        anchorSign.getChildren().add(root);
+
+        Timeline timeline = new Timeline();
+        KeyValue kv = new KeyValue(root.translateYProperty(), 0, Interpolator.EASE_IN);
+        KeyFrame kf = new KeyFrame(Duration.seconds(0.45), kv);
+        timeline.getKeyFrames().add(kf);
+        timeline.setOnFinished(t -> {
+            anchorSign.getChildren().remove(anchorSign);
+        });
+        timeline.play();
+
+      //  System.out.println("aa");
     }
 
     public boolean provjeriImeiPrezime(String str){

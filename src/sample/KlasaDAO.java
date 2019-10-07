@@ -9,7 +9,7 @@ public class KlasaDAO {
     private static KlasaDAO instance;
     private Connection conn;
 
-    private PreparedStatement dajUserNameUpit, dajEmailUpit;
+    private PreparedStatement dajUserNameUpit, dajEmailUpit, dodajDoktoraUpit;
 
     public static KlasaDAO getInstance() {
         if (instance == null) instance = new KlasaDAO();
@@ -24,11 +24,11 @@ public class KlasaDAO {
         }
 
         try {
-            dajUserNameUpit = conn.prepareStatement("SELECT id FROM Doktori WHERE user_name=?");
+            dajUserNameUpit = conn.prepareStatement("SELECT * FROM Doktori WHERE user_name=?");
         } catch (SQLException e) {
             regenerisiBazu();
             try {
-                dajUserNameUpit = conn.prepareStatement("SELECT id FROM Doktori WHERE user_name=?");
+                dajUserNameUpit = conn.prepareStatement("SELECT * FROM Doktori WHERE user_name=?");
             } catch (SQLException e1) {
                 e1.printStackTrace();
             }
@@ -36,6 +36,7 @@ public class KlasaDAO {
 
         try {
             dajEmailUpit = conn.prepareStatement("SELECT e_mail FROM Doktori WHERE e_mail=?");
+            dodajDoktoraUpit = conn.prepareStatement("INSERT INTO Doktori VALUES(?,?,?,?,?)");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -80,16 +81,25 @@ public class KlasaDAO {
         }
     }
 
+    public void registerDoctor(String firstName, String lastName, String userName, String password, String eMail) throws SQLException {
+        dodajDoktoraUpit.setString(1, firstName);
+        dodajDoktoraUpit.setString(2, lastName);
+        dodajDoktoraUpit.setString(3, userName);
+        dodajDoktoraUpit.setString(4, password);
+        dodajDoktoraUpit.setString(5, eMail);
+        dodajDoktoraUpit.executeUpdate();
+    }
+
     public boolean validateUserName(String userName) throws SQLException {
         dajUserNameUpit.setString(1,userName);
         ResultSet rs = dajUserNameUpit.executeQuery();
-        if(!rs.next()) return true;
-        return false;
+        if(!rs.next()) return false;
+        return true;
     }
     public boolean validateEmail(String eMail) throws SQLException {
         dajEmailUpit.setString(1,eMail);
         ResultSet rs = dajEmailUpit.executeQuery();
-        if(!rs.next()) return true;
-        return false;
+        if(!rs.next()) return false;
+        return true;
     }
 }

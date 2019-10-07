@@ -39,6 +39,7 @@ public class LoginController {
 
     public AnchorPane anchor;
     public StackPane stackPane;
+
     public LoginController() {
         dao = KlasaDAO.getInstance();
     }
@@ -78,8 +79,8 @@ public class LoginController {
 
     public void actionLogin(ActionEvent actionEvent) throws IOException, SQLException {
         KlasaDAO jdbcDao = new KlasaDAO();
-        boolean flag = jdbcDao.validateUserName("hiljo1");
-        if(flag == true) System.out.println("Ne postoji mail u bazi");
+        boolean flag = jdbcDao.validateUserName("patka");
+        if(flag == false) System.out.println("Ne postoji mail u bazi");
         else System.out.println("Postoji mail u bazi");
     }
 }

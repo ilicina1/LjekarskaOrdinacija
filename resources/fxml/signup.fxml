@@ -21,7 +21,7 @@
       <TextField fx:id="tfEmail" layoutX="440.0" layoutY="209.0" prefHeight="28.0" prefWidth="220.0" promptText="E-mail" style="-fx-background-color: #2D3447; -fx-text-inner-color: grey;" />
       <PasswordField fx:id="pfPassword1" layoutX="161.0" layoutY="289.0" prefHeight="27.0" prefWidth="220.0" promptText="Password" style="-fx-background-color: #2D3447;" />
       <PasswordField fx:id="pfPassword2" layoutX="440.0" layoutY="289.0" prefHeight="27.0" prefWidth="220.0" promptText="Repeat password" style="-fx-background-color: #2D3447;" />
-      <Button fx:id="btnContinue" layoutX="710.0" layoutY="407.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="86.0" style="-fx-background-color: #151928;" text="Continue" textFill="#a0a2ab" />
+      <Button fx:id="btnContinue" layoutX="710.0" layoutY="407.0" mnemonicParsing="false" onAction="#actionContinue" prefHeight="33.0" prefWidth="86.0" style="-fx-background-color: #151928;" text="Continue" textFill="#a0a2ab" />
       <Button fx:id="btnCancel" layoutX="14.0" layoutY="407.0" mnemonicParsing="false" onAction="#actionCancel" prefHeight="33.0" prefWidth="86.0" style="-fx-background-color: #151928;" text="Back" textFill="#a0a2ab" />
       <Label layoutX="354.0" layoutY="60.0" prefHeight="33.0" prefWidth="56.0" text="Blue" textFill="#5bb8ff">
          <font>
