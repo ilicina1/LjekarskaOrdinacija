@@ -3,13 +3,15 @@ package sample;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class KlasaDAO {
     private static KlasaDAO instance;
     private Connection conn;
+    private Connection conn2;
 
-    private PreparedStatement dajUserNameUpit, dajEmailUpit, dodajDoktoraUpit, dajPasswordUpit;
+    private PreparedStatement dajUserNameUpit, dajEmailUpit, dodajDoktoraUpit, dajPasswordUpit, dajPacijenteUpit;
 
     public static KlasaDAO getInstance() {
         if (instance == null) instance = new KlasaDAO();
@@ -19,16 +21,29 @@ public class KlasaDAO {
     KlasaDAO(){
         try {
             conn = DriverManager.getConnection("jdbc:sqlite:Doktori.db");
+            conn = DriverManager.getConnection("jdbc:sqlite:Pacijenti.db");
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
+        // za bazu doktori
         try {
             dajUserNameUpit = conn.prepareStatement("SELECT * FROM Doktori WHERE user_name=?");
         } catch (SQLException e) {
             regenerisiBazu();
             try {
                 dajUserNameUpit = conn.prepareStatement("SELECT * FROM Doktori WHERE user_name=?");
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+        }
+        //za bazu pacijenti
+        try {
+            dajPacijenteUpit = conn.prepareStatement(("SELECT * FROM Pacijenti"));
+        } catch (SQLException e) {
+            regenerisiBazu2();
+            try {
+                dajPacijenteUpit = conn.prepareStatement(("SELECT * FROM Pacijenti"));
             } catch (SQLException e1) {
                 e1.printStackTrace();
             }
@@ -82,6 +97,30 @@ public class KlasaDAO {
         }
     }
 
+    private void regenerisiBazu2() {
+        Scanner ulaz = null;
+        try {
+            ulaz = new Scanner(new FileInputStream("Pacijenti.db.sql"));
+            String sqlUpit = "";
+            while (ulaz.hasNext()) {
+                sqlUpit += ulaz.nextLine();
+                if ( sqlUpit.charAt( sqlUpit.length()-1 ) == ';') {
+                    System.out.println("Izvrsavam upit: "+sqlUpit);
+                    try {
+                        Statement stmt = conn.createStatement();
+                        stmt.execute(sqlUpit);
+                        sqlUpit = "";
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            ulaz.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void registerDoctor(String firstName, String lastName, String userName, String password, String eMail) throws SQLException {
         dodajDoktoraUpit.setString(1, firstName);
         dodajDoktoraUpit.setString(2, lastName);
@@ -108,5 +147,24 @@ public class KlasaDAO {
         ResultSet rs = dajPasswordUpit.executeQuery();
         if(!rs.next()) return null;
         return rs.getString(1);
+    }
+
+    private Patients dajPacijentaIzRs(ResultSet rs) throws SQLException {
+        Patients pacijent = new Patients(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6));
+        return pacijent;
+    }
+
+    public ArrayList<Patients> pacijenti() {
+        ArrayList<Patients> rezultat = new ArrayList();
+        try {
+            ResultSet rs = dajPacijenteUpit.executeQuery();
+            while (rs.next()) {
+                Patients pacijent = dajPacijentaIzRs(rs);
+                rezultat.add(pacijent);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rezultat;
     }
 }

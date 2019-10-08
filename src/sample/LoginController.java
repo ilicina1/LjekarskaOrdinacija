@@ -14,13 +14,11 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
 
 public class LoginController {
@@ -79,12 +77,13 @@ public class LoginController {
             stage1.close();
             Stage stage = new Stage();
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pacijenti.fxml"));
-                PacijentiController ctrl = new PacijentiController();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/patients.fxml"));
+                PatientsController ctrl = new PatientsController();
                 loader.setController(ctrl);
                 Parent root = loader.load();
-                stage.setTitle("Login");
+                stage.setTitle("Patients");
                 stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
+                stage.setResizable(false);
                 stage.show();
             } catch (IOException e) {
                 e.printStackTrace();
