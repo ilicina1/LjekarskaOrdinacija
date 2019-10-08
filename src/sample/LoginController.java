@@ -7,6 +7,7 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -19,6 +20,9 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
+import static javafx.scene.layout.Region.USE_PREF_SIZE;
+
 public class LoginController {
     public Button btnExit;
     public Button btnSignUp;
@@ -28,9 +32,7 @@ public class LoginController {
     public PasswordField pfPassword;
     public ImageView imgLogin;
     public KlasaDAO dao;
-
     public AnchorPane anchor;
-    public StackPane stackPane;
 
     public LoginController() {
         dao = KlasaDAO.getInstance();
@@ -73,6 +75,20 @@ public class LoginController {
         String password = dao.returnPassword(tfUserName.getText().trim());
 
         if (password.equals(pfPassword.getText().trim())){
+            Stage stage1 = (Stage) tfUserName.getScene().getWindow();
+            stage1.close();
+            Stage stage = new Stage();
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pacijenti.fxml"));
+                PacijentiController ctrl = new PacijentiController();
+                loader.setController(ctrl);
+                Parent root = loader.load();
+                stage.setTitle("Login");
+                stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);

@@ -1,6 +1,5 @@
 package sample;
 
-import com.sun.jdi.connect.Transport;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
