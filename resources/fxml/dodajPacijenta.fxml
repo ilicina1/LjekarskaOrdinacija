@@ -9,13 +9,16 @@
    <stylesheets>
       <URL value="@/css/login.css" />
    </stylesheets>
+   <stylesheets>
+      <URL value="@/css/signup.css" />
+   </stylesheets>
    <children>
-      <TextField fx:id="tfMedicalRN" alignment="CENTER" layoutX="165.0" layoutY="48.0" prefHeight="28.0" prefWidth="271.0" promptText="Medical record number" style="-fx-background-color: #2D3447; -fx-text-inner-color: grey;" />
-      <TextField fx:id="tfPhoneNum" alignment="CENTER" layoutX="165.0" layoutY="130.0" prefHeight="28.0" prefWidth="271.0" promptText="Phone number" style="-fx-background-color: #2D3447; -fx-text-inner-color: grey;" />
-      <TextField fx:id="tfFullName" alignment="CENTER" layoutX="165.0" layoutY="88.0" prefHeight="28.0" prefWidth="271.0" promptText="Full name" style="-fx-background-color: #2D3447; -fx-text-inner-color: grey;" />
-      <TextField fx:id="tfCity" alignment="CENTER" layoutX="165.0" layoutY="172.0" prefHeight="28.0" prefWidth="271.0" promptText="City" style="-fx-background-color: #2D3447; -fx-text-inner-color: grey;" />
-      <TextField fx:id="tfAddress" alignment="CENTER" layoutX="165.0" layoutY="213.0" prefHeight="28.0" prefWidth="271.0" promptText="Address" style="-fx-background-color: #2D3447; -fx-text-inner-color: grey;" />
-      <TextField fx:id="tfBirthDate" alignment="CENTER" layoutX="165.0" layoutY="256.0" prefHeight="28.0" prefWidth="271.0" promptText="Birth date" style="-fx-background-color: #2D3447; -fx-text-inner-color: grey;" />
+      <TextField fx:id="tfMedicalRN" alignment="CENTER" layoutX="165.0" layoutY="48.0" prefHeight="28.0" prefWidth="271.0" promptText="Medical record number" style="-fx-background-color: #2D3447; -fx-text-inner-color: white;" />
+      <TextField fx:id="tfPhoneNum" alignment="CENTER" layoutX="165.0" layoutY="130.0" prefHeight="28.0" prefWidth="271.0" promptText="Phone number" style="-fx-background-color: #2D3447; -fx-text-inner-color: white;" />
+      <TextField fx:id="tfFullName" alignment="CENTER" layoutX="165.0" layoutY="88.0" prefHeight="28.0" prefWidth="271.0" promptText="Full name" style="-fx-background-color: #2D3447; -fx-text-inner-color: white;" />
+      <TextField fx:id="tfCity" alignment="CENTER" layoutX="165.0" layoutY="172.0" prefHeight="28.0" prefWidth="271.0" promptText="City" style="-fx-background-color: #2D3447; -fx-text-inner-color: white;" />
+      <TextField fx:id="tfAddress" alignment="CENTER" layoutX="165.0" layoutY="213.0" prefHeight="28.0" prefWidth="271.0" promptText="Address" style="-fx-background-color: #2D3447; -fx-text-inner-color: white;" />
+      <TextField fx:id="tfBirthDate" alignment="CENTER" layoutX="165.0" layoutY="256.0" prefHeight="28.0" prefWidth="271.0" promptText="Birth date(dd-mm-yy)" style="-fx-background-color: #2D3447; -fx-text-inner-color: white;" />
       <Button layoutX="271.0" layoutY="329.0" mnemonicParsing="false" onAction="#actionConfirm" text="Confirm" />
    </children>
 </AnchorPane>

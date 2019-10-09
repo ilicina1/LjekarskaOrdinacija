@@ -169,7 +169,6 @@ public class SignUpController {
         alert.setTitle("Information Dialog");
         alert.setHeaderText(null);
         alert.setContentText("You have successfully registered!");
-
         alert.showAndWait();
 
         Stage stage = new Stage();
