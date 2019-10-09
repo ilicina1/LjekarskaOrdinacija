@@ -39,7 +39,73 @@ public class SignUpController {
 
     @FXML
     public void initialize() {
+        tfFirstName.textProperty().addListener((obs, oldIme, newIme) -> {
+            if (provjeriImeiPrezime(newIme)) {
+                tfFirstName.getStyleClass().removeAll("poljeNijeIspravno");
+                tfFirstName.getStyleClass().add("poljeIspravno");
+            } else {
+                tfFirstName.getStyleClass().removeAll("poljeIspravno");
+                tfFirstName.getStyleClass().add("poljeNijeIspravno");
+            }
+        });
 
+        tfLastName.textProperty().addListener((obs, oldIme, newIme) -> {
+            if (provjeriImeiPrezime(newIme)) {
+                tfLastName.getStyleClass().removeAll("poljeNijeIspravno");
+                tfLastName.getStyleClass().add("poljeIspravno");
+            } else {
+                tfLastName.getStyleClass().removeAll("poljeIspravno");
+                tfLastName.getStyleClass().add("poljeNijeIspravno");
+            }
+        });
+
+        tfUserName.textProperty().addListener((obs, oldIme, newIme) -> {
+            if (provjeriUserName(newIme)) {
+                tfUserName.getStyleClass().removeAll("poljeNijeIspravno");
+                tfUserName.getStyleClass().add("poljeIspravno");
+            } else {
+                tfUserName.getStyleClass().removeAll("poljeIspravno");
+                tfUserName.getStyleClass().add("poljeNijeIspravno");
+            }
+        });
+
+        tfEmail.textProperty().addListener((obs, oldIme, newIme) -> {
+            if (provjeriEmail(newIme)) {
+                tfEmail.getStyleClass().removeAll("poljeNijeIspravno");
+                tfEmail.getStyleClass().add("poljeIspravno");
+            } else {
+                tfEmail.getStyleClass().removeAll("poljeIspravno");
+                tfEmail.getStyleClass().add("poljeNijeIspravno");
+            }
+        });
+
+        pfPassword1.textProperty().addListener((obs, oldIme, newIme) -> {
+            if (provjeriPassword(newIme) && pfPassword2.getText().trim().equals(newIme)) {
+                pfPassword1.getStyleClass().removeAll("poljeNijeIspravno");
+                pfPassword1.getStyleClass().add("poljeIspravno");
+                pfPassword2.getStyleClass().removeAll("poljeNijeIspravno");
+                pfPassword2.getStyleClass().add("poljeIspravno");
+            } else {
+                pfPassword1.getStyleClass().removeAll("poljeIspravno");
+                pfPassword1.getStyleClass().add("poljeNijeIspravno");
+                pfPassword2.getStyleClass().removeAll("poljeIspravno");
+                pfPassword2.getStyleClass().add("poljeNijeIspravno");
+            }
+        });
+
+        pfPassword2.textProperty().addListener((obs, oldIme, newIme) -> {
+            if (provjeriPassword(newIme) && pfPassword1.getText().trim().equals(newIme)) {
+                pfPassword1.getStyleClass().removeAll("poljeNijeIspravno");
+                pfPassword1.getStyleClass().add("poljeIspravno");
+                pfPassword2.getStyleClass().removeAll("poljeNijeIspravno");
+                pfPassword2.getStyleClass().add("poljeIspravno");
+            } else {
+                pfPassword1.getStyleClass().removeAll("poljeIspravno");
+                pfPassword1.getStyleClass().add("poljeNijeIspravno");
+                pfPassword2.getStyleClass().removeAll("poljeIspravno");
+                pfPassword2.getStyleClass().add("poljeNijeIspravno");
+            }
+        });
     }
 
     public void actionCancel(ActionEvent actionEvent) throws IOException {

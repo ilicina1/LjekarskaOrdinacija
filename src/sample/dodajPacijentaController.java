@@ -24,72 +24,144 @@ public class dodajPacijentaController {
     private Patients pacijent;
     private ObservableList<Patients> listPacijenti;
 
-    public Patients getPacijent() {
-        return pacijent;
+    public dodajPacijentaController(Patients pacijent, ArrayList<Patients> pacijenti) {
+        this.pacijent = pacijent;
+        listPacijenti = FXCollections.observableArrayList(pacijenti);
     }
 
     @FXML
     public void initialize() {
-//        tfMedicalRN.textProperty().addListener((obs, oldIme, newIme) -> {
-//            if (validateMedicalRN(newIme)) {
-//                tfMedicalRN.getStyleClass().removeAll("poljeNijeIspravno");
-//                tfMedicalRN.getStyleClass().add("poljeIspravno");
-//            } else {
-//                tfMedicalRN.getStyleClass().removeAll("poljeIspravno");
-//                tfMedicalRN.getStyleClass().add("poljeNijeIspravno");
-//            }
-//        });
-//
-//        tfFullName.textProperty().addListener((obs, oldIme, newIme) -> {
-//            if (validateFullName(newIme)) {
-//                tfFullName.getStyleClass().removeAll("poljeNijeIspravno");
-//                tfFullName.getStyleClass().add("poljeIspravno");
-//            } else {
-//                tfFullName.getStyleClass().removeAll("poljeIspravno");
-//                tfFullName.getStyleClass().add("poljeNijeIspravno");
-//            }
-//        });
-//
-//        tfPhoneNum.textProperty().addListener((obs, oldIme, newIme) -> {
-//            if (validatePhoneNum(newIme)) {
-//                tfPhoneNum.getStyleClass().removeAll("poljeNijeIspravno");
-//                tfPhoneNum.getStyleClass().add("poljeIspravno");
-//            } else {
-//                tfPhoneNum.getStyleClass().removeAll("poljeIspravno");
-//                tfPhoneNum.getStyleClass().add("poljeNijeIspravno");
-//            }
-//        });
-//
-//        tfCity.textProperty().addListener((obs, oldIme, newIme) -> {
-//            if (validateCity(newIme)) {
-//                tfCity.getStyleClass().removeAll("poljeNijeIspravno");
-//                tfCity.getStyleClass().add("poljeIspravno");
-//            } else {
-//                tfCity.getStyleClass().removeAll("poljeIspravno");
-//                tfCity.getStyleClass().add("poljeNijeIspravno");
-//            }
-//        });
-//
-//        tfAddress.textProperty().addListener((obs, oldIme, newIme) -> {
-//            if (validateAddress(newIme)) {
-//                tfAddress.getStyleClass().removeAll("poljeNijeIspravno");
-//                tfAddress.getStyleClass().add("poljeIspravno");
-//            } else {
-//                tfAddress.getStyleClass().removeAll("poljeIspravno");
-//                tfAddress.getStyleClass().add("poljeNijeIspravno");
-//            }
-//        });
-//
-//        tfBirthDate.textProperty().addListener((obs, oldIme, newIme) -> {
-//            if (validateBirthDate(newIme)) {
-//                tfBirthDate.getStyleClass().removeAll("poljeNijeIspravno");
-//                tfBirthDate.getStyleClass().add("poljeIspravno");
-//                brojac++;
-//            } else {
-//                tfBirthDate.getStyleClass().removeAll("poljeIspravno");
-//                tfBirthDate.getStyleClass().add("poljeNijeIspravno");
-//            }
-//        });
+        if(pacijent != null){
+            tfMedicalRN.setText(Integer.toString(pacijent.getMedicalRecordNumber()));
+            tfFullName.setText(pacijent.getFullName());
+            tfPhoneNum.setText(pacijent.getPhoneNumber());
+            tfCity.setText(pacijent.getCity());
+            tfAddress.setText(pacijent.getAddress());
+            tfBirthDate.setText(pacijent.getBirthDate());
+        }else {
+            tfMedicalRN.textProperty().addListener((obs, oldIme, newIme) -> {
+                if (validateMedicalRN(newIme)) {
+                    tfMedicalRN.getStyleClass().removeAll("poljeNijeIspravno");
+                    tfMedicalRN.getStyleClass().add("poljeIspravno");
+                } else {
+                    tfMedicalRN.getStyleClass().removeAll("poljeIspravno");
+                    tfMedicalRN.getStyleClass().add("poljeNijeIspravno");
+                }
+            });
+
+            tfFullName.textProperty().addListener((obs, oldIme, newIme) -> {
+                if (validateFullName(newIme)) {
+                    tfFullName.getStyleClass().removeAll("poljeNijeIspravno");
+                    tfFullName.getStyleClass().add("poljeIspravno");
+                } else {
+                    tfFullName.getStyleClass().removeAll("poljeIspravno");
+                    tfFullName.getStyleClass().add("poljeNijeIspravno");
+                }
+            });
+
+            tfPhoneNum.textProperty().addListener((obs, oldIme, newIme) -> {
+                if (validatePhoneNum(newIme)) {
+                    tfPhoneNum.getStyleClass().removeAll("poljeNijeIspravno");
+                    tfPhoneNum.getStyleClass().add("poljeIspravno");
+                } else {
+                    tfPhoneNum.getStyleClass().removeAll("poljeIspravno");
+                    tfPhoneNum.getStyleClass().add("poljeNijeIspravno");
+                }
+            });
+
+            tfCity.textProperty().addListener((obs, oldIme, newIme) -> {
+                if (validateCity(newIme)) {
+                    tfCity.getStyleClass().removeAll("poljeNijeIspravno");
+                    tfCity.getStyleClass().add("poljeIspravno");
+                } else {
+                    tfCity.getStyleClass().removeAll("poljeIspravno");
+                    tfCity.getStyleClass().add("poljeNijeIspravno");
+                }
+            });
+
+            tfAddress.textProperty().addListener((obs, oldIme, newIme) -> {
+                if (validateAddress(newIme)) {
+                    tfAddress.getStyleClass().removeAll("poljeNijeIspravno");
+                    tfAddress.getStyleClass().add("poljeIspravno");
+                } else {
+                    tfAddress.getStyleClass().removeAll("poljeIspravno");
+                    tfAddress.getStyleClass().add("poljeNijeIspravno");
+                }
+            });
+
+            tfBirthDate.textProperty().addListener((obs, oldIme, newIme) -> {
+                if (validateBirthDate(newIme)) {
+                    tfBirthDate.getStyleClass().removeAll("poljeNijeIspravno");
+                    tfBirthDate.getStyleClass().add("poljeIspravno");
+                } else {
+                    tfBirthDate.getStyleClass().removeAll("poljeIspravno");
+                    tfBirthDate.getStyleClass().add("poljeNijeIspravno");
+                }
+            });
+        }
+        tfMedicalRN.textProperty().addListener((obs, oldIme, newIme) -> {
+            if (validateMedicalRN(newIme)) {
+                tfMedicalRN.getStyleClass().removeAll("poljeNijeIspravno");
+                tfMedicalRN.getStyleClass().add("poljeIspravno");
+            } else {
+                tfMedicalRN.getStyleClass().removeAll("poljeIspravno");
+                tfMedicalRN.getStyleClass().add("poljeNijeIspravno");
+            }
+        });
+
+        tfFullName.textProperty().addListener((obs, oldIme, newIme) -> {
+            if (validateFullName(newIme)) {
+                tfFullName.getStyleClass().removeAll("poljeNijeIspravno");
+                tfFullName.getStyleClass().add("poljeIspravno");
+            } else {
+                tfFullName.getStyleClass().removeAll("poljeIspravno");
+                tfFullName.getStyleClass().add("poljeNijeIspravno");
+            }
+        });
+
+        tfPhoneNum.textProperty().addListener((obs, oldIme, newIme) -> {
+            if (validatePhoneNum(newIme)) {
+                tfPhoneNum.getStyleClass().removeAll("poljeNijeIspravno");
+                tfPhoneNum.getStyleClass().add("poljeIspravno");
+            } else {
+                tfPhoneNum.getStyleClass().removeAll("poljeIspravno");
+                tfPhoneNum.getStyleClass().add("poljeNijeIspravno");
+            }
+        });
+
+        tfCity.textProperty().addListener((obs, oldIme, newIme) -> {
+            if (validateCity(newIme)) {
+                tfCity.getStyleClass().removeAll("poljeNijeIspravno");
+                tfCity.getStyleClass().add("poljeIspravno");
+            } else {
+                tfCity.getStyleClass().removeAll("poljeIspravno");
+                tfCity.getStyleClass().add("poljeNijeIspravno");
+            }
+        });
+
+        tfAddress.textProperty().addListener((obs, oldIme, newIme) -> {
+            if (validateAddress(newIme)) {
+                tfAddress.getStyleClass().removeAll("poljeNijeIspravno");
+                tfAddress.getStyleClass().add("poljeIspravno");
+            } else {
+                tfAddress.getStyleClass().removeAll("poljeIspravno");
+                tfAddress.getStyleClass().add("poljeNijeIspravno");
+            }
+        });
+
+        tfBirthDate.textProperty().addListener((obs, oldIme, newIme) -> {
+            if (validateBirthDate(newIme)) {
+                tfBirthDate.getStyleClass().removeAll("poljeNijeIspravno");
+                tfBirthDate.getStyleClass().add("poljeIspravno");
+            } else {
+                tfBirthDate.getStyleClass().removeAll("poljeIspravno");
+                tfBirthDate.getStyleClass().add("poljeNijeIspravno");
+            }
+        });
+    }
+
+    public Patients getPacijent() {
+        return pacijent;
     }
 
     //ovdje dodati validacije
@@ -104,7 +176,7 @@ public class dodajPacijentaController {
             tfMedicalRN.getStyleClass().add("poljeNijeIspravno");
             sveOk = false;
         }
-        if(validateFullName(tfFullName.getText())) {
+        if (validateFullName(tfFullName.getText())) {
             tfFullName.getStyleClass().removeAll("poljeNijeIspravno");
             tfFullName.getStyleClass().add("poljeIspravno");
         } else {
@@ -139,31 +211,55 @@ public class dodajPacijentaController {
         if (validateBirthDate(tfBirthDate.getText().trim())) {
             tfBirthDate.getStyleClass().removeAll("poljeNijeIspravno");
             tfBirthDate.getStyleClass().add("poljeIspravno");
-            } else {
+        } else {
             tfBirthDate.getStyleClass().removeAll("poljeIspravno");
             tfBirthDate.getStyleClass().add("poljeNijeIspravno");
             sveOk = false;
         }
-        if(sveOk) {
-            pacijent = new Patients(Integer.parseInt(tfMedicalRN.getText()), tfFullName.getText(), tfPhoneNum.getText(), tfCity.getText(), tfAddress.getText(), tfBirthDate.getText());
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information Dialog");
-            alert.setHeaderText(null);
-            alert.setContentText("You have successfully registered!");
-            alert.showAndWait();
+//        if (!sveOk){
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setTitle("Error Dialog");
+//            alert.setHeaderText("Ooops, there was an error!");
+//            alert.setContentText("Check information format!");
+//            alert.showAndWait();
+//        }
+//        if (pacijent == null) pacijent = new Patients();
+//        pacijent = new Patients(Integer.parseInt(tfMedicalRN.getText()), tfFullName.getText(), tfPhoneNum.getText(), tfCity.getText(), tfAddress.getText(), tfBirthDate.getText());
 
-            Stage stage = (Stage) tfMedicalRN.getScene().getWindow();
-            stage.close();
-        } else {
+
+        if (!sveOk) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Dialog");
             alert.setHeaderText("Ooops, there was an error!");
             alert.setContentText("Check information format!");
             alert.showAndWait();
+            return;
+        } else {
+            if (pacijent == null) {
+                pacijent = new Patients(Integer.parseInt(tfMedicalRN.getText()), tfFullName.getText(), tfPhoneNum.getText(), tfCity.getText(), tfAddress.getText(), tfBirthDate.getText());
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information Dialog");
+                alert.setHeaderText(null);
+                alert.setContentText("You have successfully added a patient");
+                alert.showAndWait();
+            } else {
+                pacijent = new Patients(pacijent.getMedicalRecordNumber(), tfFullName.getText(), tfPhoneNum.getText(), tfCity.getText(), tfAddress.getText(), tfBirthDate.getText());
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information Dialog");
+                alert.setHeaderText(null);
+                alert.setContentText("Changes saved!");
+                alert.showAndWait();
+            }
+            Stage stage = (Stage) tfFullName.getScene().getWindow();
+            stage.close();
         }
     }
 
+    public void actionCancel(ActionEvent actionEvent) {
+        Stage stage = (Stage) tfFullName.getScene().getWindow();
+        stage.close();
+    }
 
     public boolean validateFullName(String str){
         for(int i = 0; i < str.length(); i++){
@@ -179,7 +275,7 @@ public class dodajPacijentaController {
         for(int i = 0; i < str.length(); i++){
             if(str.charAt(i) < '0' || str.charAt(i) > '9') return false;
         }
-        if(str.length() < 3) return false;
+        if(str.length() < 1) return false;
         return true;
     }
 
@@ -202,7 +298,7 @@ public class dodajPacijentaController {
     public boolean validateAddress(String str){
         if(str.length() < 3) return false;
         for(int i = 0; i < str.length(); i++){
-            if( (str.charAt(i) < '0' || str.charAt(i) > '9') && (str.charAt(i) < 'A' || str.charAt(i) > 'Z') && (str.charAt(i) < 'a' || str.charAt(i) > 'z')) return false;
+            if( (str.charAt(i) < '0' || str.charAt(i) > '9') && (str.charAt(i) < 'A' || str.charAt(i) > 'Z') && (str.charAt(i) < 'a' || str.charAt(i) > 'z') && str.charAt(i) != 32) return false;
         }
         return true;
     }
