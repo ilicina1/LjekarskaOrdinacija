@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -7,7 +8,10 @@
 <?import javafx.scene.layout.Pane?>
 
 <AnchorPane prefHeight="527.0" prefWidth="957.0" style="-fx-background-color: #778899;" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
+    <stylesheets>
+        <URL value="@/css/table.css" />
+    </stylesheets>
+    <children>
       <Pane layoutX="-1.0" prefHeight="527.0" prefWidth="261.0" style="-fx-background-color: #2D3447;">
          <children>
             <Button layoutX="-1.0" layoutY="160.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="260.0" style="-fx-background-color: #2D3447;" text="Delete" textFill="WHITE" />
@@ -21,15 +25,15 @@
             <Button layoutY="60.0" mnemonicParsing="false" onAction="#actionNew" prefHeight="27.0" prefWidth="260.0" style="-fx-background-color: #2D3447;" text="New" textAlignment="CENTER" textFill="WHITE" />
          </children></Pane>
       <Button fx:id="btnExit" layoutX="-1.0" layoutY="410.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="260.0" style="-fx-background-color: #2D3447;" text="Medical findings" textFill="WHITE" />
-      <TableView fx:id="tableViewPacijenti" layoutX="257.0" prefHeight="527.0" prefWidth="898.0" style="-fx-background-color: ;">
+      <TableView fx:id="tableViewPacijenti" layoutX="257.0" prefHeight="527.0" prefWidth="898.0" style="-fx-border-color: #2D3447;">
         <columns>
-          <TableColumn fx:id="colMedicalRN" prefWidth="150.0" style="-fx-background-color: #F0F0F0; -fx-text-fill: black;" text="Medical record number" />
+          <TableColumn fx:id="colMedicalRN" prefWidth="150.0" text="Medical record number" />
           <TableColumn minWidth="0.0" prefWidth="0.0" text="C2" />
-            <TableColumn fx:id="colFullName" prefWidth="176.0" style="-fx-background-color: #F0F0F0;" text="Full name" />
-            <TableColumn fx:id="colPhoneNum" prefWidth="99.0" style="-fx-background-color: #F0F0F0;" text="Phone number" />
-            <TableColumn fx:id="colCity" minWidth="0.0" prefWidth="199.0" style="-fx-background-color: #F0F0F0;" text="City" />
-            <TableColumn fx:id="colAddress" minWidth="9.0" prefWidth="148.0" style="-fx-background-color: #F0F0F0;" text="Address" />
-            <TableColumn fx:id="colBirthDate" prefWidth="125.0" style="-fx-background-color: #F0F0F0;" text="Birth date" />
+            <TableColumn fx:id="colFullName" prefWidth="176.0" text="Full name" />
+            <TableColumn fx:id="colPhoneNum" prefWidth="99.0" text="Phone number" />
+            <TableColumn fx:id="colCity" minWidth="0.0" prefWidth="199.0" text="City" />
+            <TableColumn fx:id="colAddress" minWidth="9.0" prefWidth="148.0" text="Address" />
+            <TableColumn fx:id="colBirthDate" prefWidth="125.0" text="Birth date" />
         </columns>
       </TableView>
    </children>

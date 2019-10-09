@@ -40,9 +40,9 @@ public class PatientsController {
     @FXML
     public void initialize() {
         tableViewPacijenti.setItems(listPacijenti);
-        colMedicalRN.setCellValueFactory(new PropertyValueFactory("medicalRN"));
+        colMedicalRN.setCellValueFactory(new PropertyValueFactory("medicalRecordNumber"));
         colFullName.setCellValueFactory(new PropertyValueFactory("fullName"));
-        colPhoneNum.setCellValueFactory(new PropertyValueFactory("phoneNum"));
+        colPhoneNum.setCellValueFactory(new PropertyValueFactory("phoneNumber"));
         colCity.setCellValueFactory(new PropertyValueFactory("city"));
         colAddress.setCellValueFactory(new PropertyValueFactory("address"));
         colBirthDate.setCellValueFactory(new PropertyValueFactory("birthDate"));
