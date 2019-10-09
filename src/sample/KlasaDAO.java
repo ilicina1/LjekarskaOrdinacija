@@ -11,7 +11,7 @@ public class KlasaDAO {
     private Connection conn;
     private Connection conn2;
 
-    private PreparedStatement dajUserNameUpit, dajEmailUpit, dodajDoktoraUpit, dajPasswordUpit, dajPacijenteUpit;
+    private PreparedStatement dajUserNameUpit, dajEmailUpit, dodajDoktoraUpit, dajPasswordUpit, dajPacijenteUpit, dodajPacijentaUpit;
 
     public static KlasaDAO getInstance() {
         if (instance == null) instance = new KlasaDAO();
@@ -53,6 +53,8 @@ public class KlasaDAO {
             dajEmailUpit = conn.prepareStatement("SELECT e_mail FROM Doktori WHERE e_mail=?");
             dodajDoktoraUpit = conn.prepareStatement("INSERT INTO Doktori VALUES(?,?,?,?,?)");
             dajPasswordUpit = conn.prepareStatement("SELECT password FROM Doktori WHERE user_name=?");
+
+            dodajPacijentaUpit = conn.prepareStatement("INSERT INTO Pacijenti VALUES(?,?,?,?,?,?)");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -166,5 +168,19 @@ public class KlasaDAO {
             e.printStackTrace();
         }
         return rezultat;
+    }
+
+    public void dodajPacijenta(Patients pacijent) {
+        try {
+            dodajPacijentaUpit.setInt(1, pacijent.getMedicalRecordNumber());
+            dodajPacijentaUpit.setString(2, pacijent.getFullName());
+            dodajPacijentaUpit.setString(3, pacijent.getPhoneNumber());
+            dodajPacijentaUpit.setString(4, pacijent.getCity());
+            dodajPacijentaUpit.setString(5, pacijent.getAddress());
+            dodajPacijentaUpit.setString(6, pacijent.getBirthDate());
+            dodajPacijentaUpit.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

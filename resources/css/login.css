@@ -25,3 +25,71 @@
     -fx-border-width: 0 0 1 0;
     -fx-background-color: transparent;
 }
+
+/* ovo je folder i za ostale fxmlove */
+
+#tfMedicalRN {
+    -fx-border-color: grey;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color: transparent;
+}
+
+#tfMedicalRN:focused{
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #0093EF;
+}
+
+#tfFullName {
+    -fx-border-color: grey;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color: transparent;
+}
+
+#tfFullName:focused{
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #0093EF;
+}
+
+#tfPhoneNum {
+    -fx-border-color: grey;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color: transparent;
+}
+
+#tfPhoneNum:focused{
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #0093EF;
+}
+
+#tfCity {
+    -fx-border-color: grey;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color: transparent;
+}
+
+#tfCity:focused{
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #0093EF;
+}
+
+#tfAddress {
+    -fx-border-color: grey;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color: transparent;
+}
+
+#tfAddress:focused{
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #0093EF;
+}
+
+#tfBirthDate {
+    -fx-border-color: grey;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color: transparent;
+}
+
+#tfBirthDate:focused{
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #0093EF;
+}
