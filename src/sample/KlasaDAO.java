@@ -61,28 +61,22 @@ public class KlasaDAO {
         }
 
     }
-
-    public static void removeInstance() {
-        if (instance == null) return;
-        instance.close2();
-        instance = null;
-    }
-
-    public void close() {
-        try {
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void close2() {
-        try {
-            conn2.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+//
+//    public void close() {
+//        try {
+//            conn.close();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    public void close2() {
+//        try {
+//            conn2.close();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     private void regenerisiBazu() {
         Scanner ulaz = null;
@@ -118,7 +112,7 @@ public class KlasaDAO {
                 if ( sqlUpit.charAt( sqlUpit.length()-1 ) == ';') {
                     System.out.println("Izvrsavam upit: "+sqlUpit);
                     try {
-                        Statement stmt = conn.createStatement();
+                        Statement stmt = conn2.createStatement();
                         stmt.execute(sqlUpit);
                         sqlUpit = "";
                     } catch (SQLException e) {
@@ -188,7 +182,6 @@ public class KlasaDAO {
             promjeniPacijentaUpit.setString(5, pacijent.getBirthDate());
             promjeniPacijentaUpit.setInt(6, pacijent.getMedicalRecordNumber());
             promjeniPacijentaUpit.executeUpdate();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }

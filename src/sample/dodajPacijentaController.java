@@ -305,17 +305,18 @@ public class dodajPacijentaController {
 
     public boolean validateBirthDate(String str){
         int brojacCrtica = 0;
-        if(str.charAt(0) == '0' && str.charAt(1) == '0') return false;
-        else if(str.charAt(3) == '0' && str.charAt(4) == '0') return false;
-        else if(str.charAt(3) == '1' && str.charAt(4) > '2') return false;
-        if(str.charAt(0) == '3' && str.charAt(1) > '1') return false;
-        if(str.charAt(2) != '-' && str.charAt(5) != '-') return false;
-        if(str.charAt(0) > '3') return false;
-        if(str.charAt(3) > '2') return false;
+        boolean tacno = true;
+        if(str.charAt(0) == '0' && str.charAt(1) == '0') tacno = false;
+        if(str.charAt(3) == '0' && str.charAt(4) == '0') tacno = false;
+        if(str.charAt(3) == '1' && str.charAt(4) > '2') tacno = false;
+        if(str.charAt(0) == '3' && str.charAt(1) > '1') tacno = false;
+        if(str.charAt(2) != '-' && str.charAt(5) != '-') tacno = false;
+        if(str.charAt(0) > '3') tacno = false;
+        if(str.charAt(3) > '2') tacno = false;
         for(int i = 0; i < str.length(); i++){
             if(str.charAt(i) == '-') brojacCrtica++;
         }
-        if(brojacCrtica != 2) return false;
+        if(brojacCrtica != 2 || tacno == false) return false;
         return true;
     }
 }
