@@ -21,7 +21,7 @@ public class KlasaDAO {
     KlasaDAO(){
         try {
             conn = DriverManager.getConnection("jdbc:sqlite:Doktori.db");
-            conn = DriverManager.getConnection("jdbc:sqlite:Pacijenti.db");
+            conn2 = DriverManager.getConnection("jdbc:sqlite:Pacijenti.db");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -64,13 +64,21 @@ public class KlasaDAO {
 
     public static void removeInstance() {
         if (instance == null) return;
-        instance.close();
+        instance.close2();
         instance = null;
     }
 
     public void close() {
         try {
             conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void close2() {
+        try {
+            conn2.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
