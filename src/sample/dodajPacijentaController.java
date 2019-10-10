@@ -33,6 +33,7 @@ public class dodajPacijentaController {
     public void initialize() {
         if(pacijent != null){
             tfMedicalRN.setText(Integer.toString(pacijent.getMedicalRecordNumber()));
+            tfMedicalRN.setDisable(true);
             tfFullName.setText(pacijent.getFullName());
             tfPhoneNum.setText(pacijent.getPhoneNumber());
             tfCity.setText(pacijent.getCity());
@@ -226,7 +227,9 @@ public class dodajPacijentaController {
 //        }
 //        if (pacijent == null) pacijent = new Patients();
 //        pacijent = new Patients(Integer.parseInt(tfMedicalRN.getText()), tfFullName.getText(), tfPhoneNum.getText(), tfCity.getText(), tfAddress.getText(), tfBirthDate.getText());
-
+        for(int i = 0; i < listPacijenti.size(); i++){
+            if(listPacijenti.get(i).getMedicalRecordNumber() == Integer.parseInt(tfMedicalRN.getText())) sveOk = false;
+        }
 
         if (!sveOk) {
             Alert alert = new Alert(Alert.AlertType.ERROR);

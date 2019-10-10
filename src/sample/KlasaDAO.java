@@ -21,7 +21,7 @@ public class KlasaDAO {
     KlasaDAO(){
         try {
             conn = DriverManager.getConnection("jdbc:sqlite:Doktori.db");
-            conn2 = DriverManager.getConnection("jdbc:sqlite:Pacijenti.db");
+            conn2 = DriverManager.getConnection("jdbc:sqlite:pacijentiBaze.db");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -105,7 +105,7 @@ public class KlasaDAO {
     private void regenerisiBazu2() {
         Scanner ulaz = null;
         try {
-            ulaz = new Scanner(new FileInputStream("Pacijenti.db.sql"));
+            ulaz = new Scanner(new FileInputStream("pacijentiBaze.db.sql"));
             String sqlUpit = "";
             while (ulaz.hasNext()) {
                 sqlUpit += ulaz.nextLine();
