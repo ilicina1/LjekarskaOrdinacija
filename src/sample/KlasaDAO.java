@@ -20,13 +20,11 @@ public class KlasaDAO {
 
     KlasaDAO(){
         try {
-            conn = DriverManager.getConnection("jdbc:sqlite:Doktori.db");
-            conn2 = DriverManager.getConnection("jdbc:sqlite:pacijentiBaze.db");
+            conn = DriverManager.getConnection("jdbc:sqlite:bazz.db");
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        // za bazu doktori
         try {
             dajUserNameUpit = conn.prepareStatement("SELECT * FROM Doktori WHERE user_name=?");
         } catch (SQLException e) {
@@ -37,19 +35,9 @@ public class KlasaDAO {
                 e1.printStackTrace();
             }
         }
-        //za bazu pacijenti
-        try {
-            dajPacijenteUpit = conn.prepareStatement(("SELECT * FROM Pacijenti"));
-        } catch (SQLException e) {
-            regenerisiBazu2();
-            try {
-                dajPacijenteUpit = conn.prepareStatement(("SELECT * FROM Pacijenti"));
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
-        }
 
         try {
+            dajPacijenteUpit = conn.prepareStatement(("SELECT * FROM Pacijenti"));
             dajEmailUpit = conn.prepareStatement("SELECT e_mail FROM Doktori WHERE e_mail=?");
             dodajDoktoraUpit = conn.prepareStatement("INSERT INTO Doktori VALUES(?,?,?,?,?)");
             dajPasswordUpit = conn.prepareStatement("SELECT password FROM Doktori WHERE user_name=?");
@@ -61,27 +49,11 @@ public class KlasaDAO {
         }
 
     }
-//
-//    public void close() {
-//        try {
-//            conn.close();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    public void close2() {
-//        try {
-//            conn2.close();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     private void regenerisiBazu() {
         Scanner ulaz = null;
         try {
-            ulaz = new Scanner(new FileInputStream("Doktori.db.sql"));
+            ulaz = new Scanner(new FileInputStream("bazz.db.sql"));
             String sqlUpit = "";
             while (ulaz.hasNext()) {
                 sqlUpit += ulaz.nextLine();
@@ -102,29 +74,7 @@ public class KlasaDAO {
         }
     }
 
-    private void regenerisiBazu2() {
-        Scanner ulaz = null;
-        try {
-            ulaz = new Scanner(new FileInputStream("pacijentiBaze.db.sql"));
-            String sqlUpit = "";
-            while (ulaz.hasNext()) {
-                sqlUpit += ulaz.nextLine();
-                if ( sqlUpit.charAt( sqlUpit.length()-1 ) == ';') {
-                    System.out.println("Izvrsavam upit: "+sqlUpit);
-                    try {
-                        Statement stmt = conn2.createStatement();
-                        stmt.execute(sqlUpit);
-                        sqlUpit = "";
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            ulaz.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
+
 
     public void registerDoctor(String firstName, String lastName, String userName, String password, String eMail) throws SQLException {
         dodajDoktoraUpit.setString(1, firstName);

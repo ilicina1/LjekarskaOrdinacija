@@ -227,10 +227,12 @@ public class dodajPacijentaController {
 //        }
 //        if (pacijent == null) pacijent = new Patients();
 //        pacijent = new Patients(Integer.parseInt(tfMedicalRN.getText()), tfFullName.getText(), tfPhoneNum.getText(), tfCity.getText(), tfAddress.getText(), tfBirthDate.getText());
-        for(int i = 0; i < listPacijenti.size(); i++){
-            if(listPacijenti.get(i).getMedicalRecordNumber() == Integer.parseInt(tfMedicalRN.getText())) sveOk = false;
+        if(pacijent == null) {
+            for (int i = 0; i < listPacijenti.size(); i++) {
+                if (listPacijenti.get(i).getMedicalRecordNumber() == Integer.parseInt(tfMedicalRN.getText()))
+                    sveOk = false;
+            }
         }
-
         if (!sveOk) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Dialog");
