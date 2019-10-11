@@ -124,24 +124,28 @@ public class PatientsController {
 
     public void actionDiagnosis(ActionEvent actionEvent) throws IOException, SQLException {
         Stage stage = new Stage();
+        Parent root = null;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnosis.fxml"));
             DiagnosisController ctrl = new DiagnosisController();
             loader.setController(ctrl);
-            Parent root = loader.load();
             stage.setTitle("Diagnosis");
-            stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
-            stage.setResizable(false);
-            stage.show();
-//            stage.setOnHiding( event -> {
-//                Patients noviPacijent = ctrl.getPacijent();
-//                if (noviPacijent != null) {
-//                    dao.dodajPacijenta(noviPacijent);
-//                    listPacijenti.setAll(dao.pacijenti());
-//                }
-//            } );
+            root = loader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        root.translateYProperty().set(-454);
+
+        anchor.getChildren().add(root);
+
+        Timeline timeline = new Timeline();
+        KeyValue kv = new KeyValue(root.translateYProperty(), 0, Interpolator.EASE_IN);
+        KeyFrame kf = new KeyFrame(Duration.seconds(0.45), kv);
+        timeline.getKeyFrames().add(kf);
+        timeline.setOnFinished(t -> {
+            anchor.getChildren().remove(anchor);
+        });
+        timeline.play();
     }
 }

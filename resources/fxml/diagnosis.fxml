@@ -5,20 +5,26 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 
 <AnchorPane fx:id="anchor" prefHeight="533.0" prefWidth="763.0" style="-fx-background-color: #DCDCDC;" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1">
    <stylesheets>
-      <URL value="@/css/tableDiagnosis.css" />
+      <URL value="@/css/table.css" />
    </stylesheets>
    <children>
-      <Button layoutX="8.0" layoutY="480.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="210.0" style="-fx-background-color: #151928;" text="New" textFill="#a0a2ab" />
-      <TableView layoutX="-1.0" prefHeight="471.0" prefWidth="763.0">
+      <TableView layoutX="254.0" layoutY="-1.0" prefHeight="534.0" prefWidth="905.0">
         <columns>
           <TableColumn prefWidth="103.99998474121094" text="Id" />
-          <TableColumn prefWidth="658.0" text="Diagnosis" />
+          <TableColumn prefWidth="800.0" text="Diagnosis" />
         </columns>
       </TableView>
-      <Button layoutX="250.0" layoutY="480.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="270.0" style="-fx-background-color: #151928;" text="Edit" textFill="#a0a2ab" />
-      <Button layoutX="549.0" layoutY="480.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="210.0" style="-fx-background-color: #151928;" text="Delete" textFill="#a0a2ab" />
+      <Pane layoutX="-6.0" layoutY="-4.0" prefHeight="538.0" prefWidth="261.0" style="-fx-background-color: #2D3447;">
+         <children>
+            <Button layoutX="1.0" layoutY="140.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="260.0" style="-fx-background-color: #2D3447;" text="New" textAlignment="CENTER" textFill="WHITE" />
+            <Button layoutY="200.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="260.0" style="-fx-background-color: #2D3447;" text="Edit" textAlignment="CENTER" textFill="WHITE" />
+            <Button layoutY="260.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="260.0" style="-fx-background-color: #2D3447;" text="Delete" textAlignment="CENTER" textFill="WHITE" />
+         </children>
+      </Pane>
+      <Button layoutY="320.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="255.0" style="-fx-background-color: #2D3447;" text="Back" textAlignment="CENTER" textFill="WHITE" />
    </children>
 </AnchorPane>
