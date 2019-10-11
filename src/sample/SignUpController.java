@@ -108,7 +108,7 @@ public class SignUpController {
         });
     }
 
-    public void actionCancel(ActionEvent actionEvent) throws IOException {
+    public void actionCancel(ActionEvent actionEvent) {
         Stage stage = new Stage();
         Parent root = null;
         try {

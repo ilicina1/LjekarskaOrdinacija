@@ -11,7 +11,7 @@ public class KlasaDAO {
     private Connection conn;
     private Connection conn2;
 
-    private PreparedStatement dajUserNameUpit, dajEmailUpit, dodajDoktoraUpit, dajPasswordUpit, dajPacijenteUpit, dodajPacijentaUpit, promjeniPacijentaUpit, obrisiPacijentaUpit;
+    private PreparedStatement dajUserNameUpit, dajEmailUpit, dodajDoktoraUpit, dajPasswordUpit, dajPacijenteUpit, dodajPacijentaUpit, promjeniPacijentaUpit, obrisiPacijentaUpit, dajDijagnozeUpit;
 
     public static KlasaDAO getInstance() {
         if (instance == null) instance = new KlasaDAO();
@@ -44,6 +44,7 @@ public class KlasaDAO {
             promjeniPacijentaUpit = conn.prepareStatement("UPDATE Pacijenti SET full_name=?, phone_number=?, city=?, address=?, birth_date=? WHERE medical_record_number=?");
             dodajPacijentaUpit = conn.prepareStatement("INSERT INTO Pacijenti VALUES(?,?,?,?,?,?)");
             obrisiPacijentaUpit = conn.prepareStatement("DELETE FROM Pacijenti WHERE medical_record_number=?");
+            dajDijagnozeUpit = conn.prepareStatement(("SELECT * FROM Dijagnoze WHERE pacijent=?"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -109,6 +110,11 @@ public class KlasaDAO {
         return pacijent;
     }
 
+    private Diagnosis dajDijagnozuIzRs(ResultSet rs) throws SQLException {
+        Diagnosis dijagnoza = new Diagnosis(rs.getInt(1), rs.getString(2), null);
+        return dijagnoza;
+    }
+
     public ArrayList<Patients> pacijenti() {
         ArrayList<Patients> rezultat = new ArrayList();
         try {
@@ -116,6 +122,21 @@ public class KlasaDAO {
             while (rs.next()) {
                 Patients pacijent = dajPacijentaIzRs(rs);
                 rezultat.add(pacijent);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rezultat;
+    }
+
+    public ArrayList<Diagnosis> dijagnoze(int id) throws SQLException {
+        dajDijagnozeUpit.setInt(1,id);
+        ArrayList<Diagnosis> rezultat = new ArrayList();
+        try {
+            ResultSet rs = dajDijagnozeUpit.executeQuery();
+            while (rs.next()) {
+                Diagnosis dijagnoza = dajDijagnozuIzRs(rs);
+                rezultat.add(dijagnoza);
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -123,11 +123,12 @@ public class PatientsController {
     }
 
     public void actionDiagnosis(ActionEvent actionEvent) throws IOException, SQLException {
+        Patients pacijent = tableViewPacijenti.getSelectionModel().getSelectedItem();
         Stage stage = new Stage();
         Parent root = null;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnosis.fxml"));
-            DiagnosisController ctrl = new DiagnosisController();
+            DiagnosisController ctrl = new DiagnosisController(pacijent);
             loader.setController(ctrl);
             stage.setTitle("Diagnosis");
             root = loader.load();
@@ -135,7 +136,7 @@ public class PatientsController {
             e.printStackTrace();
         }
 
-        root.translateYProperty().set(-454);
+        root.translateYProperty().set(-533);
 
         anchor.getChildren().add(root);
 

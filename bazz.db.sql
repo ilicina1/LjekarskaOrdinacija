@@ -3,8 +3,7 @@ CREATE TABLE IF NOT EXISTS "Dijagnoze" (
 	"id"	INTEGER,
 	"text"	TEXT,
 	"pacijent"	INTEGER,
-	PRIMARY KEY("id"),
-	FOREIGN KEY("pacijent") REFERENCES "Pacijenti"("medical_record_number")
+	PRIMARY KEY("id")
 );
 CREATE TABLE IF NOT EXISTS "Doktori" (
 	"first_name"	TEXT,
@@ -22,6 +21,7 @@ CREATE TABLE IF NOT EXISTS "Pacijenti" (
 	"address"	TEXT,
 	"birth_date"	TEXT
 );
+INSERT INTO "Dijagnoze" VALUES (1,'Poremecaj posteljice',123);
 INSERT INTO "Doktori" VALUES ('Ilhan','Licina','ilicina1','Manijaci1921','ilicina1@outlook.com');
 INSERT INTO "Doktori" VALUES ('Marin','Marinac','mmarinac1','Marinac123','mmarinac1@gmail.com');
 INSERT INTO "Pacijenti" VALUES (123,'Manga Mangafic','062322477','Sarajevo','Aleja Pamuka 21','12-06-99');

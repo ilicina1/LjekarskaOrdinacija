@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane fx:id="anchor" prefHeight="533.0" prefWidth="763.0" style="-fx-background-color: #DCDCDC;" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="anchor2" prefHeight="533.0" prefWidth="763.0" style="-fx-background-color: #DCDCDC;" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1">
    <stylesheets>
       <URL value="@/css/table.css" />
    </stylesheets>
@@ -25,6 +25,6 @@
             <Button layoutY="260.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="260.0" style="-fx-background-color: #2D3447;" text="Delete" textAlignment="CENTER" textFill="WHITE" />
          </children>
       </Pane>
-      <Button layoutY="320.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="255.0" style="-fx-background-color: #2D3447;" text="Back" textAlignment="CENTER" textFill="WHITE" />
+      <Button layoutY="320.0" mnemonicParsing="false" onAction="#actionBackk" prefHeight="27.0" prefWidth="255.0" style="-fx-background-color: #2D3447;" text="Back" textAlignment="CENTER" textFill="WHITE" />
    </children>
 </AnchorPane>
