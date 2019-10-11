@@ -1,5 +1,9 @@
 package sample;
 
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,7 +17,9 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -30,6 +36,7 @@ public class PatientsController {
     public TableColumn colCity;
     public TableColumn colAddress;
     public TableColumn colBirthDate;
+    public AnchorPane anchor;
 
     public KlasaDAO dao;
     private ObservableList<Patients> listPacijenti;
@@ -112,6 +119,29 @@ public class PatientsController {
         if (result.get() == ButtonType.OK){
             dao.obrisiPacijenta(pacijent);
             listPacijenti.setAll(dao.pacijenti());
+        }
+    }
+
+    public void actionDiagnosis(ActionEvent actionEvent) throws IOException, SQLException {
+        Stage stage = new Stage();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnosis.fxml"));
+            DiagnosisController ctrl = new DiagnosisController();
+            loader.setController(ctrl);
+            Parent root = loader.load();
+            stage.setTitle("Diagnosis");
+            stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
+            stage.setResizable(false);
+            stage.show();
+//            stage.setOnHiding( event -> {
+//                Patients noviPacijent = ctrl.getPacijent();
+//                if (noviPacijent != null) {
+//                    dao.dodajPacijenta(noviPacijent);
+//                    listPacijenti.setAll(dao.pacijenti());
+//                }
+//            } );
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

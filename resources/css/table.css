@@ -1,9 +1,9 @@
 .table-view .column-header-background .label{
-    -fx-background-color:  #2D3447;
+    -fx-background-color: #2D3447;
     -fx-text-fill: white;
 }
 
 .table-view .column-header {
-    -fx-background-color:  #2D3447;
+    -fx-background-color: #2D3447;
 }
 

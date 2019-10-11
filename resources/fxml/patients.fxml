@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane prefHeight="527.0" prefWidth="957.0" style="-fx-background-color: #778899;" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="anchor" prefHeight="527.0" prefWidth="957.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
         <URL value="@/css/table.css" />
     </stylesheets>
@@ -20,7 +20,7 @@
             <Button layoutX="-2.0" layoutY="310.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="260.0" style="-fx-background-color: #2D3447;" text="Medical history" textFill="WHITE" />
             <Button layoutX="103.0" layoutY="360.0" mnemonicParsing="false" style="-fx-background-color: #2D3447;" text="New" textFill="WHITE" />
             <Button layoutX="107.0" layoutY="360.0" mnemonicParsing="false" style="-fx-background-color: #2D3447;" text="New" textFill="WHITE" />
-            <Button layoutY="360.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="260.0" style="-fx-background-color: #2D3447;" text="Diagnosis" textFill="WHITE" />
+            <Button layoutY="360.0" mnemonicParsing="false" onAction="#actionDiagnosis" prefHeight="27.0" prefWidth="260.0" style="-fx-background-color: #2D3447;" text="Diagnosis" textFill="WHITE" />
             <Button layoutX="1.0" layoutY="111.0" mnemonicParsing="false" onAction="#actionEdit" prefHeight="27.0" prefWidth="260.0" style="-fx-background-color: #2D3447;" text="Edit" textFill="WHITE" />
             <Button layoutY="60.0" mnemonicParsing="false" onAction="#actionNew" prefHeight="27.0" prefWidth="260.0" style="-fx-background-color: #2D3447;" text="New" textAlignment="CENTER" textFill="WHITE" />
          </children></Pane>
