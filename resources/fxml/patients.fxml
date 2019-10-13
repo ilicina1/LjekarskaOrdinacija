@@ -7,14 +7,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane fx:id="anchor" prefHeight="527.0" prefWidth="957.0" style="-fx-background-color: #2D3447;" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="anchor" prefHeight="533.0" prefWidth="763.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
         <URL value="@/css/table.css" />
     </stylesheets>
     <children>
-      <Pane layoutX="-1.0" prefHeight="527.0" prefWidth="261.0" style="-fx-background-color: #2D3447;">
+      <Pane layoutX="-1.0" prefHeight="538.0" prefWidth="261.0" style="-fx-background-color: #2D3447;">
          <children>
-            <Button fx:id="btnExit" layoutX="-1.0" layoutY="160.0" mnemonicParsing="false" onAction="#actionDelete" prefHeight="27.0" prefWidth="260.0" style="-fx-background-color: #2D3447;" text="Delete" textFill="WHITE" />
+            <Button fx:id="btnExit" layoutX="-1.0" layoutY="160.0" mnemonicParsing="false" onAction="#actionDelete" prefHeight="27.0" prefWidth="261.0" style="-fx-background-color: #2D3447;" text="Delete" textFill="WHITE" />
             <Button layoutY="210.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="260.0" style="-fx-background-color: #2D3447;" text="Announcements" textFill="WHITE" />
             <Button layoutX="1.0" layoutY="260.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="260.0" style="-fx-background-color: #2D3447;" text="Medical record" textFill="WHITE" />
             <Button layoutX="-2.0" layoutY="310.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="260.0" style="-fx-background-color: #2D3447;" text="Medical history" textFill="WHITE" />
@@ -25,7 +25,7 @@
             <Button layoutY="60.0" mnemonicParsing="false" onAction="#actionNew" prefHeight="27.0" prefWidth="260.0" style="-fx-background-color: #2D3447;" text="New" textAlignment="CENTER" textFill="WHITE" />
          </children></Pane>
       <Button fx:id="btnExit" layoutX="-1.0" layoutY="410.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="260.0" style="-fx-background-color: #2D3447;" text="Medical findings" textFill="WHITE" />
-      <TableView fx:id="tableViewPacijenti" layoutX="259.0" prefHeight="527.0" prefWidth="896.0" style="-fx-border-color: #2D3447;">
+      <TableView fx:id="tableViewPacijenti" layoutX="260.0" prefHeight="538.0" prefWidth="915.0">
         <columns>
           <TableColumn fx:id="colMedicalRN" prefWidth="150.0" text="Medical record number" />
           <TableColumn minWidth="0.0" prefWidth="0.0" text="C2" />
@@ -33,7 +33,7 @@
             <TableColumn fx:id="colPhoneNum" prefWidth="99.0" text="Phone number" />
             <TableColumn fx:id="colCity" minWidth="0.0" prefWidth="199.0" text="City" />
             <TableColumn fx:id="colAddress" minWidth="9.0" prefWidth="148.0" text="Address" />
-            <TableColumn fx:id="colBirthDate" prefWidth="125.0" text="Birth date" />
+            <TableColumn fx:id="colBirthDate" prefWidth="142.0" text="Birth date" />
         </columns>
       </TableView>
    </children>

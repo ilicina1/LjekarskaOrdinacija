@@ -64,6 +64,28 @@
     -fx-border-color: #0093EF;
 }
 
+#tfId {
+    -fx-border-color: grey;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color: transparent;
+}
+
+#tfId:focused{
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #0093EF;
+}
+
+#taDiagnosis {
+    -fx-border-color: #2D3447;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color: grey;
+}
+
+#taDiagnosis:focused{
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #0093EF;
+}
+
 .poljeIspravno {
     -fx-control-inner-background: greenyellow;
     -fx-text-fill: greenyellow;

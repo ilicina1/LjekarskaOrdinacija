@@ -11,7 +11,7 @@ public class KlasaDAO {
     private Connection conn;
     private Connection conn2;
 
-    private PreparedStatement dajUserNameUpit, dajEmailUpit, dodajDoktoraUpit, dajPasswordUpit, dajPacijenteUpit, dodajPacijentaUpit, promjeniPacijentaUpit, obrisiPacijentaUpit, dajDijagnozeUpit;
+    private PreparedStatement dajUserNameUpit, dajEmailUpit, dodajDoktoraUpit, dajPasswordUpit, dajPacijenteUpit, dodajPacijentaUpit, promjeniPacijentaUpit, obrisiPacijentaUpit, dajDijagnozeUpit, dodajDijagnozuUpit, promjeniDijagnozuUpit;
 
     public static KlasaDAO getInstance() {
         if (instance == null) instance = new KlasaDAO();
@@ -43,8 +43,11 @@ public class KlasaDAO {
             dajPasswordUpit = conn.prepareStatement("SELECT password FROM Doktori WHERE user_name=?");
             promjeniPacijentaUpit = conn.prepareStatement("UPDATE Pacijenti SET full_name=?, phone_number=?, city=?, address=?, birth_date=? WHERE medical_record_number=?");
             dodajPacijentaUpit = conn.prepareStatement("INSERT INTO Pacijenti VALUES(?,?,?,?,?,?)");
+            dodajDijagnozuUpit = conn.prepareStatement("INSERT INTO Dijagnoze VALUES(?,?,?)");
             obrisiPacijentaUpit = conn.prepareStatement("DELETE FROM Pacijenti WHERE medical_record_number=?");
             dajDijagnozeUpit = conn.prepareStatement(("SELECT * FROM Dijagnoze WHERE pacijent=?"));
+            promjeniDijagnozuUpit = conn.prepareStatement("UPDATE Dijagnoze SET text=? WHERE id=?");
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -176,6 +179,27 @@ public class KlasaDAO {
         try {
             obrisiPacijentaUpit.setInt(1, pacijent.getMedicalRecordNumber());
             obrisiPacijentaUpit.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void dodajDijagnozu(Diagnosis diagnosis) {
+        try {
+            dodajDijagnozuUpit.setInt(1, diagnosis.getId());
+            dodajDijagnozuUpit.setString(2, diagnosis.getText());
+            dodajDijagnozuUpit.setInt(3, diagnosis.getPatient().getMedicalRecordNumber());
+            dodajDijagnozuUpit.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void izmijeniDijagnozu(Diagnosis dijagnoza){
+        try {
+            promjeniDijagnozuUpit.setString(1, dijagnoza.getText());
+            promjeniPacijentaUpit.setInt(2, dijagnoza.getId());
+            promjeniPacijentaUpit.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -20,19 +21,23 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.SimpleTimeZone;
+
+import static javafx.scene.layout.Region.USE_PREF_SIZE;
 
 public class DiagnosisController {
     public TableView tableViewDiagnosis;
     public TableColumn colId;
     public TableColumn colDiagnosis;
     public AnchorPane anchor2;
-
+    public Patients pacijent;
     public KlasaDAO dao;
     private ObservableList<Diagnosis> listDiagnoses;
 
     public DiagnosisController(Patients pacijent) throws SQLException {
         dao = KlasaDAO.getInstance();
         listDiagnoses = FXCollections.observableArrayList(dao.dijagnoze(pacijent.getMedicalRecordNumber()));
+        this.pacijent = pacijent;
     }
 
     @FXML
@@ -67,5 +72,65 @@ public class DiagnosisController {
             anchor2.getChildren().remove(anchor2);
         });
         timeline.play();
+    }
+
+    public void actionNew(ActionEvent actionEvent){
+        Stage stage = new Stage();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dodajDijagnozu.fxml"));
+            DodajDijagnozuController ctrl = new DodajDijagnozuController(null, dao.dijagnoze(pacijent.getMedicalRecordNumber()), pacijent);
+            loader.setController(ctrl);
+            Parent root = loader.load();
+            stage.setTitle("New diagnosis");
+            stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
+            stage.setResizable(false);
+            stage.show();
+            stage.setOnHiding( event -> {
+                Diagnosis novaDijagnoza = ctrl.getDijagnoza();
+                if (novaDijagnoza != null) {
+                    dao.dodajDijagnozu(novaDijagnoza);
+                    try {
+                        listDiagnoses.setAll(dao.dijagnoze(pacijent.getMedicalRecordNumber()));
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            } );
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void actionEdit(ActionEvent actionEvent){
+        Diagnosis dijagnoza = (Diagnosis) tableViewDiagnosis.getSelectionModel().getSelectedItem();
+        if (dijagnoza == null) return;
+        Stage stage = new Stage();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dodajDijagnozu.fxml"));
+            DodajDijagnozuController ctrl = new DodajDijagnozuController(dijagnoza, dao.dijagnoze(pacijent.getMedicalRecordNumber()), pacijent);
+            loader.setController(ctrl);
+            Parent root = loader.load();
+            stage.setTitle("Edit diagnosis");
+            stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
+            stage.setResizable(false);
+            stage.show();
+            stage.setOnHiding( event -> {
+                Diagnosis novaDijagnoza= ctrl.getDijagnoza();
+                if (novaDijagnoza != null) {
+                    dao.izmijeniDijagnozu(novaDijagnoza);
+                    try {
+                        listDiagnoses.setAll(dao.dijagnoze(pacijent.getMedicalRecordNumber()));
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            } );
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

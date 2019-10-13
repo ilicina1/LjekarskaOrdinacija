@@ -165,7 +165,6 @@ public class dodajPacijentaController {
         return pacijent;
     }
 
-    //ovdje dodati validacije
     public void actionConfirm(ActionEvent actionEvent) throws IOException, SQLException {
         boolean sveOk = true;
 
@@ -218,15 +217,6 @@ public class dodajPacijentaController {
             sveOk = false;
         }
 
-//        if (!sveOk){
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setTitle("Error Dialog");
-//            alert.setHeaderText("Ooops, there was an error!");
-//            alert.setContentText("Check information format!");
-//            alert.showAndWait();
-//        }
-//        if (pacijent == null) pacijent = new Patients();
-//        pacijent = new Patients(Integer.parseInt(tfMedicalRN.getText()), tfFullName.getText(), tfPhoneNum.getText(), tfCity.getText(), tfAddress.getText(), tfBirthDate.getText());
         if(pacijent == null) {
             for (int i = 0; i < listPacijenti.size(); i++) {
                 if (listPacijenti.get(i).getMedicalRecordNumber() == Integer.parseInt(tfMedicalRN.getText()))

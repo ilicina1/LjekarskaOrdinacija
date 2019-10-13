@@ -7,12 +7,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane fx:id="anchor2" prefHeight="533.0" prefWidth="763.0" style="-fx-background-color: #DCDCDC;" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="anchor2" prefHeight="533.0" prefWidth="763.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1">
    <stylesheets>
       <URL value="@/css/table.css" />
    </stylesheets>
    <children>
-      <TableView fx:id="tableViewDiagnosis" layoutX="254.0" layoutY="-1.0" prefHeight="534.0" prefWidth="905.0">
+      <TableView fx:id="tableViewDiagnosis" layoutX="252.0" layoutY="-1.0" prefHeight="534.0" prefWidth="902.0">
         <columns>
           <TableColumn fx:id="colId" prefWidth="103.99998474121094" text="Id" />
           <TableColumn fx:id="colDiagnosis" prefWidth="800.0" text="Diagnosis" />
@@ -20,8 +20,8 @@
       </TableView>
       <Pane layoutX="-6.0" layoutY="-4.0" prefHeight="538.0" prefWidth="261.0" style="-fx-background-color: #2D3447;">
          <children>
-            <Button layoutX="1.0" layoutY="140.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="260.0" style="-fx-background-color: #2D3447;" text="New" textAlignment="CENTER" textFill="WHITE" />
-            <Button layoutY="200.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="260.0" style="-fx-background-color: #2D3447;" text="Edit" textAlignment="CENTER" textFill="WHITE" />
+            <Button layoutX="1.0" layoutY="140.0" mnemonicParsing="false" onAction="#actionNew" prefHeight="27.0" prefWidth="260.0" style="-fx-background-color: #2D3447;" text="New" textAlignment="CENTER" textFill="WHITE" />
+            <Button layoutY="200.0" mnemonicParsing="false" onAction="#actionEdit" prefHeight="27.0" prefWidth="260.0" style="-fx-background-color: #2D3447;" text="Edit" textAlignment="CENTER" textFill="WHITE" />
             <Button layoutY="260.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="260.0" style="-fx-background-color: #2D3447;" text="Delete" textAlignment="CENTER" textFill="WHITE" />
          </children>
       </Pane>
