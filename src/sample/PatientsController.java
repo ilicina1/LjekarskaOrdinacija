@@ -4,7 +4,6 @@ import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -131,6 +130,34 @@ public class PatientsController {
             DiagnosisController ctrl = new DiagnosisController(pacijent);
             loader.setController(ctrl);
             stage.setTitle("Diagnosis");
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        root.translateYProperty().set(-533);
+
+        anchor.getChildren().add(root);
+
+        Timeline timeline = new Timeline();
+        KeyValue kv = new KeyValue(root.translateYProperty(), 0, Interpolator.EASE_IN);
+        KeyFrame kf = new KeyFrame(Duration.seconds(0.45), kv);
+        timeline.getKeyFrames().add(kf);
+        timeline.setOnFinished(t -> {
+            anchor.getChildren().remove(anchor);
+        });
+        timeline.play();
+    }
+
+    public void actionMedicalHistory(ActionEvent actionEvent) throws IOException, SQLException {
+        Patients pacijent = tableViewPacijenti.getSelectionModel().getSelectedItem();
+        Stage stage = new Stage();
+        Parent root = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/medicalHistory.fxml"));
+            MedicalHistoryController ctrl = new MedicalHistoryController(pacijent);
+            loader.setController(ctrl);
+            stage.setTitle("Medical History");
             root = loader.load();
         } catch (IOException e) {
             e.printStackTrace();

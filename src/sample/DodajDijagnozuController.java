@@ -64,9 +64,6 @@ public class DodajDijagnozuController {
             tfId.getStyleClass().removeAll("poljeIspravno");
             tfId.getStyleClass().add("poljeNijeIspravno");
         }
-//        for (int i = 0; i < listDijagnoze.size(); i++) {
-//            if (listDijagnoze.get(i).getId() == Integer.parseInt(tfId.getText())) sveOk = false;
-//        }
 
         if (!sveOk) {
             Alert alert = new Alert(Alert.AlertType.ERROR);

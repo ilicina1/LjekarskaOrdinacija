@@ -11,7 +11,7 @@ public class KlasaDAO {
     private Connection conn;
     private Connection conn2;
 
-    private PreparedStatement dajUserNameUpit, dajEmailUpit, dodajDoktoraUpit, dajPasswordUpit, dajPacijenteUpit, dodajPacijentaUpit, promjeniPacijentaUpit, obrisiPacijentaUpit, dajDijagnozeUpit, dodajDijagnozuUpit, promjeniDijagnozuUpit, obrisiDijagnozuUpit,dajDijagnozuUpit;
+    private PreparedStatement dajUserNameUpit, dajEmailUpit, dodajDoktoraUpit, dajPasswordUpit, dajPacijenteUpit, dodajPacijentaUpit, promjeniPacijentaUpit, obrisiPacijentaUpit, dajDijagnozeUpit, dodajDijagnozuUpit, promjeniDijagnozuUpit, obrisiDijagnozuUpit,dajDijagnozuUpit, dajHistorijeUpit;
 
     public static KlasaDAO getInstance() {
         if (instance == null) instance = new KlasaDAO();
@@ -49,6 +49,9 @@ public class KlasaDAO {
             promjeniDijagnozuUpit = conn.prepareStatement("UPDATE Dijagnoze SET text=? WHERE id=?");
             obrisiDijagnozuUpit = conn.prepareStatement("DELETE FROM Dijagnoze WHERE id=?");
             dajDijagnozuUpit = conn.prepareStatement("SELECT * FROM Dijagnoze WHERE id=?");
+            dajHistorijeUpit = conn.prepareStatement(("SELECT * FROM Historija WHERE pacijent=?"));
+
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -126,6 +129,11 @@ public class KlasaDAO {
         return dijagnoza;
     }
 
+    private MedicalHistory dajHistorijuIzRs(ResultSet rs) throws SQLException {
+        MedicalHistory historija = new MedicalHistory(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), null);
+        return historija;
+    }
+
     public ArrayList<Patients> pacijenti() {
         ArrayList<Patients> rezultat = new ArrayList();
         try {
@@ -148,6 +156,21 @@ public class KlasaDAO {
             while (rs.next()) {
                 Diagnosis dijagnoza = dajDijagnozuIzRs(rs);
                 rezultat.add(dijagnoza);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rezultat;
+    }
+
+    public ArrayList<MedicalHistory> historije(int id) throws SQLException {
+        dajHistorijeUpit.setInt(1,id);
+        ArrayList<MedicalHistory> rezultat = new ArrayList();
+        try {
+            ResultSet rs = dajHistorijeUpit.executeQuery();
+            while (rs.next()) {
+                MedicalHistory historija = dajHistorijuIzRs(rs);
+                rezultat.add(historija);
             }
         } catch (SQLException e) {
             e.printStackTrace();
