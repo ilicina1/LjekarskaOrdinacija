@@ -19,6 +19,6 @@
             <Button mnemonicParsing="false" onAction="#actionCancel" style="-fx-background-color: #151928;" text="Cancel" textFill="#a0a2ab" />
          </buttons>
       </ButtonBar>
-      <TextArea fx:id="taDiagnosis" layoutX="27.0" layoutY="76.0" prefHeight="200.0" prefWidth="431.0" promptText="Diagnosis" style="-fx-background-radius: 5; -fx-text-inner-color: #2D3447;" />
+      <TextArea fx:id="taDiagnosis" layoutX="45.0" layoutY="76.0" prefHeight="200.0" prefWidth="400.0" promptText="Diagnosis" />
    </children>
 </AnchorPane>

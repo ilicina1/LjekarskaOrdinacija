@@ -11,7 +11,7 @@ public class KlasaDAO {
     private Connection conn;
     private Connection conn2;
 
-    private PreparedStatement dajUserNameUpit, dajEmailUpit, dodajDoktoraUpit, dajPasswordUpit, dajPacijenteUpit, dodajPacijentaUpit, promjeniPacijentaUpit, obrisiPacijentaUpit, dajDijagnozeUpit, dodajDijagnozuUpit, promjeniDijagnozuUpit;
+    private PreparedStatement dajUserNameUpit, dajEmailUpit, dodajDoktoraUpit, dajPasswordUpit, dajPacijenteUpit, dodajPacijentaUpit, promjeniPacijentaUpit, obrisiPacijentaUpit, dajDijagnozeUpit, dodajDijagnozuUpit, promjeniDijagnozuUpit, obrisiDijagnozuUpit,dajDijagnozuUpit;
 
     public static KlasaDAO getInstance() {
         if (instance == null) instance = new KlasaDAO();
@@ -47,7 +47,8 @@ public class KlasaDAO {
             obrisiPacijentaUpit = conn.prepareStatement("DELETE FROM Pacijenti WHERE medical_record_number=?");
             dajDijagnozeUpit = conn.prepareStatement(("SELECT * FROM Dijagnoze WHERE pacijent=?"));
             promjeniDijagnozuUpit = conn.prepareStatement("UPDATE Dijagnoze SET text=? WHERE id=?");
-
+            obrisiDijagnozuUpit = conn.prepareStatement("DELETE FROM Dijagnoze WHERE id=?");
+            dajDijagnozuUpit = conn.prepareStatement("SELECT * FROM Dijagnoze WHERE id=?");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -106,6 +107,13 @@ public class KlasaDAO {
         ResultSet rs = dajPasswordUpit.executeQuery();
         if(!rs.next()) return null;
         return rs.getString(1);
+    }
+
+    public boolean validateDiagnosis(int id) throws SQLException {
+        dajDijagnozuUpit.setInt(1,id);
+        ResultSet rs = dajDijagnozuUpit.executeQuery();
+        if(!rs.next()) return false;
+        return true;
     }
 
     private Patients dajPacijentaIzRs(ResultSet rs) throws SQLException {
@@ -184,11 +192,11 @@ public class KlasaDAO {
         }
     }
 
-    public void dodajDijagnozu(Diagnosis diagnosis) {
+    public void dodajDijagnozu(Diagnosis dijagnoza) {
         try {
-            dodajDijagnozuUpit.setInt(1, diagnosis.getId());
-            dodajDijagnozuUpit.setString(2, diagnosis.getText());
-            dodajDijagnozuUpit.setInt(3, diagnosis.getPatient().getMedicalRecordNumber());
+            dodajDijagnozuUpit.setInt(1, dijagnoza.getId());
+            dodajDijagnozuUpit.setString(2, dijagnoza.getText());
+            dodajDijagnozuUpit.setInt(3, dijagnoza.getPatient().getMedicalRecordNumber());
             dodajDijagnozuUpit.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -200,6 +208,15 @@ public class KlasaDAO {
             promjeniDijagnozuUpit.setString(1, dijagnoza.getText());
             promjeniPacijentaUpit.setInt(2, dijagnoza.getId());
             promjeniPacijentaUpit.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void ObrisiDijagnozu(Diagnosis dijagnoza){
+        try {
+            obrisiDijagnozuUpit.setInt(1, dijagnoza.getId());
+            obrisiDijagnozuUpit.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }

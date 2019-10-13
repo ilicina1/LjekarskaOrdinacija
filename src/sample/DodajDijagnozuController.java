@@ -9,6 +9,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class DodajDijagnozuController {
@@ -17,19 +18,17 @@ public class DodajDijagnozuController {
     public Diagnosis dijagnoza;
     private ObservableList<Diagnosis> listDijagnoze;
     public Patients pacijent;
+    public KlasaDAO dao;
 
     public DodajDijagnozuController(Diagnosis dijagnoza, ArrayList<Diagnosis> dijagnoze, Patients pacijent) {
         this.dijagnoza = dijagnoza;
         listDijagnoze = FXCollections.observableArrayList(dijagnoze);
         this.pacijent = pacijent;
+        dao = KlasaDAO.getInstance();
     }
 
     @FXML
     public void initialize() {
-        if (dijagnoza != null) {
-            tfId.setDisable(true);
-            taDiagnosis.setText(dijagnoza.getText());
-        } else {
             tfId.textProperty().addListener((obs, oldIme, newIme) -> {
                 if (validateId(newIme)) {
                     tfId.getStyleClass().removeAll("poljeNijeIspravno");
@@ -39,17 +38,19 @@ public class DodajDijagnozuController {
                     tfId.getStyleClass().add("poljeNijeIspravno");
                 }
             });
-        }
     }
 
     public Diagnosis getDijagnoza() {
         return dijagnoza;
     }
 
-    public void actionConfirm(ActionEvent actionEvent) {
+    public void actionConfirm(ActionEvent actionEvent) throws SQLException {
+        boolean id=false;
         boolean sveOk = true;
 
+        id = dao.validateDiagnosis(Integer.parseInt(tfId.getText().trim()));
         if (validateId(tfId.getText().trim())) {
+
             tfId.getStyleClass().removeAll("poljeNijeIspravno");
             tfId.getStyleClass().add("poljeIspravno");
         } else {
@@ -58,6 +59,15 @@ public class DodajDijagnozuController {
             sveOk = false;
         }
 
+        if(id) {
+            sveOk = false;
+            tfId.getStyleClass().removeAll("poljeIspravno");
+            tfId.getStyleClass().add("poljeNijeIspravno");
+        }
+//        for (int i = 0; i < listDijagnoze.size(); i++) {
+//            if (listDijagnoze.get(i).getId() == Integer.parseInt(tfId.getText())) sveOk = false;
+//        }
+
         if (!sveOk) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Dialog");
@@ -65,29 +75,13 @@ public class DodajDijagnozuController {
             alert.setContentText("Check id!");
             alert.showAndWait();
             return;
-        }else {
-            if (dijagnoza == null) {
-                for (int i = 0; i < listDijagnoze.size(); i++) {
-                    if (listDijagnoze.get(i).getId() == Integer.parseInt(tfId.getText()))
-                        sveOk = false;
-                }
-            }
-
-            if (dijagnoza == null) {
-                dijagnoza = new Diagnosis(Integer.parseInt(tfId.getText()), taDiagnosis.getText(), pacijent);
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Information Dialog");
-                alert.setHeaderText(null);
-                alert.setContentText("You have successfully added a diagnosis");
-                alert.showAndWait();
-            } else {
-                dijagnoza = new Diagnosis(dijagnoza.getId(), taDiagnosis.getText(), pacijent);
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Information Dialog");
-                alert.setHeaderText(null);
-                alert.setContentText("Changes saved!");
-                alert.showAndWait();
-            }
+        } else {
+            dijagnoza = new Diagnosis(Integer.parseInt(tfId.getText()), taDiagnosis.getText(), pacijent);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information Dialog");
+            alert.setHeaderText(null);
+            alert.setContentText("You have successfully added a diagnosis");
+            alert.showAndWait();
         }
         Stage stage = (Stage) tfId.getScene().getWindow();
         stage.close();

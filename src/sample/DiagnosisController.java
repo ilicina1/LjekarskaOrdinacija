@@ -11,6 +11,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -21,12 +23,13 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.SimpleTimeZone;
 
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
 
 public class DiagnosisController {
-    public TableView tableViewDiagnosis;
+    public TableView<Diagnosis> tableViewDiagnosis;
     public TableColumn colId;
     public TableColumn colDiagnosis;
     public AnchorPane anchor2;
@@ -103,34 +106,49 @@ public class DiagnosisController {
         }
     }
 
-    public void actionEdit(ActionEvent actionEvent){
-        Diagnosis dijagnoza = (Diagnosis) tableViewDiagnosis.getSelectionModel().getSelectedItem();
+//    public void actionEdit(ActionEvent actionEvent) throws IOException, SQLException {
+//        Diagnosis dijagnoza = tableViewDiagnosis.getSelectionModel().getSelectedItem();
+//        if (dijagnoza == null) return;
+//        Stage stage = new Stage();
+//        try {
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dodajDijagnozu.fxml"));
+//            DodajDijagnozuController ctrl = new DodajDijagnozuController(dijagnoza, dao.dijagnoze(pacijent.getMedicalRecordNumber()), pacijent);
+//            loader.setController(ctrl);
+//            Parent root = loader.load();
+//            stage.setTitle("Edit diagnosis");
+//            stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
+//            stage.setResizable(false);
+//            stage.show();
+//            stage.setOnHiding( event -> {
+//                Diagnosis novaDijagnoza= ctrl.getDijagnoza();
+//                if (novaDijagnoza != null) {
+//                    dao.izmijeniDijagnozu(novaDijagnoza);
+//                    try {
+//                        listDiagnoses.setAll(dao.dijagnoze(pacijent.getMedicalRecordNumber()));
+//                    } catch (SQLException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            } );
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+    public void actionDelete(ActionEvent actionEvent) throws SQLException {
+        Diagnosis dijagnoza = tableViewDiagnosis.getSelectionModel().getSelectedItem();
+
         if (dijagnoza == null) return;
-        Stage stage = new Stage();
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dodajDijagnozu.fxml"));
-            DodajDijagnozuController ctrl = new DodajDijagnozuController(dijagnoza, dao.dijagnoze(pacijent.getMedicalRecordNumber()), pacijent);
-            loader.setController(ctrl);
-            Parent root = loader.load();
-            stage.setTitle("Edit diagnosis");
-            stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
-            stage.setResizable(false);
-            stage.show();
-            stage.setOnHiding( event -> {
-                Diagnosis novaDijagnoza= ctrl.getDijagnoza();
-                if (novaDijagnoza != null) {
-                    dao.izmijeniDijagnozu(novaDijagnoza);
-                    try {
-                        listDiagnoses.setAll(dao.dijagnoze(pacijent.getMedicalRecordNumber()));
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                }
-            } );
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("");
+        alert.setHeaderText("Brisanje dijagnoze " + dijagnoza.getId());
+        alert.setContentText("Da li ste sigurni da želite obrisati dijagnozu " + dijagnoza.getId()+"?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            dao.ObrisiDijagnozu(dijagnoza);
+            listDiagnoses.setAll(dao.dijagnoze(pacijent.getMedicalRecordNumber()));
         }
     }
 }
