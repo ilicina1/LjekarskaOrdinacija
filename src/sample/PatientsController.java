@@ -104,7 +104,7 @@ public class PatientsController {
         }
     }
 
-        public void actionDelete(ActionEvent actionEvent) {
+    public void actionDelete(ActionEvent actionEvent) {
         Patients pacijent = tableViewPacijenti.getSelectionModel().getSelectedItem();
 
         if (pacijent == null) return;

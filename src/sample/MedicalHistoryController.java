@@ -10,6 +10,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -19,6 +22,9 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Optional;
+
+import static javafx.scene.layout.Region.USE_PREF_SIZE;
 
 public class MedicalHistoryController {
     public TableView<MedicalHistory> tableViewMedicalHistory;
@@ -72,5 +78,51 @@ public class MedicalHistoryController {
             anchor2.getChildren().remove(anchor2);
         });
         timeline.play();
+    }
+
+    public void actionNew(ActionEvent actionEvent){
+        Stage stage = new Stage();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/addHistory.fxml"));
+            addHistoryController ctrl = new addHistoryController(dao.historije(pacijent.getMedicalRecordNumber()), pacijent);
+            loader.setController(ctrl);
+            Parent root = loader.load();
+            stage.setTitle("New medical history");
+            stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
+            stage.setResizable(false);
+            stage.show();
+            stage.setOnHiding( event -> {
+                MedicalHistory novaHistorija = ctrl.getHistorija();
+                if (novaHistorija != null) {
+                    dao.dodajHistoriju(novaHistorija);
+                    try {
+                        listMedicalHistory.setAll(dao.historije(pacijent.getMedicalRecordNumber()));
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            } );
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void actionDelete(ActionEvent actionEvent) throws SQLException {
+        MedicalHistory historija = tableViewMedicalHistory.getSelectionModel().getSelectedItem();
+
+        if (historija == null) return;
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("");
+        alert.setHeaderText("Brisanje historije " + historija.getId());
+        alert.setContentText("Da li ste sigurni da želite obrisati historiju " + historija.getId()+"?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            dao.obrisiHistoriju(historija);
+            listMedicalHistory.setAll(dao.historije(pacijent.getMedicalRecordNumber()));
+        }
     }
 }

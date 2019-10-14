@@ -11,7 +11,9 @@ public class KlasaDAO {
     private Connection conn;
     private Connection conn2;
 
-    private PreparedStatement dajUserNameUpit, dajEmailUpit, dodajDoktoraUpit, dajPasswordUpit, dajPacijenteUpit, dodajPacijentaUpit, promjeniPacijentaUpit, obrisiPacijentaUpit, dajDijagnozeUpit, dodajDijagnozuUpit, promjeniDijagnozuUpit, obrisiDijagnozuUpit,dajDijagnozuUpit, dajHistorijeUpit;
+    private PreparedStatement dajUserNameUpit, dajEmailUpit, dodajDoktoraUpit, dajPasswordUpit, dajPacijenteUpit, dodajPacijentaUpit, promjeniPacijentaUpit,
+            obrisiPacijentaUpit, dajDijagnozeUpit, dodajDijagnozuUpit, promjeniDijagnozuUpit, obrisiDijagnozuUpit,dajDijagnozuUpit, dajHistorijeUpit, dodajHistorijuUpit, dajNajveciIdUpit,
+            obrisiHistorijuUpit;
 
     public static KlasaDAO getInstance() {
         if (instance == null) instance = new KlasaDAO();
@@ -49,9 +51,10 @@ public class KlasaDAO {
             promjeniDijagnozuUpit = conn.prepareStatement("UPDATE Dijagnoze SET text=? WHERE id=?");
             obrisiDijagnozuUpit = conn.prepareStatement("DELETE FROM Dijagnoze WHERE id=?");
             dajDijagnozuUpit = conn.prepareStatement("SELECT * FROM Dijagnoze WHERE id=?");
-            dajHistorijeUpit = conn.prepareStatement(("SELECT * FROM Historija WHERE pacijent=?"));
-
-
+            dajHistorijeUpit = conn.prepareStatement("SELECT * FROM Historija WHERE pacijent=?");
+            dodajHistorijuUpit = conn.prepareStatement("INSERT INTO Historija VALUES(?,?,?,?,?,?)");
+            dajNajveciIdUpit = conn.prepareStatement("SELECT id FROM Historija WHERE id = (SELECT MAX(id) FROM Historija)");
+            obrisiHistorijuUpit = conn.prepareStatement("DELETE FROM Historija WHERE id=?");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -240,6 +243,41 @@ public class KlasaDAO {
         try {
             obrisiDijagnozuUpit.setInt(1, dijagnoza.getId());
             obrisiDijagnozuUpit.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void dodajHistoriju(MedicalHistory historija) {
+        try {
+            dodajHistorijuUpit.setInt(1, historija.getId());
+            dodajHistorijuUpit.setString(2, historija.getAllergies());
+            dodajHistorijuUpit.setString(3, historija.getFamilyMedicalIssues());
+            dodajHistorijuUpit.setString(4, historija.getAddictions());
+            dodajHistorijuUpit.setString(5, historija.getCurrentHealthIssues());
+            dodajHistorijuUpit.setInt(6, historija.getPacijent().getMedicalRecordNumber());
+            dodajHistorijuUpit.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int dajNajveciId() throws SQLException {
+        ResultSet rs = null;
+        try {
+            rs = dajNajveciIdUpit.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        ;
+        return rs.getInt(1);
+    }
+
+    public void obrisiHistoriju(MedicalHistory historija){
+        try {
+            obrisiHistorijuUpit.setInt(1, historija.getId());
+            obrisiHistorijuUpit.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
