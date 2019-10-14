@@ -14,9 +14,9 @@
     <children>
       <Pane layoutX="-1.0" prefHeight="538.0" prefWidth="261.0" style="-fx-background-color: #2D3447;">
          <children>
-            <Button fx:id="btnExit" layoutX="-1.0" layoutY="160.0" mnemonicParsing="false" onAction="#actionDelete" prefHeight="27.0" prefWidth="261.0" style="-fx-background-color: #2D3447;" text="Delete" textFill="WHITE" />
+            <Button layoutX="-1.0" layoutY="160.0" mnemonicParsing="false" onAction="#actionDelete" prefHeight="27.0" prefWidth="261.0" style="-fx-background-color: #2D3447;" text="Delete" textFill="WHITE" />
             <Button layoutY="210.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="260.0" style="-fx-background-color: #2D3447;" text="Announcements" textFill="WHITE" />
-            <Button layoutX="1.0" layoutY="260.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="260.0" style="-fx-background-color: #2D3447;" text="Medical record" textFill="WHITE" />
+            <Button layoutX="1.0" layoutY="260.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="260.0" style="-fx-background-color: #2D3447;" text="X-rays" textFill="WHITE" />
             <Button layoutX="-2.0" layoutY="310.0" mnemonicParsing="false" onAction="#actionMedicalHistory" prefHeight="27.0" prefWidth="260.0" style="-fx-background-color: #2D3447;" text="Medical history" textFill="WHITE" />
             <Button layoutX="103.0" layoutY="360.0" mnemonicParsing="false" style="-fx-background-color: #2D3447;" text="New" textFill="WHITE" />
             <Button layoutX="107.0" layoutY="360.0" mnemonicParsing="false" style="-fx-background-color: #2D3447;" text="New" textFill="WHITE" />
@@ -24,7 +24,7 @@
             <Button layoutX="1.0" layoutY="111.0" mnemonicParsing="false" onAction="#actionEdit" prefHeight="27.0" prefWidth="260.0" style="-fx-background-color: #2D3447;" text="Edit" textFill="WHITE" />
             <Button layoutY="60.0" mnemonicParsing="false" onAction="#actionNew" prefHeight="27.0" prefWidth="260.0" style="-fx-background-color: #2D3447;" text="New" textAlignment="CENTER" textFill="WHITE" />
          </children></Pane>
-      <Button fx:id="btnExit" layoutX="-1.0" layoutY="410.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="260.0" style="-fx-background-color: #2D3447;" text="Medical findings" textFill="WHITE" />
+      <Button layoutX="-1.0" layoutY="410.0" mnemonicParsing="false" onAction="#actionMedicalFindings" prefHeight="27.0" prefWidth="260.0" style="-fx-background-color: #2D3447;" text="Medical findings" textFill="WHITE" />
       <TableView fx:id="tableViewPacijenti" layoutX="260.0" prefHeight="538.0" prefWidth="915.0">
         <columns>
           <TableColumn fx:id="colMedicalRN" prefWidth="150.0" text="Medical record number" />
