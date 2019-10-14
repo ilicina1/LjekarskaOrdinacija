@@ -18,8 +18,11 @@
                 <TableColumn fx:id="colDate" prefWidth="748.0" text="Date" />
             </columns>
         </TableView>
-        <Pane layoutX="-6.0" layoutY="-4.0" prefHeight="538.0" prefWidth="261.0" style="-fx-background-color: #2D3447;" />
-        <Button layoutY="200.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="252.0" style="-fx-background-color: #2D3447;" text="New" textAlignment="CENTER" textFill="WHITE" />
+        <Pane layoutX="-6.0" layoutY="-4.0" prefHeight="538.0" prefWidth="261.0" style="-fx-background-color: #2D3447;">
+         <children>
+            <Button layoutX="5.0" layoutY="144.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="252.0" style="-fx-background-color: #2D3447;" text="New" textAlignment="CENTER" textFill="WHITE" />
+         </children></Pane>
+        <Button layoutY="200.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="252.0" style="-fx-background-color: #2D3447;" text="Open" textAlignment="CENTER" textFill="WHITE" />
         <Button layoutY="256.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="252.0" style="-fx-background-color: #2D3447;" text="Delete" textAlignment="CENTER" textFill="WHITE" />
         <Button layoutY="312.0" mnemonicParsing="false" onAction="#actionBack" prefHeight="27.0" prefWidth="252.0" style="-fx-background-color: #2D3447;" text="Back" textAlignment="CENTER" textFill="WHITE" />
     </children>

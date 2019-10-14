@@ -13,11 +13,11 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 
-public class MedicalFindingsController {
+public class MedicalReportsController {
     public AnchorPane anchor;
     public Patients pacijent;
 
-    public MedicalFindingsController(Patients pacijent) {
+    public MedicalReportsController(Patients pacijent) {
         this.pacijent = pacijent;
     }
 

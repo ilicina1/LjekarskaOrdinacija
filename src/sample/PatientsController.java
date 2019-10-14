@@ -177,13 +177,13 @@ public class PatientsController {
         timeline.play();
     }
 
-    public void actionMedicalFindings(ActionEvent actionEvent) throws IOException, SQLException {
+    public void actionMedicalReports(ActionEvent actionEvent) throws IOException, SQLException {
         Patients pacijent = tableViewPacijenti.getSelectionModel().getSelectedItem();
         Stage stage = new Stage();
         Parent root = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/medicalFindings.fxml"));
-            MedicalFindingsController ctrl = new MedicalFindingsController(pacijent);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/medicalReports.fxml"));
+            MedicalReportsController ctrl = new MedicalReportsController(pacijent);
             loader.setController(ctrl);
             stage.setTitle("Medical Findings");
             root = loader.load();
