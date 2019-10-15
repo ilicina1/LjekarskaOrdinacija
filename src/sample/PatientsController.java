@@ -22,6 +22,8 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
@@ -39,6 +41,7 @@ public class PatientsController {
 
     public KlasaDAO dao;
     private ObservableList<Patients> listPacijenti;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public PatientsController() {
         dao = KlasaDAO.getInstance();

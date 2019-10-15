@@ -1,17 +1,19 @@
 package sample;
 
+import java.time.LocalDate;
+
 public class Patients {
     public int medicalRecordNumber;
     public String fullName;
     public String phoneNumber;
     public String city;
     public String address;
-    public String birthDate;
+    public LocalDate birthDate;
 
     public Patients() {
     }
 
-    public Patients(int medicalRecordNumber, String fullName, String phoneNumber, String city, String address, String birthDate) {
+    public Patients(int medicalRecordNumber, String fullName, String phoneNumber, String city, String address, LocalDate birthDate) {
         this.medicalRecordNumber = medicalRecordNumber;
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
@@ -60,11 +62,11 @@ public class Patients {
         this.address = address;
     }
 
-    public String getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(String birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 }

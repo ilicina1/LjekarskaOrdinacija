@@ -3,6 +3,8 @@ package sample;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -10,6 +12,8 @@ public class KlasaDAO {
     private static KlasaDAO instance;
     private Connection conn;
     private Connection conn2;
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     private PreparedStatement dajUserNameUpit, dajEmailUpit, dodajDoktoraUpit, dajPasswordUpit, dajPacijenteUpit, dodajPacijentaUpit, promjeniPacijentaUpit,
             obrisiPacijentaUpit, dajDijagnozeUpit, dodajDijagnozuUpit, promjeniDijagnozuUpit, obrisiDijagnozuUpit,dajDijagnozuUpit, dajHistorijeUpit, dodajHistorijuUpit, dajNajveciIdUpit,
@@ -123,7 +127,8 @@ public class KlasaDAO {
     }
 
     private Patients dajPacijentaIzRs(ResultSet rs) throws SQLException {
-        Patients pacijent = new Patients(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6));
+      //  LocalDate id = LocalDate.parse(rs.getString(6), formatter);
+        Patients pacijent = new Patients(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), LocalDate.parse(rs.getString(6), formatter));
         return pacijent;
     }
 
@@ -182,12 +187,13 @@ public class KlasaDAO {
     }
 
     public void izmijeniPacijenta(Patients pacijent){
+       // LocalDate id = LocalDate.parse(rs.getString(6), formatter);
         try {
             promjeniPacijentaUpit.setString(1, pacijent.getFullName());
             promjeniPacijentaUpit.setString(2, pacijent.getPhoneNumber());
             promjeniPacijentaUpit.setString(3, pacijent.getCity());
             promjeniPacijentaUpit.setString(4, pacijent.getAddress());
-            promjeniPacijentaUpit.setString(5, pacijent.getBirthDate());
+            promjeniPacijentaUpit.setString(5, pacijent.getBirthDate().toString());
             promjeniPacijentaUpit.setInt(6, pacijent.getMedicalRecordNumber());
             promjeniPacijentaUpit.executeUpdate();
         } catch (SQLException e) {
@@ -202,7 +208,7 @@ public class KlasaDAO {
             dodajPacijentaUpit.setString(3, pacijent.getPhoneNumber());
             dodajPacijentaUpit.setString(4, pacijent.getCity());
             dodajPacijentaUpit.setString(5, pacijent.getAddress());
-            dodajPacijentaUpit.setString(6, pacijent.getBirthDate());
+            dodajPacijentaUpit.setObject(6, pacijent.getBirthDate());
             dodajPacijentaUpit.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

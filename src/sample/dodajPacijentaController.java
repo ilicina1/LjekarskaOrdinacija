@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -19,7 +20,7 @@ public class dodajPacijentaController {
     public TextField tfPhoneNum;
     public TextField tfCity;
     public TextField tfAddress;
-    public TextField tfBirthDate;
+    public DatePicker dpDatePicker;
 
     private Patients pacijent;
     private ObservableList<Patients> listPacijenti;
@@ -38,7 +39,7 @@ public class dodajPacijentaController {
             tfPhoneNum.setText(pacijent.getPhoneNumber());
             tfCity.setText(pacijent.getCity());
             tfAddress.setText(pacijent.getAddress());
-            tfBirthDate.setText(pacijent.getBirthDate());
+            dpDatePicker.setValue(pacijent.getBirthDate());
         }else {
             tfMedicalRN.textProperty().addListener((obs, oldIme, newIme) -> {
                 if (validateMedicalRN(newIme)) {
@@ -87,16 +88,6 @@ public class dodajPacijentaController {
                 } else {
                     tfAddress.getStyleClass().removeAll("poljeIspravno");
                     tfAddress.getStyleClass().add("poljeNijeIspravno");
-                }
-            });
-
-            tfBirthDate.textProperty().addListener((obs, oldIme, newIme) -> {
-                if (validateBirthDate(newIme)) {
-                    tfBirthDate.getStyleClass().removeAll("poljeNijeIspravno");
-                    tfBirthDate.getStyleClass().add("poljeIspravno");
-                } else {
-                    tfBirthDate.getStyleClass().removeAll("poljeIspravno");
-                    tfBirthDate.getStyleClass().add("poljeNijeIspravno");
                 }
             });
         }
@@ -149,16 +140,6 @@ public class dodajPacijentaController {
                 tfAddress.getStyleClass().add("poljeNijeIspravno");
             }
         });
-
-        tfBirthDate.textProperty().addListener((obs, oldIme, newIme) -> {
-            if (validateBirthDate(newIme)) {
-                tfBirthDate.getStyleClass().removeAll("poljeNijeIspravno");
-                tfBirthDate.getStyleClass().add("poljeIspravno");
-            } else {
-                tfBirthDate.getStyleClass().removeAll("poljeIspravno");
-                tfBirthDate.getStyleClass().add("poljeNijeIspravno");
-            }
-        });
     }
 
     public Patients getPacijent() {
@@ -208,14 +189,6 @@ public class dodajPacijentaController {
             tfAddress.getStyleClass().add("poljeNijeIspravno");
             sveOk = false;
         }
-        if (validateBirthDate(tfBirthDate.getText().trim())) {
-            tfBirthDate.getStyleClass().removeAll("poljeNijeIspravno");
-            tfBirthDate.getStyleClass().add("poljeIspravno");
-        } else {
-            tfBirthDate.getStyleClass().removeAll("poljeIspravno");
-            tfBirthDate.getStyleClass().add("poljeNijeIspravno");
-            sveOk = false;
-        }
 
         if(pacijent == null) {
             for (int i = 0; i < listPacijenti.size(); i++) {
@@ -232,14 +205,14 @@ public class dodajPacijentaController {
             return;
         } else {
             if (pacijent == null) {
-                pacijent = new Patients(Integer.parseInt(tfMedicalRN.getText()), tfFullName.getText(), tfPhoneNum.getText(), tfCity.getText(), tfAddress.getText(), tfBirthDate.getText());
+                pacijent = new Patients(Integer.parseInt(tfMedicalRN.getText()), tfFullName.getText(), tfPhoneNum.getText(), tfCity.getText(), tfAddress.getText(), dpDatePicker.getValue());
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Information Dialog");
                 alert.setHeaderText(null);
                 alert.setContentText("You have successfully added a patient");
                 alert.showAndWait();
             } else {
-                pacijent = new Patients(pacijent.getMedicalRecordNumber(), tfFullName.getText(), tfPhoneNum.getText(), tfCity.getText(), tfAddress.getText(), tfBirthDate.getText());
+                pacijent = new Patients(pacijent.getMedicalRecordNumber(), tfFullName.getText(), tfPhoneNum.getText(), tfCity.getText(), tfAddress.getText(), dpDatePicker.getValue());
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Information Dialog");
                 alert.setHeaderText(null);
