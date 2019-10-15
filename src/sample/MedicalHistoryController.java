@@ -84,7 +84,7 @@ public class MedicalHistoryController {
         Stage stage = new Stage();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/addHistory.fxml"));
-            addHistoryController ctrl = new addHistoryController(dao.historije(pacijent.getMedicalRecordNumber()), pacijent);
+            AddHistoryController ctrl = new AddHistoryController(dao.historije(pacijent.getMedicalRecordNumber()), pacijent);
             loader.setController(ctrl);
             Parent root = loader.load();
             stage.setTitle("New medical history");

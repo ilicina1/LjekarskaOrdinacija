@@ -1,4 +1,10 @@
 BEGIN TRANSACTION;
+CREATE TABLE IF NOT EXISTS "Nalazi" (
+	"id"	INTEGER PRIMARY KEY AUTOINCREMENT,
+	"date"	TEXT,
+	"pacijent"	INTEGER,
+	FOREIGN KEY("pacijent") REFERENCES "Pacijenti"("medical_record_number")
+);
 CREATE TABLE IF NOT EXISTS "Historija" (
 	"id"	INTEGER PRIMARY KEY AUTOINCREMENT,
 	"allergies"	TEXT,
@@ -40,5 +46,5 @@ INSERT INTO "Dijagnoze" VALUES (13,'Upala gacetina',43);
 INSERT INTO "Doktori" VALUES ('Ilhan','Licina','ilicina1','Manijaci1921','ilicina1@outlook.com');
 INSERT INTO "Doktori" VALUES ('Marin','Marinac','mmarinac1','Marinac123','mmarinac1@gmail.com');
 INSERT INTO "Pacijenti" VALUES (123,'Manga Mangafic','062322477','Sarajevo','Aleja Pamuka 21','1999-05-12');
-INSERT INTO "Pacijenti" VALUES (43,'Pepa Pig','033156877','Sarajevo','Drinska 50c','1987-06-21');
+INSERT INTO "Pacijenti" VALUES (43,'Pepa Pig','033156877','Sarajevo','Drinska 50c','1988-06-21');
 COMMIT;

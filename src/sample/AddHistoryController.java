@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class addHistoryController {
+public class AddHistoryController {
     public TextField tfAllergies;
     public TextField tfFmi;
     public TextField tfAddictions;
@@ -22,7 +22,7 @@ public class addHistoryController {
     private ObservableList<MedicalHistory> listHistorije;
     public Patients pacijent;
 
-    public addHistoryController(ArrayList<MedicalHistory> historije, Patients pacijent) {
+    public AddHistoryController(ArrayList<MedicalHistory> historije, Patients pacijent) {
         listHistorije = FXCollections.observableArrayList(historije);
         this.pacijent = pacijent;
         dao = KlasaDAO.getInstance();
