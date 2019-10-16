@@ -17,7 +17,7 @@ public class KlasaDAO {
 
     private PreparedStatement dajUserNameUpit, dajEmailUpit, dodajDoktoraUpit, dajPasswordUpit, dajPacijenteUpit, dodajPacijentaUpit, promjeniPacijentaUpit,
             obrisiPacijentaUpit, dajDijagnozeUpit, dodajDijagnozuUpit, promjeniDijagnozuUpit, obrisiDijagnozuUpit,dajDijagnozuUpit, dajHistorijeUpit, dodajHistorijuUpit, dajNajveciIdUpit,
-            obrisiHistorijuUpit, dajNalazeUpit, dodajNalazUpit, dajNajveciId2Upit;
+            obrisiHistorijuUpit, dajNalazeUpit, dodajNalazUpit, dajNajveciId2Upit, obrisiNalazUpit;
 
     public static KlasaDAO getInstance() {
         if (instance == null) instance = new KlasaDAO();
@@ -62,6 +62,7 @@ public class KlasaDAO {
             dajNalazeUpit = conn.prepareStatement("SELECT * FROM Nalazi WHERE pacijent=?");
             dodajNalazUpit = conn.prepareStatement("INSERT INTO Nalazi VALUES(?,?,?)");
             dajNajveciId2Upit = conn.prepareStatement("SELECT id FROM Nalazi WHERE id = (SELECT MAX(id) FROM Nalazi)");
+            obrisiNalazUpit = conn.prepareStatement("DELETE FROM Nalazi WHERE id=?");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -299,7 +300,6 @@ public class KlasaDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        ;
         return rs.getInt(1);
     }
 
@@ -310,7 +310,8 @@ public class KlasaDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        ;
+        int z = 0;
+        if(!rs.next()) return z;
         return rs.getInt(1);
     }
 
@@ -328,7 +329,16 @@ public class KlasaDAO {
             dodajNalazUpit.setInt(1, medicalReport.getId());
             dodajNalazUpit.setObject(2, medicalReport.getDate());
             dodajNalazUpit.setInt(3, medicalReport.getPatient().getMedicalRecordNumber());
-            dodajPacijentaUpit.executeUpdate();
+            dodajNalazUpit.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void obrisiNalaz(MedicalReports nalaz){
+        try {
+            obrisiNalazUpit.setInt(1, nalaz.getId());
+            obrisiNalazUpit.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }

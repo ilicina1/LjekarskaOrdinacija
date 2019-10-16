@@ -7,21 +7,31 @@ import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Optional;
 
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
 
 public class MedicalReportsController {
     public AnchorPane anchor;
     public Patients pacijent;
+    public TableView<MedicalReports> tableViewMedicalReports;
+    public TableColumn colId;
+    public TableColumn colDate;
 
     public KlasaDAO dao;
     private ObservableList<MedicalReports> listMedicalReports;
@@ -30,6 +40,13 @@ public class MedicalReportsController {
         dao = KlasaDAO.getInstance();
         this.pacijent = pacijent;
         listMedicalReports = FXCollections.observableArrayList(dao.nalazi(pacijent.getMedicalRecordNumber()));
+    }
+
+    @FXML
+    public void initialize() {
+        tableViewMedicalReports.setItems(listMedicalReports);
+        colId.setCellValueFactory(new PropertyValueFactory("id"));
+        colDate.setCellValueFactory(new PropertyValueFactory("date"));
     }
 
     public void actionBack(ActionEvent actionEvent) {
@@ -72,7 +89,7 @@ public class MedicalReportsController {
             stage.show();
             stage.setOnHiding( event -> {
                 MedicalReports noviNalaz = ctrl.getReport();
-                if (noviNalaz == null) {
+                if (noviNalaz != null) {
                     dao.dodajNalaz(noviNalaz);
                     try {
                         listMedicalReports.setAll(dao.nalazi(pacijent.getMedicalRecordNumber()));
@@ -85,6 +102,23 @@ public class MedicalReportsController {
             e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void actionDelete(ActionEvent actionEvent) throws SQLException {
+        MedicalReports nalaz = tableViewMedicalReports.getSelectionModel().getSelectedItem();
+
+        if (nalaz == null) return;
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("");
+        alert.setHeaderText("Brisanje dijagnoze " + nalaz.getId());
+        alert.setContentText("Da li ste sigurni da želite obrisati dijagnozu " + nalaz.getId()+"?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            dao.obrisiNalaz(nalaz);
+            listMedicalReports.setAll(dao.nalazi(pacijent.getMedicalRecordNumber()));
         }
     }
 }

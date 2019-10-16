@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS "Pacijenti" (
 	"address"	TEXT,
 	"birth_date"	TEXT
 );
+INSERT INTO "Nalazi" VALUES (1,'2010-03-19',123);
 INSERT INTO "Historija" VALUES (1,'Cafetin','Heart attacks','Nicotine','Asthma',123);
 INSERT INTO "Historija" VALUES (2,'Dexomen','Heart attack','No','No',123);
 INSERT INTO "Dijagnoze" VALUES (1,'Poremecaj posteljice',123);

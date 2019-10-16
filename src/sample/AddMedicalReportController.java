@@ -12,10 +12,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class AddMedicalReportController {
-    public TextField tfSample;
-    public TextField tfTypeOfAnalysis;
-    public TextField tfResult;
-    public TextField tfNormalValue;
     public DatePicker dpDate;
 
     public KlasaDAO dao;
@@ -34,7 +30,7 @@ public class AddMedicalReportController {
     }
 
     public void actionCancel(ActionEvent actionEvent) {
-        Stage stage = (Stage) tfSample.getScene().getWindow();
+        Stage stage = (Stage) dpDate.getScene().getWindow();
         stage.close();
     }
 
@@ -45,8 +41,8 @@ public class AddMedicalReportController {
         alert.setHeaderText(null);
         alert.setContentText("You have successfully added report");
         alert.showAndWait();
-        Stage stage = (Stage) tfSample.getScene().getWindow();
+        Stage stage = (Stage) dpDate.getScene().getWindow();
         stage.close();
-        
+        // ovdje treba ici otvaranje novog prozora za upis rezultata nalaza!!!
     }
 }

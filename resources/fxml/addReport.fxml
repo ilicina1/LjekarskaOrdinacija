@@ -17,6 +17,6 @@
                 <Button mnemonicParsing="false" onAction="#actionCancel" style="-fx-background-color: #151928;" text="Cancel" textFill="#a0a2ab" />
             </buttons>
         </ButtonBar>
-      <DatePicker layoutX="89.0" layoutY="14.0" />
+      <DatePicker fx:id="dpDate" layoutX="89.0" layoutY="14.0" />
     </children>
 </AnchorPane>
