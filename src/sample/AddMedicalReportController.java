@@ -8,7 +8,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -22,12 +21,9 @@ public class AddMedicalReportController {
 
     public KlasaDAO dao;
     public MedicalReports report;
-    private ObservableList<MedicalReports> listMedicalReports;
-    private ObservableList<Results> listResults;
     public Patients pacijent;
 
-    public AddMedicalReportController(ArrayList<MedicalReports> medicalReports, Patients pacijent) {
-        listMedicalReports = FXCollections.observableArrayList(medicalReports);
+    public AddMedicalReportController(ArrayList<MedicalReports> medicalReports, Patients pacijent) throws SQLException {
         this.pacijent = pacijent;
         dao = KlasaDAO.getInstance();
     }
@@ -54,22 +50,17 @@ public class AddMedicalReportController {
         Stage stage1 = new Stage();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/addResults.fxml"));
-            AddResults ctrl = new AddResults(dao.rezultati(report.getId()));
+            AddResultsController ctrl = new AddResultsController(dao.rezultati(report.getId()), report);
             loader.setController(ctrl);
             Parent root = loader.load();
-            stage.setTitle("Add results!");
-            stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
-            stage.setResizable(false);
-            stage.show();
-            stage.setOnHiding( event -> {
+            stage1.setTitle("Add results!");
+            stage1.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
+            stage1.setResizable(false);
+            stage1.show();
+            stage1.setOnHiding( event -> {
                 Results noviRezultat = ctrl.getRezultat();
                 if (noviRezultat != null) {
                     dao.dodajRezultat(noviRezultat);
-                    try {
-                        listResults.setAll(dao.rezultati(report.getId()));
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
                 }
             } );
         } catch (IOException e) {

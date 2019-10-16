@@ -17,7 +17,7 @@
         <TextField fx:id="tfNormalValue" alignment="CENTER" layoutX="165.0" layoutY="260.0" prefHeight="28.0" prefWidth="271.0" promptText="Normal value" style="-fx-background-color: #2D3447; -fx-text-inner-color: white;" />
         <TextField fx:id="tfTypeOfAnalysis" alignment="CENTER" layoutX="165.0" layoutY="140.0" prefHeight="28.0" prefWidth="271.0" promptText="Type of analysis" style="-fx-background-color: #2D3447; -fx-text-inner-color: white;" />
         <TextField fx:id="tfResult" alignment="CENTER" layoutX="165.0" layoutY="200.0" prefHeight="28.0" prefWidth="271.0" promptText="Result" style="-fx-background-color: #2D3447; -fx-text-inner-color: white;" />
-        <Button layoutX="486.0" layoutY="341.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="100.0" style="-fx-background-color: #151928;" text="Confirm" textFill="#a0a2ab" />
-        <Button layoutX="14.0" layoutY="341.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="100.0" style="-fx-background-color: #151928;" text="Cancel" textFill="#a0a2ab" />
+        <Button layoutX="486.0" layoutY="341.0" mnemonicParsing="false" onAction="#actionConfirm" prefHeight="39.0" prefWidth="100.0" style="-fx-background-color: #151928;" text="Confirm" textFill="#a0a2ab" />
+        <Button layoutX="14.0" layoutY="341.0" mnemonicParsing="false" onAction="#actionCancel" prefHeight="39.0" prefWidth="100.0" style="-fx-background-color: #151928;" text="Cancel" textFill="#a0a2ab" />
     </children>
 </AnchorPane>

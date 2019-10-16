@@ -17,7 +17,7 @@ public class KlasaDAO {
 
     private PreparedStatement dajUserNameUpit, dajEmailUpit, dodajDoktoraUpit, dajPasswordUpit, dajPacijenteUpit, dodajPacijentaUpit, promjeniPacijentaUpit,
             obrisiPacijentaUpit, dajDijagnozeUpit, dodajDijagnozuUpit, promjeniDijagnozuUpit, obrisiDijagnozuUpit,dajDijagnozuUpit, dajHistorijeUpit, dodajHistorijuUpit, dajNajveciIdUpit,
-            obrisiHistorijuUpit, dajNalazeUpit, dodajNalazUpit, dajNajveciId2Upit, obrisiNalazUpit, dajRezultateUpit, dodajRezultatUpit;
+            obrisiHistorijuUpit, dajNalazeUpit, dodajNalazUpit, dajNajveciId2Upit, obrisiNalazUpit, dajRezultateUpit, dodajRezultatUpit, dajNajveciId3Upit;
 
     public static KlasaDAO getInstance() {
         if (instance == null) instance = new KlasaDAO();
@@ -65,6 +65,8 @@ public class KlasaDAO {
             obrisiNalazUpit = conn.prepareStatement("DELETE FROM Nalazi WHERE id=?");
             dajRezultateUpit = conn.prepareStatement("SELECT * FROM Rezultati WHERE report=?");
             dodajRezultatUpit = conn.prepareStatement("INSERT INTO Rezultati VALUES(?,?,?,?,?,?)");
+            dajNajveciId3Upit = conn.prepareStatement("SELECT id FROM Rezultati WHERE id = (SELECT MAX(id) FROM Rezultati)");
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -337,6 +339,18 @@ public class KlasaDAO {
         return rs.getInt(1);
     }
 
+    public int dajNajveciId3() throws SQLException {
+        ResultSet rs = null;
+        try {
+            rs = dajNajveciId3Upit.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        int z = 0;
+        if(!rs.next()) return z;
+        return rs.getInt(1);
+    }
+
     public void obrisiHistoriju(MedicalHistory historija){
         try {
             obrisiHistorijuUpit.setInt(1, historija.getId());
@@ -371,9 +385,9 @@ public class KlasaDAO {
             dodajRezultatUpit.setInt(1, rezultat.getId());
             dodajRezultatUpit.setString(2, rezultat.getSample());
             dodajRezultatUpit.setString(3, rezultat.getTypeOfAnalysis());
-            dodajRezultatUpit.setDouble(1, rezultat.getResult());
-            dodajRezultatUpit.setString(2, rezultat.getNormalValue());
-            dodajRezultatUpit.setInt(3, rezultat.getReport().getId());
+            dodajRezultatUpit.setDouble(4, rezultat.getResult());
+            dodajRezultatUpit.setString(5, rezultat.getNormalValue());
+            dodajRezultatUpit.setInt(6, rezultat.getReport().getId());
             dodajRezultatUpit.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
