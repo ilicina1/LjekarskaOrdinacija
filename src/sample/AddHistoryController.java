@@ -26,6 +26,7 @@ public class AddHistoryController {
         listHistorije = FXCollections.observableArrayList(historije);
         this.pacijent = pacijent;
         dao = KlasaDAO.getInstance();
+        this.historija = historija;
     }
 
     public MedicalHistory getHistorija() {

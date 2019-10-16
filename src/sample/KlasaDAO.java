@@ -17,7 +17,7 @@ public class KlasaDAO {
 
     private PreparedStatement dajUserNameUpit, dajEmailUpit, dodajDoktoraUpit, dajPasswordUpit, dajPacijenteUpit, dodajPacijentaUpit, promjeniPacijentaUpit,
             obrisiPacijentaUpit, dajDijagnozeUpit, dodajDijagnozuUpit, promjeniDijagnozuUpit, obrisiDijagnozuUpit,dajDijagnozuUpit, dajHistorijeUpit, dodajHistorijuUpit, dajNajveciIdUpit,
-            obrisiHistorijuUpit;
+            obrisiHistorijuUpit, dajNalazeUpit, dodajNalazUpit;
 
     public static KlasaDAO getInstance() {
         if (instance == null) instance = new KlasaDAO();
@@ -59,6 +59,8 @@ public class KlasaDAO {
             dodajHistorijuUpit = conn.prepareStatement("INSERT INTO Historija VALUES(?,?,?,?,?,?)");
             dajNajveciIdUpit = conn.prepareStatement("SELECT id FROM Historija WHERE id = (SELECT MAX(id) FROM Historija)");
             obrisiHistorijuUpit = conn.prepareStatement("DELETE FROM Historija WHERE id=?");
+            dajNalazeUpit = conn.prepareStatement("SELECT * FROM Nalazi WHERE pacijent=?");
+            dodajNalazUpit = conn.prepareStatement("INSERT INTO Nalazi VALUES(?,?,?)");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -142,6 +144,11 @@ public class KlasaDAO {
         return historija;
     }
 
+    private MedicalReports dajNalazIzRs(ResultSet rs) throws SQLException {
+        MedicalReports nalaz = new MedicalReports(rs.getInt(1),  LocalDate.parse(rs.getString(2), formatter), null);
+        return nalaz;
+    }
+
     public ArrayList<Patients> pacijenti() {
         ArrayList<Patients> rezultat = new ArrayList();
         try {
@@ -179,6 +186,21 @@ public class KlasaDAO {
             while (rs.next()) {
                 MedicalHistory historija = dajHistorijuIzRs(rs);
                 rezultat.add(historija);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rezultat;
+    }
+
+    public ArrayList<MedicalReports> nalazi(int id) throws SQLException {
+        dajNalazeUpit.setInt(1,id);
+        ArrayList<MedicalReports> rezultat = new ArrayList();
+        try {
+            ResultSet rs = dajNalazeUpit.executeQuery();
+            while (rs.next()) {
+                MedicalReports nalaz = dajNalazIzRs(rs);
+                rezultat.add(nalaz);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -284,6 +306,17 @@ public class KlasaDAO {
         try {
             obrisiHistorijuUpit.setInt(1, historija.getId());
             obrisiHistorijuUpit.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void dodajNalaz(MedicalReports medicalReport) {
+        try {
+            dodajNalazUpit.setInt(1, medicalReport.getId());
+            dodajNalazUpit.setObject(2, medicalReport.getDate());
+            dodajNalazUpit.setInt(3, medicalReport.getPatient().getMedicalRecordNumber());
+            dodajPacijentaUpit.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
