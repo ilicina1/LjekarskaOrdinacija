@@ -57,12 +57,6 @@ public class AddMedicalReportController {
             stage1.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
             stage1.setResizable(false);
             stage1.show();
-            stage1.setOnHiding( event -> {
-                Results noviRezultat = ctrl.getRezultat();
-                if (noviRezultat != null) {
-                    dao.dodajRezultat(noviRezultat);
-                }
-            } );
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SQLException e) {

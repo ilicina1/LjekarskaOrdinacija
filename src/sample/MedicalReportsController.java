@@ -121,4 +121,33 @@ public class MedicalReportsController {
             listMedicalReports.setAll(dao.nalazi(pacijent.getMedicalRecordNumber()));
         }
     }
+
+
+    public void actionResults(ActionEvent actionEvent) throws IOException, SQLException {
+        MedicalReports report = tableViewMedicalReports.getSelectionModel().getSelectedItem();
+        Stage stage = new Stage();
+        Parent root = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/result.fxml"));
+            ResultsController ctrl = new ResultsController(report);
+            loader.setController(ctrl);
+            stage.setTitle("Results");
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        root.translateYProperty().set(-533);
+
+        anchor.getChildren().add(root);
+
+        Timeline timeline = new Timeline();
+        KeyValue kv = new KeyValue(root.translateYProperty(), 0, Interpolator.EASE_IN);
+        KeyFrame kf = new KeyFrame(Duration.seconds(0.45), kv);
+        timeline.getKeyFrames().add(kf);
+        timeline.setOnFinished(t -> {
+            anchor.getChildren().remove(anchor);
+        });
+        timeline.play();
+    }
 }

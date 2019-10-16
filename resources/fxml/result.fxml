@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane fx:id="anchor" prefHeight="533.0" prefWidth="763.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <stylesheets>
+        <URL value="@/css/table.css" />
+    </stylesheets>
+    <children>
+        <TableView fx:id="tableViewResults" layoutX="252.0" layoutY="-1.0" prefHeight="534.0" prefWidth="930.0">
+            <columns>
+                <TableColumn fx:id="colSample" minWidth="0.0" prefWidth="200.0" text="Sample" />
+                <TableColumn fx:id="colTypeOfAnalysis" prefWidth="200.0" text="Type of analysis" />
+            <TableColumn fx:id="colResult" prefWidth="229.0" text="Result" />
+            <TableColumn fx:id="colNormalValue" prefWidth="300.0" text="Normal value" />
+            </columns>
+        </TableView>
+        <Pane layoutX="-6.0" layoutY="-4.0" prefHeight="538.0" prefWidth="261.0" style="-fx-background-color: #2D3447;" />
+        <Button layoutY="200.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="252.0" style="-fx-background-color: #2D3447;" text="Edit" textAlignment="CENTER" textFill="WHITE" />
+        <Button layoutY="256.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="252.0" style="-fx-background-color: #2D3447;" text="Delete" textAlignment="CENTER" textFill="WHITE" />
+        <Button layoutY="312.0" mnemonicParsing="false" onAction="#actionBack" prefHeight="27.0" prefWidth="252.0" style="-fx-background-color: #2D3447;" text="Back" textAlignment="CENTER" textFill="WHITE" />
+    </children>
+</AnchorPane>

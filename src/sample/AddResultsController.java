@@ -92,7 +92,10 @@ public class AddResultsController {
     }
 
     public void actionConfirm(ActionEvent actionEvent) throws SQLException {
+        rezultat = null;
+
         rezultat = new Results(dao.dajNajveciId3() + 1 , tfSample.getText(), tfTypeOfAnalysis.getText(), Double.parseDouble(tfResult.getText()), tfNormalValue.getText(), report);
+        dao.dodajRezultat(rezultat);
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("");
         alert.setHeaderText("You have successfully added the result!");
