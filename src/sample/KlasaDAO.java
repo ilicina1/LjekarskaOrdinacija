@@ -17,7 +17,7 @@ public class KlasaDAO {
 
     private PreparedStatement dajUserNameUpit, dajEmailUpit, dodajDoktoraUpit, dajPasswordUpit, dajPacijenteUpit, dodajPacijentaUpit, promjeniPacijentaUpit,
             obrisiPacijentaUpit, dajDijagnozeUpit, dodajDijagnozuUpit, promjeniDijagnozuUpit, obrisiDijagnozuUpit,dajDijagnozuUpit, dajHistorijeUpit, dodajHistorijuUpit, dajNajveciIdUpit,
-            obrisiHistorijuUpit, dajNalazeUpit, dodajNalazUpit, dajNajveciId2Upit, obrisiNalazUpit;
+            obrisiHistorijuUpit, dajNalazeUpit, dodajNalazUpit, dajNajveciId2Upit, obrisiNalazUpit, dajRezultateUpit, dodajRezultatUpit;
 
     public static KlasaDAO getInstance() {
         if (instance == null) instance = new KlasaDAO();
@@ -63,6 +63,8 @@ public class KlasaDAO {
             dodajNalazUpit = conn.prepareStatement("INSERT INTO Nalazi VALUES(?,?,?)");
             dajNajveciId2Upit = conn.prepareStatement("SELECT id FROM Nalazi WHERE id = (SELECT MAX(id) FROM Nalazi)");
             obrisiNalazUpit = conn.prepareStatement("DELETE FROM Nalazi WHERE id=?");
+            dajRezultateUpit = conn.prepareStatement("SELECT * FROM Rezultati WHERE report=?");
+            dodajRezultatUpit = conn.prepareStatement("INSERT INTO Rezultati VALUES(?,?,?,?,?,?)");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -151,6 +153,11 @@ public class KlasaDAO {
         return nalaz;
     }
 
+    private Results dajRezultatIzRs(ResultSet rs) throws SQLException {
+        Results rezultat = new Results(rs.getInt(1),  rs.getString(2), rs.getString(3), rs.getDouble(4), rs.getString(5), null);
+        return rezultat;
+    }
+
     public ArrayList<Patients> pacijenti() {
         ArrayList<Patients> rezultat = new ArrayList();
         try {
@@ -208,6 +215,21 @@ public class KlasaDAO {
             e.printStackTrace();
         }
         return rezultat;
+    }
+
+    public ArrayList<Results> rezultati(int id) throws SQLException {
+        dajRezultateUpit.setInt(1,id);
+        ArrayList<Results> rezultati = new ArrayList();
+        try {
+            ResultSet rs = dajRezultateUpit.executeQuery();
+            while (rs.next()) {
+                Results rezultat = dajRezultatIzRs(rs);
+                rezultati.add(rezultat);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rezultati;
     }
 
     public void izmijeniPacijenta(Patients pacijent){
@@ -339,6 +361,20 @@ public class KlasaDAO {
         try {
             obrisiNalazUpit.setInt(1, nalaz.getId());
             obrisiNalazUpit.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void dodajRezultat(Results rezultat) {
+        try {
+            dodajRezultatUpit.setInt(1, rezultat.getId());
+            dodajRezultatUpit.setString(2, rezultat.getSample());
+            dodajRezultatUpit.setString(3, rezultat.getTypeOfAnalysis());
+            dodajRezultatUpit.setDouble(1, rezultat.getResult());
+            dodajRezultatUpit.setString(2, rezultat.getNormalValue());
+            dodajRezultatUpit.setInt(3, rezultat.getReport().getId());
+            dodajRezultatUpit.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
