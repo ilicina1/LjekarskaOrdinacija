@@ -17,7 +17,7 @@ public class KlasaDAO {
 
     private PreparedStatement dajUserNameUpit, dajEmailUpit, dodajDoktoraUpit, dajPasswordUpit, dajPacijenteUpit, dodajPacijentaUpit, promjeniPacijentaUpit,
             obrisiPacijentaUpit, dajDijagnozeUpit, dodajDijagnozuUpit, promjeniDijagnozuUpit, obrisiDijagnozuUpit,dajDijagnozuUpit, dajHistorijeUpit, dodajHistorijuUpit, dajNajveciIdUpit,
-            obrisiHistorijuUpit, dajNalazeUpit, dodajNalazUpit;
+            obrisiHistorijuUpit, dajNalazeUpit, dodajNalazUpit, dajNajveciId2Upit;
 
     public static KlasaDAO getInstance() {
         if (instance == null) instance = new KlasaDAO();
@@ -61,6 +61,7 @@ public class KlasaDAO {
             obrisiHistorijuUpit = conn.prepareStatement("DELETE FROM Historija WHERE id=?");
             dajNalazeUpit = conn.prepareStatement("SELECT * FROM Nalazi WHERE pacijent=?");
             dodajNalazUpit = conn.prepareStatement("INSERT INTO Nalazi VALUES(?,?,?)");
+            dajNajveciId2Upit = conn.prepareStatement("SELECT id FROM Nalazi WHERE id = (SELECT MAX(id) FROM Nalazi)");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -295,6 +296,17 @@ public class KlasaDAO {
         ResultSet rs = null;
         try {
             rs = dajNajveciIdUpit.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        ;
+        return rs.getInt(1);
+    }
+
+    public int dajNajveciId2() throws SQLException {
+        ResultSet rs = null;
+        try {
+            rs = dajNajveciId2Upit.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }
