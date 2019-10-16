@@ -1,4 +1,12 @@
 BEGIN TRANSACTION;
+CREATE TABLE IF NOT EXISTS "Rezultati" (
+	"id"	INTEGER PRIMARY KEY AUTOINCREMENT,
+	"sample"	TEXT,
+	"type_of_analysis"	TEXT,
+	"result"	REAL,
+	"normal_value"	TEXT,
+	"report"	INTEGER
+);
 CREATE TABLE IF NOT EXISTS "Nalazi" (
 	"id"	INTEGER PRIMARY KEY AUTOINCREMENT,
 	"date"	TEXT,
@@ -36,7 +44,6 @@ CREATE TABLE IF NOT EXISTS "Pacijenti" (
 	"address"	TEXT,
 	"birth_date"	TEXT
 );
-INSERT INTO "Nalazi" VALUES (1,'2010-03-19',123);
 INSERT INTO "Historija" VALUES (1,'Cafetin','Heart attacks','Nicotine','Asthma',123);
 INSERT INTO "Historija" VALUES (2,'Dexomen','Heart attack','No','No',123);
 INSERT INTO "Dijagnoze" VALUES (1,'Poremecaj posteljice',123);
