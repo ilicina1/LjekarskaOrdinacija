@@ -130,7 +130,7 @@ public class MedicalReportsController {
         Parent root = null;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/result.fxml"));
-            ResultsController ctrl = new ResultsController(report);
+            ResultsController ctrl = new ResultsController(report, pacijent);
             loader.setController(ctrl);
             stage.setTitle("Results");
             root = loader.load();

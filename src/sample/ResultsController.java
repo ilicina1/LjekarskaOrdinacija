@@ -34,14 +34,16 @@ public class ResultsController {
     public TableColumn colNormalValue;
     public AnchorPane anchor;
 
+    public Patients pacijent;
     public KlasaDAO dao;
     public MedicalReports report;
     private ObservableList<Results> listResults;
 
-    public ResultsController(MedicalReports report) throws SQLException {
+    public ResultsController(MedicalReports report, Patients pacijent) throws SQLException {
         dao = KlasaDAO.getInstance();
         this.report = report;
         listResults = FXCollections.observableArrayList(dao.rezultati(report.getId()));
+        this.pacijent = pacijent;
     }
 
     @FXML
@@ -54,15 +56,15 @@ public class ResultsController {
 
     }
 
-    public void actionBack(ActionEvent actionEvent) {
+    public void actionBack(ActionEvent actionEvent) throws SQLException {
         Stage stage = new Stage();
         Parent root = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/patients.fxml"));
-            PatientsController ctrl = new PatientsController();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/medicalReports.fxml"));
+            MedicalReportsController ctrl = new MedicalReportsController(pacijent);
             loader.setController(ctrl);
             root = loader.load();
-            stage.setTitle("Patients");
+            stage.setTitle("Medical Reports");
         } catch (IOException e) {
             e.printStackTrace();
         }
