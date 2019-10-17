@@ -41,7 +41,6 @@ public class PatientsController {
 
     public KlasaDAO dao;
     private ObservableList<Patients> listPacijenti;
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public PatientsController() {
         dao = KlasaDAO.getInstance();
@@ -193,6 +192,33 @@ public class PatientsController {
             MedicalReportsController ctrl = new MedicalReportsController(pacijent);
             loader.setController(ctrl);
             stage.setTitle("Medical Findings");
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        root.translateYProperty().set(-533);
+
+        anchor.getChildren().add(root);
+
+        Timeline timeline = new Timeline();
+        KeyValue kv = new KeyValue(root.translateYProperty(), 0, Interpolator.EASE_IN);
+        KeyFrame kf = new KeyFrame(Duration.seconds(0.45), kv);
+        timeline.getKeyFrames().add(kf);
+        timeline.setOnFinished(t -> {
+            anchor.getChildren().remove(anchor);
+        });
+        timeline.play();
+    }
+
+    public void actionAppointments(ActionEvent actionEvent) throws IOException, SQLException {
+        Stage stage = new Stage();
+        Parent root = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/appointments.fxml"));
+            AppointmentsController ctrl = new AppointmentsController();
+            loader.setController(ctrl);
+            stage.setTitle("Appointments");
             root = loader.load();
         } catch (IOException e) {
             e.printStackTrace();

@@ -18,7 +18,7 @@ public class KlasaDAO {
     private PreparedStatement dajUserNameUpit, dajEmailUpit, dodajDoktoraUpit, dajPasswordUpit, dajPacijenteUpit, dodajPacijentaUpit, promjeniPacijentaUpit,
             obrisiPacijentaUpit, dajDijagnozeUpit, dodajDijagnozuUpit, promjeniDijagnozuUpit, obrisiDijagnozuUpit,dajDijagnozuUpit, dajHistorijeUpit, dodajHistorijuUpit, dajNajveciIdUpit,
             obrisiHistorijuUpit, dajNalazeUpit, dodajNalazUpit, dajNajveciId2Upit, obrisiNalazUpit, dajRezultateUpit, dodajRezultatUpit, dajNajveciId3Upit, obrisiRezultatUpit,
-            obrisiSveRezultateUpit, promjeniRezultatUpit, obrisiSveDijagnozeUpit, obrisiSveHistorijeUpit, obrisiSveNalazeUpit, obrisiSveRezultatePrekoPacijentaUpit;
+            obrisiSveRezultateUpit, promjeniRezultatUpit, obrisiSveDijagnozeUpit, obrisiSveHistorijeUpit, obrisiSveNalazeUpit, obrisiSveRezultatePrekoPacijentaUpit, dajAppointmentsUpit;
 
     public static KlasaDAO getInstance() {
         if (instance == null) instance = new KlasaDAO();
@@ -74,6 +74,7 @@ public class KlasaDAO {
             obrisiSveHistorijeUpit = conn.prepareStatement("DELETE FROM Historija WHERE pacijent=?");
             obrisiSveNalazeUpit = conn.prepareStatement("DELETE FROM Nalazi WHERE pacijent=?");
             obrisiSveRezultatePrekoPacijentaUpit = conn.prepareStatement("DELETE FROM Rezultati WHERE report = (SELECT id FROM Nalazi WHERE pacijent=?)");
+            dajAppointmentsUpit = conn.prepareStatement(("SELECT * FROM Appointments"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -167,6 +168,12 @@ public class KlasaDAO {
         return rezultat;
     }
 
+
+    private Appointments dajAppointmentsIzRs(ResultSet rs) throws SQLException {
+        Appointments appointment = new Appointments(rs.getInt(1),  rs.getString(2), rs.getString(3), rs.getString(4), LocalDate.parse(rs.getString(5), formatter));
+        return appointment;
+    }
+
     public ArrayList<Patients> pacijenti() {
         ArrayList<Patients> rezultat = new ArrayList();
         try {
@@ -239,6 +246,20 @@ public class KlasaDAO {
             e.printStackTrace();
         }
         return rezultati;
+    }
+
+    public ArrayList<Appointments> appointments() {
+        ArrayList<Appointments> rezultat = new ArrayList();
+        try {
+            ResultSet rs = dajAppointmentsUpit.executeQuery();
+            while (rs.next()) {
+                Appointments najava = dajAppointmentsIzRs(rs);
+                rezultat.add(najava);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rezultat;
     }
 
     public void izmijeniPacijenta(Patients pacijent){
