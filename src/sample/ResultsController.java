@@ -10,6 +10,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -19,6 +22,9 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Optional;
+
+import static javafx.scene.layout.Region.USE_PREF_SIZE;
 
 public class ResultsController {
     public TableView<Results> tableViewResults;
@@ -74,4 +80,47 @@ public class ResultsController {
         });
         timeline.play();
     }
+
+    public void actionDelete(ActionEvent actionEvent) throws SQLException {
+        Results rezultat = tableViewResults.getSelectionModel().getSelectedItem();
+
+        if (rezultat == null) return;
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("");
+        alert.setHeaderText("Deleting a result " + rezultat.getId());
+        alert.setContentText("Are you sure you want to delete result " + rezultat.getId()+"?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            dao.obrisiRezultat(rezultat);
+            listResults.setAll(dao.rezultati(report.getId()));
+        }
+    }
+
+    public void actionEdit(ActionEvent actionEvent) throws IOException, SQLException {
+        Results rezultat = tableViewResults.getSelectionModel().getSelectedItem();
+        if (rezultat == null) return;
+        Stage stage = new Stage();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/addResults.fxml"));
+            EditResultController ctrl = new EditResultController(rezultat, report);
+            loader.setController(ctrl);
+            Parent root = loader.load();
+            stage.setTitle("Edit result");
+            stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
+            stage.setResizable(false);
+            stage.show();
+            stage.setOnHiding( event -> {
+                try {
+                    listResults.setAll(dao.rezultati(report.getId()));
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

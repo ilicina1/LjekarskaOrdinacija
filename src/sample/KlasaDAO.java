@@ -18,7 +18,7 @@ public class KlasaDAO {
     private PreparedStatement dajUserNameUpit, dajEmailUpit, dodajDoktoraUpit, dajPasswordUpit, dajPacijenteUpit, dodajPacijentaUpit, promjeniPacijentaUpit,
             obrisiPacijentaUpit, dajDijagnozeUpit, dodajDijagnozuUpit, promjeniDijagnozuUpit, obrisiDijagnozuUpit,dajDijagnozuUpit, dajHistorijeUpit, dodajHistorijuUpit, dajNajveciIdUpit,
             obrisiHistorijuUpit, dajNalazeUpit, dodajNalazUpit, dajNajveciId2Upit, obrisiNalazUpit, dajRezultateUpit, dodajRezultatUpit, dajNajveciId3Upit, obrisiRezultatUpit,
-            obrisiSveRezultateUpit;
+            obrisiSveRezultateUpit, promjeniRezultatUpit;
 
     public static KlasaDAO getInstance() {
         if (instance == null) instance = new KlasaDAO();
@@ -69,6 +69,8 @@ public class KlasaDAO {
             dajNajveciId3Upit = conn.prepareStatement("SELECT id FROM Rezultati WHERE id = (SELECT MAX(id) FROM Rezultati)");
             obrisiRezultatUpit = conn.prepareStatement("DELETE FROM Rezultati WHERE id=?");
             obrisiSveRezultateUpit = conn.prepareStatement("DELETE FROM Rezultati WHERE report=?");
+            promjeniRezultatUpit = conn.prepareStatement("UPDATE Rezultati SET sample=?, type_of_analysis=?, result=?, normal_value=? WHERE id=?");
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -409,6 +411,19 @@ public class KlasaDAO {
         try {
             obrisiSveRezultateUpit.setInt(1, nalaz.getId());
             obrisiSveRezultateUpit.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void izmijeniRezultat(Results rezultat){
+        try {
+            promjeniRezultatUpit.setString(1, rezultat.getSample());
+            promjeniRezultatUpit.setString(2, rezultat.getTypeOfAnalysis());
+            promjeniRezultatUpit.setDouble(3, rezultat.getResult());
+            promjeniRezultatUpit.setString(4, rezultat.getNormalValue());
+            promjeniRezultatUpit.setInt(5, rezultat.getId());
+            promjeniRezultatUpit.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }

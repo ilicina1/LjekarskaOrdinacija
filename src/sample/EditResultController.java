@@ -4,23 +4,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Optional;
 
-import static javafx.scene.layout.Region.USE_PREF_SIZE;
-
-public class AddResultsController {
+public class EditResultController {
     public TextField tfSample;
     public TextField tfTypeOfAnalysis;
     public TextField tfResult;
@@ -28,18 +18,21 @@ public class AddResultsController {
 
     public KlasaDAO dao;
     public Results rezultat;
-    private ObservableList<Results> listResults;
     public MedicalReports report;
+    private ObservableList<Results> listResults;
 
-
-    public AddResultsController(ArrayList<Results> rezultati, MedicalReports report) {
-        listResults = FXCollections.observableArrayList(rezultati);
+    public EditResultController(Results rezultat, MedicalReports report) {
         dao = KlasaDAO.getInstance();
+        this.rezultat = rezultat;
         this.report = report;
     }
 
     @FXML
     public void initialize() {
+        tfSample.setText(rezultat.getSample());
+        tfTypeOfAnalysis.setText(rezultat.getTypeOfAnalysis());
+        tfResult.setText(Double.toString(rezultat.getResult()));
+        tfNormalValue.setText(rezultat.getNormalValue());
         tfSample.textProperty().addListener((obs, oldIme, newIme) -> {
             if (newIme.length() < 5) {
                 tfSample.getStyleClass().removeAll("poljeNijeIspravno");
@@ -81,39 +74,21 @@ public class AddResultsController {
         });
     }
 
-    public Results getRezultat() {
-        return rezultat;
+    public void actionConfirm(ActionEvent actionEvent) throws SQLException {
+        rezultat = new Results(rezultat.getId() , tfSample.getText(), tfTypeOfAnalysis.getText(), Double.parseDouble(tfResult.getText()), tfNormalValue.getText(), report);
+        dao.izmijeniRezultat(rezultat);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText("You have successfully edited the result!");
+        alert.showAndWait();
+        Stage stage = (Stage) tfSample.getScene().getWindow();
+        stage.close();
     }
 
     public void actionCancel(ActionEvent actionEvent) {
         Stage stage = (Stage) tfSample.getScene().getWindow();
         stage.close();
-    }
-
-    public void actionConfirm(ActionEvent actionEvent) throws SQLException {
-        rezultat = null;
-
-        rezultat = new Results(dao.dajNajveciId3() + 1 , tfSample.getText(), tfTypeOfAnalysis.getText(), Double.parseDouble(tfResult.getText()), tfNormalValue.getText(), report);
-        dao.dodajRezultat(rezultat);
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("");
-        alert.setHeaderText("You have successfully added the result!");
-        alert.setContentText("Would you like to add another one? \n Press OK if you do!");
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK){
-            tfSample.setText("");
-            tfTypeOfAnalysis.setText("");
-            tfResult.setText("");
-            tfNormalValue.setText("");
-            tfSample.getStyleClass().removeAll("poljeNijeIspravno");
-            tfSample.getStyleClass().removeAll("poljeIspravno");
-            tfTypeOfAnalysis.getStyleClass().removeAll("poljeNijeIspravno");
-            tfTypeOfAnalysis.getStyleClass().removeAll("poljeIspravno");
-            tfResult.getStyleClass().removeAll("poljeNijeIspravno");
-            tfResult.getStyleClass().removeAll("poljeIspravno");
-            tfNormalValue.getStyleClass().removeAll("poljeNijeIspravno");
-            tfNormalValue.getStyleClass().removeAll("poljeIspravno");
-        }
     }
 
     public boolean validateResult(String str){
