@@ -106,6 +106,14 @@ public class AddResultsController {
             tfTypeOfAnalysis.setText("");
             tfResult.setText("");
             tfNormalValue.setText("");
+            tfSample.getStyleClass().removeAll("poljeNijeIspravno");
+            tfSample.getStyleClass().removeAll("poljeIspravno");
+            tfTypeOfAnalysis.getStyleClass().removeAll("poljeNijeIspravno");
+            tfTypeOfAnalysis.getStyleClass().removeAll("poljeIspravno");
+            tfResult.getStyleClass().removeAll("poljeNijeIspravno");
+            tfResult.getStyleClass().removeAll("poljeIspravno");
+            tfNormalValue.getStyleClass().removeAll("poljeNijeIspravno");
+            tfNormalValue.getStyleClass().removeAll("poljeIspravno");
         }
     }
 

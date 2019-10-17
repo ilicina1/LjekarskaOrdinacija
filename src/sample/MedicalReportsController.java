@@ -118,6 +118,7 @@ public class MedicalReportsController {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
             dao.obrisiNalaz(nalaz);
+            dao.obrisiSveRezultate(nalaz);
             listMedicalReports.setAll(dao.nalazi(pacijent.getMedicalRecordNumber()));
         }
     }
