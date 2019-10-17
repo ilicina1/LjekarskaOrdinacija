@@ -120,6 +120,10 @@ public class PatientsController {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
             dao.obrisiPacijenta(pacijent);
+//            dao.obrisiSveDijagnoze(pacijent);
+//            dao.obrisiSveHistorije(pacijent);
+//            dao.obrisiSveNalaze(pacijent);
+
             listPacijenti.setAll(dao.pacijenti());
         }
     }

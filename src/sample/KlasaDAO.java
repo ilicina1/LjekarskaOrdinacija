@@ -18,7 +18,7 @@ public class KlasaDAO {
     private PreparedStatement dajUserNameUpit, dajEmailUpit, dodajDoktoraUpit, dajPasswordUpit, dajPacijenteUpit, dodajPacijentaUpit, promjeniPacijentaUpit,
             obrisiPacijentaUpit, dajDijagnozeUpit, dodajDijagnozuUpit, promjeniDijagnozuUpit, obrisiDijagnozuUpit,dajDijagnozuUpit, dajHistorijeUpit, dodajHistorijuUpit, dajNajveciIdUpit,
             obrisiHistorijuUpit, dajNalazeUpit, dodajNalazUpit, dajNajveciId2Upit, obrisiNalazUpit, dajRezultateUpit, dodajRezultatUpit, dajNajveciId3Upit, obrisiRezultatUpit,
-            obrisiSveRezultateUpit, promjeniRezultatUpit;
+            obrisiSveRezultateUpit, promjeniRezultatUpit, obrisiSveDijagnozeUpit, obrisiSveHistorijeUpit, obrisiSveNalazeUpit, obrisiSveRezultatePrekoPacijentaUpit;
 
     public static KlasaDAO getInstance() {
         if (instance == null) instance = new KlasaDAO();
@@ -70,7 +70,10 @@ public class KlasaDAO {
             obrisiRezultatUpit = conn.prepareStatement("DELETE FROM Rezultati WHERE id=?");
             obrisiSveRezultateUpit = conn.prepareStatement("DELETE FROM Rezultati WHERE report=?");
             promjeniRezultatUpit = conn.prepareStatement("UPDATE Rezultati SET sample=?, type_of_analysis=?, result=?, normal_value=? WHERE id=?");
-
+            obrisiSveDijagnozeUpit = conn.prepareStatement("DELETE FROM Dijagnoze WHERE pacijent=?");
+            obrisiSveHistorijeUpit = conn.prepareStatement("DELETE FROM Historija WHERE pacijent=?");
+            obrisiSveNalazeUpit = conn.prepareStatement("DELETE FROM Nalazi WHERE pacijent=?");
+            obrisiSveRezultatePrekoPacijentaUpit = conn.prepareStatement("DELETE FROM Rezultati WHERE report = (SELECT id FROM Nalazi WHERE pacijent=?)");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -270,6 +273,10 @@ public class KlasaDAO {
     public void obrisiPacijenta(Patients pacijent){
         try {
             obrisiPacijentaUpit.setInt(1, pacijent.getMedicalRecordNumber());
+            instance.obrisiSveDijagnoze(pacijent);
+            instance.obrisiSveHistorije(pacijent);
+            instance.obrisiSveRezultatePrekoPacijenta(pacijent);
+            instance.obrisiSveNalaze(pacijent);
             obrisiPacijentaUpit.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -424,6 +431,42 @@ public class KlasaDAO {
             promjeniRezultatUpit.setString(4, rezultat.getNormalValue());
             promjeniRezultatUpit.setInt(5, rezultat.getId());
             promjeniRezultatUpit.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void obrisiSveDijagnoze(Patients pacijent){
+        try {
+            obrisiSveDijagnozeUpit.setInt(1, pacijent.getMedicalRecordNumber());
+            obrisiSveDijagnozeUpit.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void obrisiSveHistorije(Patients pacijent){
+        try {
+            obrisiSveHistorijeUpit.setInt(1, pacijent.getMedicalRecordNumber());
+            obrisiSveHistorijeUpit.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void obrisiSveNalaze(Patients pacijent){
+        try {
+            obrisiSveNalazeUpit.setInt(1, pacijent.getMedicalRecordNumber());
+            obrisiSveNalazeUpit.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void obrisiSveRezultatePrekoPacijenta(Patients pacijent){
+        try {
+            obrisiSveRezultatePrekoPacijentaUpit.setInt(1, pacijent.getMedicalRecordNumber());
+            obrisiSveRezultatePrekoPacijentaUpit.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
