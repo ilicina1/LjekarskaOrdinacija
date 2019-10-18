@@ -28,12 +28,12 @@ import static javafx.scene.layout.Region.USE_PREF_SIZE;
 
 public class MedicalReportsController {
     public AnchorPane anchor;
-    public Patients pacijent;
     public TableView<MedicalReports> tableViewMedicalReports;
     public TableColumn colId;
     public TableColumn colDate;
 
     public KlasaDAO dao;
+    public Patients pacijent;
     private ObservableList<MedicalReports> listMedicalReports;
 
     public MedicalReportsController(Patients pacijent) throws SQLException {

@@ -237,4 +237,32 @@ public class PatientsController {
         });
         timeline.play();
     }
+
+    public void actionXrays(ActionEvent actionEvent) throws IOException, SQLException {
+        Patients pacijent = tableViewPacijenti.getSelectionModel().getSelectedItem();
+        Stage stage = new Stage();
+        Parent root = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/xrays.fxml"));
+            XraysController ctrl = new XraysController(pacijent);
+            loader.setController(ctrl);
+            stage.setTitle("X-rays");
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        root.translateYProperty().set(-533);
+
+        anchor.getChildren().add(root);
+
+        Timeline timeline = new Timeline();
+        KeyValue kv = new KeyValue(root.translateYProperty(), 0, Interpolator.EASE_IN);
+        KeyFrame kf = new KeyFrame(Duration.seconds(0.45), kv);
+        timeline.getKeyFrames().add(kf);
+        timeline.setOnFinished(t -> {
+            anchor.getChildren().remove(anchor);
+        });
+        timeline.play();
+    }
 }
