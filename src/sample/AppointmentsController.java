@@ -10,6 +10,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -18,7 +20,9 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Optional;
 
 public class AppointmentsController {
     public TableView<Appointments> tableViewAppointments;
@@ -75,12 +79,33 @@ public class AppointmentsController {
         timeline.play();
     }
 
+    public void actionDelete(ActionEvent actionEvent) throws SQLException {
+        Appointments appointment = tableViewAppointments.getSelectionModel().getSelectedItem();
+
+        if (appointment == null) return;
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("");
+        alert.setHeaderText("Deleting an appointment " + appointment.getId());
+        alert.setContentText("Are you sure you want to delete the appointment " + appointment.getId()+"?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            dao.obrisiAppointment(appointment);
+            listAppointmentsFinal.setAll(dao.appointments());
+        }
+    }
+
+
     public ObservableList<Appointments> inputTodaysAppointments(ObservableList<Appointments> listAppointments){
         LocalDate today = LocalDate.now();
         ObservableList<Appointments> result = FXCollections.observableArrayList();
         for(int i = 0; i < listAppointments.size(); i++){
             if(today.isEqual(listAppointments.get(i).getDate())){
                 result.add(listAppointments.get(i));
+            }
+            if(today.isAfter(listAppointments.get(i).getDate())){
+                dao.obrisiAppointment(listAppointments.get(i));
             }
         }
         return result;

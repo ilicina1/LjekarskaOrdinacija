@@ -18,7 +18,8 @@ public class KlasaDAO {
     private PreparedStatement dajUserNameUpit, dajEmailUpit, dodajDoktoraUpit, dajPasswordUpit, dajPacijenteUpit, dodajPacijentaUpit, promjeniPacijentaUpit,
             obrisiPacijentaUpit, dajDijagnozeUpit, dodajDijagnozuUpit, promjeniDijagnozuUpit, obrisiDijagnozuUpit,dajDijagnozuUpit, dajHistorijeUpit, dodajHistorijuUpit, dajNajveciIdUpit,
             obrisiHistorijuUpit, dajNalazeUpit, dodajNalazUpit, dajNajveciId2Upit, obrisiNalazUpit, dajRezultateUpit, dodajRezultatUpit, dajNajveciId3Upit, obrisiRezultatUpit,
-            obrisiSveRezultateUpit, promjeniRezultatUpit, obrisiSveDijagnozeUpit, obrisiSveHistorijeUpit, obrisiSveNalazeUpit, obrisiSveRezultatePrekoPacijentaUpit, dajAppointmentsUpit;
+            obrisiSveRezultateUpit, promjeniRezultatUpit, obrisiSveDijagnozeUpit, obrisiSveHistorijeUpit, obrisiSveNalazeUpit, obrisiSveRezultatePrekoPacijentaUpit, dajAppointmentsUpit,
+            obrisiAppointmentUpit;
 
     public static KlasaDAO getInstance() {
         if (instance == null) instance = new KlasaDAO();
@@ -75,6 +76,7 @@ public class KlasaDAO {
             obrisiSveNalazeUpit = conn.prepareStatement("DELETE FROM Nalazi WHERE pacijent=?");
             obrisiSveRezultatePrekoPacijentaUpit = conn.prepareStatement("DELETE FROM Rezultati WHERE report = (SELECT id FROM Nalazi WHERE pacijent=?)");
             dajAppointmentsUpit = conn.prepareStatement(("SELECT * FROM Appointments"));
+            obrisiAppointmentUpit = conn.prepareStatement("DELETE FROM Appointments WHERE id=?");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -488,6 +490,15 @@ public class KlasaDAO {
         try {
             obrisiSveRezultatePrekoPacijentaUpit.setInt(1, pacijent.getMedicalRecordNumber());
             obrisiSveRezultatePrekoPacijentaUpit.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void obrisiAppointment(Appointments appointment){
+        try {
+            obrisiAppointmentUpit.setInt(1, appointment.getId());
+            obrisiAppointmentUpit.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }

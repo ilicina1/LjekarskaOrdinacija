@@ -112,8 +112,8 @@ public class MedicalReportsController {
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("");
-        alert.setHeaderText("Brisanje dijagnoze " + nalaz.getId());
-        alert.setContentText("Da li ste sigurni da želite obrisati dijagnozu " + nalaz.getId()+"?");
+        alert.setHeaderText("Brisanje nalaza " + nalaz.getId());
+        alert.setContentText("Da li ste sigurni da želite obrisati nalaz " + nalaz.getId()+"?");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
