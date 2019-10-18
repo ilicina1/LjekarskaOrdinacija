@@ -80,7 +80,7 @@ public class MedicalReportsController {
         Stage stage = new Stage();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/addReport.fxml"));
-            AddMedicalReportController ctrl = new AddMedicalReportController(dao.nalazi(pacijent.getMedicalRecordNumber()), pacijent);
+            AddMedicalReportController ctrl = new AddMedicalReportController(pacijent);
             loader.setController(ctrl);
             Parent root = loader.load();
             stage.setTitle("Create medical report");

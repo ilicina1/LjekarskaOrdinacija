@@ -23,7 +23,7 @@ public class AddMedicalReportController {
     public MedicalReports report;
     public Patients pacijent;
 
-    public AddMedicalReportController(ArrayList<MedicalReports> medicalReports, Patients pacijent) throws SQLException {
+    public AddMedicalReportController(Patients pacijent) throws SQLException {
         this.pacijent = pacijent;
         dao = KlasaDAO.getInstance();
     }
@@ -50,7 +50,7 @@ public class AddMedicalReportController {
         Stage stage1 = new Stage();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/addResults.fxml"));
-            AddResultsController ctrl = new AddResultsController(dao.rezultati(report.getId()), report);
+            AddResultsController ctrl = new AddResultsController(report);
             loader.setController(ctrl);
             Parent root = loader.load();
             stage1.setTitle("Add results!");
@@ -58,8 +58,6 @@ public class AddMedicalReportController {
             stage1.setResizable(false);
             stage1.show();
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

@@ -95,9 +95,7 @@ public class AppointmentsController {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
             dao.obrisiAppointment(appointment);
-           // listAppointmentsFinal.setAll(dao.appointments());
             listAppointments = FXCollections.observableArrayList(dao.appointments());
-          //  listAppointmentsFinal = inputTodaysAppointments(listAppointments);
             listAppointmentsFinal.setAll(inputTodaysAppointments(listAppointments));
         }
     }
@@ -114,21 +112,8 @@ public class AppointmentsController {
             stage.setResizable(false);
             stage.show();
            stage.setOnHiding( event -> {
-//                Appointments newAppointment = ctrl.getAppointment();
-//                if (newAppointment != null) {
-//                    dao.dodajAppointment(newAppointment);
-//                    listAppointments = FXCollections.observableArrayList(dao.appointments());
-//                    listAppointmentsFinal = inputTodaysAppointments(listAppointments);
-
-
-//                    listAppointmentsFinal.setAll(dao.appointments());
-//                    tableViewAppointments.refresh();
-
                listAppointments = FXCollections.observableArrayList(dao.appointments());
-//               listAppointmentsFinal = inputTodaysAppointments(listAppointments);
                listAppointmentsFinal.setAll(inputTodaysAppointments(listAppointments));
-
-//                }
            } );
         } catch (IOException e) {
             e.printStackTrace();

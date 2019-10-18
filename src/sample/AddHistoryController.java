@@ -22,8 +22,7 @@ public class AddHistoryController {
     private ObservableList<MedicalHistory> listHistorije;
     public Patients pacijent;
 
-    public AddHistoryController(ArrayList<MedicalHistory> historije, Patients pacijent) {
-        listHistorije = FXCollections.observableArrayList(historije);
+    public AddHistoryController(Patients pacijent) {
         this.pacijent = pacijent;
         dao = KlasaDAO.getInstance();
     }

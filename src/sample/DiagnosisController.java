@@ -19,12 +19,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Optional;
-import java.util.SimpleTimeZone;
 
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
 
@@ -81,7 +78,7 @@ public class DiagnosisController {
         Stage stage = new Stage();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dodajDijagnozu.fxml"));
-            DodajDijagnozuController ctrl = new DodajDijagnozuController(null, dao.dijagnoze(pacijent.getMedicalRecordNumber()), pacijent);
+            DodajDijagnozuController ctrl = new DodajDijagnozuController(null, pacijent);
             loader.setController(ctrl);
             Parent root = loader.load();
             stage.setTitle("New diagnosis");
@@ -101,39 +98,8 @@ public class DiagnosisController {
             } );
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
-
-//    public void actionEdit(ActionEvent actionEvent) throws IOException, SQLException {
-//        Diagnosis dijagnoza = tableViewDiagnosis.getSelectionModel().getSelectedItem();
-//        if (dijagnoza == null) return;
-//        Stage stage = new Stage();
-//        try {
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dodajDijagnozu.fxml"));
-//            DodajDijagnozuController ctrl = new DodajDijagnozuController(dijagnoza, dao.dijagnoze(pacijent.getMedicalRecordNumber()), pacijent);
-//            loader.setController(ctrl);
-//            Parent root = loader.load();
-//            stage.setTitle("Edit diagnosis");
-//            stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
-//            stage.setResizable(false);
-//            stage.show();
-//            stage.setOnHiding( event -> {
-//                Diagnosis novaDijagnoza= ctrl.getDijagnoza();
-//                if (novaDijagnoza != null) {
-//                    dao.izmijeniDijagnozu(novaDijagnoza);
-//                    try {
-//                        listDiagnoses.setAll(dao.dijagnoze(pacijent.getMedicalRecordNumber()));
-//                    } catch (SQLException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            } );
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     public void actionDelete(ActionEvent actionEvent) throws SQLException {
         Diagnosis dijagnoza = tableViewDiagnosis.getSelectionModel().getSelectedItem();

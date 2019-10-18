@@ -33,8 +33,7 @@ public class AddResultsController {
     public MedicalReports report;
 
 
-    public AddResultsController(ArrayList<Results> rezultati, MedicalReports report) {
-        listResults = FXCollections.observableArrayList(rezultati);
+    public AddResultsController(MedicalReports report) {
         dao = KlasaDAO.getInstance();
         this.report = report;
     }

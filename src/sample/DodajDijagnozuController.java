@@ -16,13 +16,11 @@ public class DodajDijagnozuController {
     public TextField tfId;
     public TextArea taDiagnosis;
     public Diagnosis dijagnoza;
-    private ObservableList<Diagnosis> listDijagnoze;
     public Patients pacijent;
     public KlasaDAO dao;
 
-    public DodajDijagnozuController(Diagnosis dijagnoza, ArrayList<Diagnosis> dijagnoze, Patients pacijent) {
+    public DodajDijagnozuController(Diagnosis dijagnoza, Patients pacijent) {
         this.dijagnoza = dijagnoza;
-        listDijagnoze = FXCollections.observableArrayList(dijagnoze);
         this.pacijent = pacijent;
         dao = KlasaDAO.getInstance();
     }
