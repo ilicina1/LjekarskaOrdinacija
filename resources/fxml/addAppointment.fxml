@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #2D3447;" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <stylesheets>
+        <URL value="@/css/signup.css" />
+    </stylesheets>
+    <stylesheets>
+        <URL value="@/css/login.css" />
+    </stylesheets>
+    <children>
+        <TextField fx:id="tfTime" alignment="CENTER" layoutX="165.0" layoutY="130.0" prefHeight="28.0" prefWidth="271.0" promptText="Time(hh:mm)" style="-fx-background-color: #2D3447; -fx-text-inner-color: white;" />
+        <TextField fx:id="tfNameAndSurname" alignment="CENTER" layoutX="165.0" layoutY="70.0" prefHeight="28.0" prefWidth="271.0" promptText="Name and Surname" style="-fx-background-color: #2D3447; -fx-text-inner-color: white;" />
+        <TextField fx:id="tfReason" alignment="CENTER" layoutX="165.0" layoutY="190.0" prefHeight="28.0" prefWidth="271.0" promptText="Reason" style="-fx-background-color: #2D3447; -fx-text-inner-color: white;" />
+        <Button layoutX="477.0" layoutY="334.0" mnemonicParsing="false" onAction="#actionConfirm" prefHeight="39.0" prefWidth="100.0" style="-fx-background-color: #151928;" text="Confirm" textFill="#a0a2ab" />
+        <Button layoutX="25.0" layoutY="334.0" mnemonicParsing="false" onAction="#actionCancel" prefHeight="39.0" prefWidth="100.0" style="-fx-background-color: #151928;" text="Cancel" textFill="#a0a2ab" />
+      <DatePicker fx:id="dpDate" layoutX="165.0" layoutY="250.0" prefHeight="28.0" prefWidth="271.0" />
+    </children>
+</AnchorPane>

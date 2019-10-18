@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
@@ -23,6 +24,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Optional;
+
+import static javafx.scene.layout.Region.USE_PREF_SIZE;
 
 public class AppointmentsController {
     public TableView<Appointments> tableViewAppointments;
@@ -92,10 +95,45 @@ public class AppointmentsController {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
             dao.obrisiAppointment(appointment);
-            listAppointmentsFinal.setAll(dao.appointments());
+           // listAppointmentsFinal.setAll(dao.appointments());
+            listAppointments = FXCollections.observableArrayList(dao.appointments());
+          //  listAppointmentsFinal = inputTodaysAppointments(listAppointments);
+            listAppointmentsFinal.setAll(inputTodaysAppointments(listAppointments));
         }
     }
 
+    public void actionNew(ActionEvent actionEvent){
+        Stage stage = new Stage();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/addAppointment.fxml"));
+            AddAppointmentController ctrl = new AddAppointmentController();
+            loader.setController(ctrl);
+            Parent root = loader.load();
+            stage.setTitle("Create an appointment");
+            stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
+            stage.setResizable(false);
+            stage.show();
+           stage.setOnHiding( event -> {
+//                Appointments newAppointment = ctrl.getAppointment();
+//                if (newAppointment != null) {
+//                    dao.dodajAppointment(newAppointment);
+//                    listAppointments = FXCollections.observableArrayList(dao.appointments());
+//                    listAppointmentsFinal = inputTodaysAppointments(listAppointments);
+
+
+//                    listAppointmentsFinal.setAll(dao.appointments());
+//                    tableViewAppointments.refresh();
+
+               listAppointments = FXCollections.observableArrayList(dao.appointments());
+//               listAppointmentsFinal = inputTodaysAppointments(listAppointments);
+               listAppointmentsFinal.setAll(inputTodaysAppointments(listAppointments));
+
+//                }
+           } );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public ObservableList<Appointments> inputTodaysAppointments(ObservableList<Appointments> listAppointments){
         LocalDate today = LocalDate.now();

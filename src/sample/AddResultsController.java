@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -92,15 +93,15 @@ public class AddResultsController {
 
     public void actionConfirm(ActionEvent actionEvent) throws SQLException {
         rezultat = null;
-
         rezultat = new Results(dao.dajNajveciId3() + 1 , tfSample.getText(), tfTypeOfAnalysis.getText(), Double.parseDouble(tfResult.getText()), tfNormalValue.getText(), report);
         dao.dodajRezultat(rezultat);
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        ButtonType Yes = new ButtonType("Yes");
+        ButtonType No = new ButtonType("No");
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Would you like to add another one? \n Press Yes if you do!", Yes, No);
         alert.setTitle("");
         alert.setHeaderText("You have successfully added the result!");
-        alert.setContentText("Would you like to add another one? \n Press OK if you do!");
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK){
+        if (result.get() == Yes){
             tfSample.setText("");
             tfTypeOfAnalysis.setText("");
             tfResult.setText("");
@@ -113,6 +114,9 @@ public class AddResultsController {
             tfResult.getStyleClass().removeAll("poljeIspravno");
             tfNormalValue.getStyleClass().removeAll("poljeNijeIspravno");
             tfNormalValue.getStyleClass().removeAll("poljeIspravno");
+        } else {
+            Stage stage = (Stage) tfSample.getScene().getWindow();
+            stage.close();
         }
     }
 

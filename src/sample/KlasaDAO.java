@@ -19,7 +19,7 @@ public class KlasaDAO {
             obrisiPacijentaUpit, dajDijagnozeUpit, dodajDijagnozuUpit, promjeniDijagnozuUpit, obrisiDijagnozuUpit,dajDijagnozuUpit, dajHistorijeUpit, dodajHistorijuUpit, dajNajveciIdUpit,
             obrisiHistorijuUpit, dajNalazeUpit, dodajNalazUpit, dajNajveciId2Upit, obrisiNalazUpit, dajRezultateUpit, dodajRezultatUpit, dajNajveciId3Upit, obrisiRezultatUpit,
             obrisiSveRezultateUpit, promjeniRezultatUpit, obrisiSveDijagnozeUpit, obrisiSveHistorijeUpit, obrisiSveNalazeUpit, obrisiSveRezultatePrekoPacijentaUpit, dajAppointmentsUpit,
-            obrisiAppointmentUpit;
+            obrisiAppointmentUpit, dajNajveciId4Upit, dodajAppointmentUpit;
 
     public static KlasaDAO getInstance() {
         if (instance == null) instance = new KlasaDAO();
@@ -77,6 +77,8 @@ public class KlasaDAO {
             obrisiSveRezultatePrekoPacijentaUpit = conn.prepareStatement("DELETE FROM Rezultati WHERE report = (SELECT id FROM Nalazi WHERE pacijent=?)");
             dajAppointmentsUpit = conn.prepareStatement(("SELECT * FROM Appointments"));
             obrisiAppointmentUpit = conn.prepareStatement("DELETE FROM Appointments WHERE id=?");
+            dajNajveciId4Upit = conn.prepareStatement("SELECT id FROM Appointments WHERE id = (SELECT MAX(id) FROM Appointments)");
+            dodajAppointmentUpit = conn.prepareStatement("INSERT INTO Appointments VALUES(?,?,?,?,?)");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -385,6 +387,19 @@ public class KlasaDAO {
         return rs.getInt(1);
     }
 
+    public int dajNajveciId4() throws SQLException {
+        ResultSet rs = null;
+        try {
+            rs = dajNajveciId4Upit.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        int z = 0;
+        if(!rs.next()) return z;
+        return rs.getInt(1);
+    }
+
+
     public void obrisiHistoriju(MedicalHistory historija){
         try {
             obrisiHistorijuUpit.setInt(1, historija.getId());
@@ -499,6 +514,19 @@ public class KlasaDAO {
         try {
             obrisiAppointmentUpit.setInt(1, appointment.getId());
             obrisiAppointmentUpit.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void dodajAppointment(Appointments appointment) {
+        try {
+            dodajAppointmentUpit.setInt(1, appointment.getId());
+            dodajAppointmentUpit.setString(2, appointment.getNameAndSurname());
+            dodajAppointmentUpit.setString(3, appointment.getTime());
+            dodajAppointmentUpit.setString(4, appointment.getReason());
+            dodajAppointmentUpit.setObject(5, appointment.getDate());
+            dodajAppointmentUpit.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
