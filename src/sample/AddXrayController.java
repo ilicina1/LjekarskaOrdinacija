@@ -40,7 +40,7 @@ public class AddXrayController {
             System.out.println("nevalja");
             return;
         }
-        fis = new FileInputStream(new File(String.valueOf(file)));
+        fis = new FileInputStream(file);
         Xray xray = new Xray(dao.dajNajveciId5() + 1, tfWhatsOnRay.getText(), dpDate.getValue(), pacijent);
         System.out.println(xray.getId());
         System.out.println(xray.getWhatsOnRay());
