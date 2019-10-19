@@ -12,15 +12,16 @@
         <URL value="@/css/table.css" />
     </stylesheets>
     <children>
-        <TableView fx:id="tableViewMedicalReports" layoutX="252.0" layoutY="-1.0" prefHeight="534.0" prefWidth="930.0">
+        <TableView fx:id="tableViewXrays" layoutX="252.0" layoutY="-1.0" prefHeight="534.0" prefWidth="930.0">
             <columns>
                 <TableColumn fx:id="colId" minWidth="0.0" prefWidth="181.0" text="Id" />
-                <TableColumn fx:id="colDate" prefWidth="748.0" text="Date" />
+                <TableColumn fx:id="colDate" prefWidth="239.0" text="Date" />
+            <TableColumn fx:id="colWhatsOnRay" prefWidth="584.0" text="Whats on x-ray" />
             </columns>
         </TableView>
         <Pane layoutX="-6.0" layoutY="-4.0" prefHeight="538.0" prefWidth="261.0" style="-fx-background-color: #2D3447;">
             <children>
-                <Button layoutX="5.0" layoutY="144.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="252.0" style="-fx-background-color: #2D3447;" text="New" textAlignment="CENTER" textFill="WHITE" />
+                <Button layoutX="5.0" layoutY="144.0" mnemonicParsing="false" onAction="#actionNew" prefHeight="27.0" prefWidth="252.0" style="-fx-background-color: #2D3447;" text="New" textAlignment="CENTER" textFill="WHITE" />
             </children></Pane>
         <Button layoutY="200.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="252.0" style="-fx-background-color: #2D3447;" text="Results" textAlignment="CENTER" textFill="WHITE" />
         <Button layoutY="256.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="252.0" style="-fx-background-color: #2D3447;" text="Delete" textAlignment="CENTER" textFill="WHITE" />

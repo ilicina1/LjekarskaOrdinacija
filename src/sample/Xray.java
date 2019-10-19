@@ -1,5 +1,7 @@
 package sample;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.time.LocalDate;
 
 public class Xray {
@@ -49,4 +51,5 @@ public class Xray {
     public void setPatient(Patients patient) {
         this.patient = patient;
     }
+
 }

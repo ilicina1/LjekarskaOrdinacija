@@ -2,6 +2,7 @@ package sample;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -19,7 +20,7 @@ public class KlasaDAO {
             obrisiPacijentaUpit, dajDijagnozeUpit, dodajDijagnozuUpit, promjeniDijagnozuUpit, obrisiDijagnozuUpit,dajDijagnozuUpit, dajHistorijeUpit, dodajHistorijuUpit, dajNajveciIdUpit,
             obrisiHistorijuUpit, dajNalazeUpit, dodajNalazUpit, dajNajveciId2Upit, obrisiNalazUpit, dajRezultateUpit, dodajRezultatUpit, dajNajveciId3Upit, obrisiRezultatUpit,
             obrisiSveRezultateUpit, promjeniRezultatUpit, obrisiSveDijagnozeUpit, obrisiSveHistorijeUpit, obrisiSveNalazeUpit, obrisiSveRezultatePrekoPacijentaUpit, dajAppointmentsUpit,
-            obrisiAppointmentUpit, dajNajveciId4Upit, dodajAppointmentUpit;
+            obrisiAppointmentUpit, dajNajveciId4Upit, dodajAppointmentUpit, dajSnimkeUpit, dodajXrayUpit, dajNajveciId5Upit;
 
     public static KlasaDAO getInstance() {
         if (instance == null) instance = new KlasaDAO();
@@ -79,6 +80,10 @@ public class KlasaDAO {
             obrisiAppointmentUpit = conn.prepareStatement("DELETE FROM Appointments WHERE id=?");
             dajNajveciId4Upit = conn.prepareStatement("SELECT id FROM Appointments WHERE id = (SELECT MAX(id) FROM Appointments)");
             dodajAppointmentUpit = conn.prepareStatement("INSERT INTO Appointments VALUES(?,?,?,?,?)");
+            dajSnimkeUpit = conn.prepareStatement("SELECT * FROM xray WHERE pacijent=?");
+            dodajXrayUpit = conn.prepareStatement("INSERT INTO xray VALUES(?,?,?,?,?)");
+            dajNajveciId5Upit = conn.prepareStatement("SELECT id FROM xray WHERE id = (SELECT MAX(id) FROM xray)");
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -178,6 +183,11 @@ public class KlasaDAO {
         return appointment;
     }
 
+    private Xray dajXrayIzRs(ResultSet rs) throws SQLException {
+        Xray xray = new Xray(rs.getInt(1),  rs.getString(2), LocalDate.parse(rs.getString(3), formatter), null);
+        return xray;
+    }
+
     public ArrayList<Patients> pacijenti() {
         ArrayList<Patients> rezultat = new ArrayList();
         try {
@@ -259,6 +269,21 @@ public class KlasaDAO {
             while (rs.next()) {
                 Appointments najava = dajAppointmentsIzRs(rs);
                 rezultat.add(najava);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rezultat;
+    }
+
+    public ArrayList<Xray> xrays(int id) throws SQLException {
+        dajSnimkeUpit.setInt(1,id);
+        ArrayList<Xray> rezultat = new ArrayList();
+        try {
+            ResultSet rs = dajSnimkeUpit.executeQuery();
+            while (rs.next()) {
+                    Xray xray = dajXrayIzRs(rs);
+                rezultat.add(xray);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -399,6 +424,17 @@ public class KlasaDAO {
         return rs.getInt(1);
     }
 
+    public int dajNajveciId5() throws SQLException {
+        ResultSet rs = null;
+        try {
+            rs = dajNajveciId5Upit.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if(!rs.next()) return 1;
+        return rs.getInt(1);
+    }
+
 
     public void obrisiHistoriju(MedicalHistory historija){
         try {
@@ -527,6 +563,19 @@ public class KlasaDAO {
             dodajAppointmentUpit.setString(4, appointment.getReason());
             dodajAppointmentUpit.setObject(5, appointment.getDate());
             dodajAppointmentUpit.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void dodajXray(Xray xray, FileInputStream fis) {
+        try {
+            dodajXrayUpit.setInt(1, xray.getId());
+            dodajXrayUpit.setString(2, xray.getWhatsOnRay());
+            dodajXrayUpit.setObject(3, xray.getDate());
+            dodajXrayUpit.setInt(4, xray.getPatient().getMedicalRecordNumber());
+            dodajXrayUpit.setBlob(5, fis);
+            dodajXrayUpit.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }

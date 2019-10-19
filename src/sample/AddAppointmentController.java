@@ -31,7 +31,6 @@ public class AddAppointmentController {
 
     public void actionConfirm(ActionEvent actionEvent) throws SQLException {
         appointment = null;
-
         appointment = new Appointments(dao.dajNajveciId4() + 1 , tfNameAndSurname.getText(), tfTime.getText(),tfReason.getText(), dpDate.getValue());
         dao.dodajAppointment(appointment);
         ButtonType Yes = new ButtonType("Yes");
