@@ -11,6 +11,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -21,6 +23,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Optional;
 
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
 
@@ -110,11 +113,26 @@ public class XraysController {
             Parent root = loader.load();
             stage.setTitle("X-ray");
             stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
-//            stage.setResizable(false);
-            stage.setFullScreen(true);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    public void actionDelete(ActionEvent actionEvent) throws SQLException {
+        Xray xray = tableViewXrays.getSelectionModel().getSelectedItem();
+
+        if (xray == null) return;
+        ButtonType Yes = new ButtonType("Yes");
+        ButtonType No = new ButtonType("No");
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.getButtonTypes().setAll(Yes, No);
+        alert.setTitle("");
+        alert.setHeaderText("Deleting x-ray " + xray.getId());
+        alert.setContentText("Are you sure you want to delete x-ray " + xray.getId()+"?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == Yes){
+            dao.obrisiXray(xray);
+            listXrays.setAll(dao.xrays(pacijent.getMedicalRecordNumber()));
         }
     }
 }

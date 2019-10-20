@@ -24,7 +24,7 @@
                 <Button layoutX="5.0" layoutY="144.0" mnemonicParsing="false" onAction="#actionNew" prefHeight="27.0" prefWidth="252.0" style="-fx-background-color: #2D3447;" text="New" textAlignment="CENTER" textFill="WHITE" />
             </children></Pane>
         <Button layoutY="200.0" mnemonicParsing="false" onAction="#actionOpen" prefHeight="27.0" prefWidth="252.0" style="-fx-background-color: #2D3447;" text="Open" textAlignment="CENTER" textFill="WHITE" />
-        <Button layoutY="256.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="252.0" style="-fx-background-color: #2D3447;" text="Delete" textAlignment="CENTER" textFill="WHITE" />
+        <Button layoutY="256.0" mnemonicParsing="false" onAction="#actionDelete" prefHeight="27.0" prefWidth="252.0" style="-fx-background-color: #2D3447;" text="Delete" textAlignment="CENTER" textFill="WHITE" />
         <Button layoutY="312.0" mnemonicParsing="false" onAction="#actionBack" prefHeight="27.0" prefWidth="252.0" style="-fx-background-color: #2D3447;" text="Back" textAlignment="CENTER" textFill="WHITE" />
     </children>
 </AnchorPane>

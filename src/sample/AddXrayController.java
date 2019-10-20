@@ -1,13 +1,11 @@
 package sample;
 
 import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.sql.SQLException;
 
@@ -43,5 +41,14 @@ public class AddXrayController {
         fis = new FileInputStream(file);
         Xray xray = new Xray(dao.dajNajveciId5() + 1, tfWhatsOnRay.getText(), dpDate.getValue(), pacijent);
         dao.dodajXray(xray, fis, (int)file.length());
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText("You have successfully added an x-ray!");
+        alert.showAndWait();
+
+        Stage stage = (Stage) tfWhatsOnRay.getScene().getWindow();
+        stage.close();
     }
 }

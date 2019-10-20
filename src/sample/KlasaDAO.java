@@ -21,7 +21,7 @@ public class KlasaDAO {
             obrisiPacijentaUpit, dajDijagnozeUpit, dodajDijagnozuUpit, promjeniDijagnozuUpit, obrisiDijagnozuUpit,dajDijagnozuUpit, dajHistorijeUpit, dodajHistorijuUpit, dajNajveciIdUpit,
             obrisiHistorijuUpit, dajNalazeUpit, dodajNalazUpit, dajNajveciId2Upit, obrisiNalazUpit, dajRezultateUpit, dodajRezultatUpit, dajNajveciId3Upit, obrisiRezultatUpit,
             obrisiSveRezultateUpit, promjeniRezultatUpit, obrisiSveDijagnozeUpit, obrisiSveHistorijeUpit, obrisiSveNalazeUpit, obrisiSveRezultatePrekoPacijentaUpit, dajAppointmentsUpit,
-            obrisiAppointmentUpit, dajNajveciId4Upit, dodajAppointmentUpit, dajSnimkeUpit, dodajXrayUpit, dajNajveciId5Upit, dajSlikuUpit;
+            obrisiAppointmentUpit, dajNajveciId4Upit, dodajAppointmentUpit, dajSnimkeUpit, dodajXrayUpit, dajNajveciId5Upit, dajSlikuUpit, obrisiXrayUpit;
 
     public static KlasaDAO getInstance() {
         if (instance == null) instance = new KlasaDAO();
@@ -85,6 +85,8 @@ public class KlasaDAO {
             dodajXrayUpit = conn.prepareStatement("INSERT INTO xray VALUES(?,?,?,?,?)");
             dajNajveciId5Upit = conn.prepareStatement("SELECT id FROM xray WHERE id = (SELECT MAX(id) FROM xray)");
             dajSlikuUpit = conn.prepareStatement("SELECT image FROM xray WHERE id=?");
+            obrisiXrayUpit = conn.prepareStatement("DELETE FROM xray WHERE id=?");
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -432,7 +434,8 @@ public class KlasaDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        if(!rs.next()) return 1;
+        int z = 0;
+        if(!rs.next()) return z;
         return rs.getInt(1);
     }
 
@@ -599,9 +602,17 @@ public class KlasaDAO {
                 os.close();
                 is.close();
                 Image imagex = new Image("file:photo.jpg",250,250,true,true);
-//                imgView.setImage(imagex);
                 image = imagex;
             }
             return image;
+    }
+
+    public void obrisiXray(Xray xray){
+        try {
+            obrisiXrayUpit.setInt(1, xray.getId());
+            obrisiXrayUpit.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
