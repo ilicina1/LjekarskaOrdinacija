@@ -1,8 +1,9 @@
 package sample;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import javafx.scene.image.Image;
+
+import java.io.*;
+import java.net.MalformedURLException;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -20,7 +21,7 @@ public class KlasaDAO {
             obrisiPacijentaUpit, dajDijagnozeUpit, dodajDijagnozuUpit, promjeniDijagnozuUpit, obrisiDijagnozuUpit,dajDijagnozuUpit, dajHistorijeUpit, dodajHistorijuUpit, dajNajveciIdUpit,
             obrisiHistorijuUpit, dajNalazeUpit, dodajNalazUpit, dajNajveciId2Upit, obrisiNalazUpit, dajRezultateUpit, dodajRezultatUpit, dajNajveciId3Upit, obrisiRezultatUpit,
             obrisiSveRezultateUpit, promjeniRezultatUpit, obrisiSveDijagnozeUpit, obrisiSveHistorijeUpit, obrisiSveNalazeUpit, obrisiSveRezultatePrekoPacijentaUpit, dajAppointmentsUpit,
-            obrisiAppointmentUpit, dajNajveciId4Upit, dodajAppointmentUpit, dajSnimkeUpit, dodajXrayUpit, dajNajveciId5Upit;
+            obrisiAppointmentUpit, dajNajveciId4Upit, dodajAppointmentUpit, dajSnimkeUpit, dodajXrayUpit, dajNajveciId5Upit, dajSlikuUpit;
 
     public static KlasaDAO getInstance() {
         if (instance == null) instance = new KlasaDAO();
@@ -83,7 +84,7 @@ public class KlasaDAO {
             dajSnimkeUpit = conn.prepareStatement("SELECT * FROM xray WHERE pacijent=?");
             dodajXrayUpit = conn.prepareStatement("INSERT INTO xray VALUES(?,?,?,?,?)");
             dajNajveciId5Upit = conn.prepareStatement("SELECT id FROM xray WHERE id = (SELECT MAX(id) FROM xray)");
-
+            dajSlikuUpit = conn.prepareStatement("SELECT image FROM xray WHERE id=?");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -568,16 +569,39 @@ public class KlasaDAO {
         }
     }
 
-    public void dodajXray(Xray xray, FileInputStream fis) {
+    public void dodajXray(Xray xray, FileInputStream fis, int len) {
         try {
             dodajXrayUpit.setInt(1, xray.getId());
             dodajXrayUpit.setString(2, xray.getWhatsOnRay());
             dodajXrayUpit.setObject(3, xray.getDate());
             dodajXrayUpit.setInt(4, xray.getPatient().getMedicalRecordNumber());
-            dodajXrayUpit.setBlob(5, fis);
-            dodajXrayUpit.executeQuery();
+            dodajXrayUpit.setBinaryStream(5, fis, len);
+            dodajXrayUpit.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+        public Image dajSliku(int id) throws SQLException, IOException {
+            Image image = null;
+            dajSlikuUpit.setInt(1, id);
+            ResultSet rs = dajSlikuUpit.executeQuery();
+            while(rs.next())
+            {
+                InputStream is = rs.getBinaryStream("image");
+                OutputStream os = new FileOutputStream(new File("photo.jpg"));
+                byte[]content = new byte[1024];
+                int size = 0;
+                while((size=is.read(content))!= -1)
+                {
+                    os.write(content,0,size);
+                }
+                os.close();
+                is.close();
+                Image imagex = new Image("file:photo.jpg",250,250,true,true);
+//                imgView.setImage(imagex);
+                image = imagex;
+            }
+            return image;
     }
 }

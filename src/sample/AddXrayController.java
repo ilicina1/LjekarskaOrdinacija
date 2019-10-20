@@ -6,9 +6,9 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.sql.SQLException;
 
 public class AddXrayController {
@@ -35,17 +35,13 @@ public class AddXrayController {
         file = fileChooser.showOpenDialog(null);
     }
 
-    public void actionConfirm(ActionEvent actionEvent) throws FileNotFoundException, SQLException {
+    public void actionConfirm(ActionEvent actionEvent) throws IOException, SQLException {
         if(file == null) {
             System.out.println("nevalja");
             return;
         }
         fis = new FileInputStream(file);
         Xray xray = new Xray(dao.dajNajveciId5() + 1, tfWhatsOnRay.getText(), dpDate.getValue(), pacijent);
-        System.out.println(xray.getId());
-        System.out.println(xray.getWhatsOnRay());
-        System.out.println(xray.getDate());
-        System.out.println(xray.getPatient().getMedicalRecordNumber());
-        dao.dodajXray(xray, fis);
+        dao.dodajXray(xray, fis, (int)file.length());
     }
 }

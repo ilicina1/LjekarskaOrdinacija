@@ -7,11 +7,14 @@ import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -22,13 +25,13 @@ import java.sql.SQLException;
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
 
 public class XraysController {
-    private AnchorPane anchor;
-    private TableView<Xray> tableViewXrays;
-    private TableColumn colId;
-    private TableColumn colDate;
-    private TableColumn colWhatsOnRay;
+    public AnchorPane anchor;
+    public TableView<Xray> tableViewXrays;
+    public TableColumn colId;
+    public TableColumn colDate;
+    public TableColumn colWhatsOnRay;
 
-    private KlasaDAO dao;
+    public KlasaDAO dao;
     private Patients pacijent;
     private ObservableList<Xray> listXrays;
 
@@ -36,6 +39,14 @@ public class XraysController {
         dao = KlasaDAO.getInstance();
         this.pacijent = pacijent;
         listXrays = FXCollections.observableArrayList(dao.xrays(pacijent.getMedicalRecordNumber()));
+    }
+
+    @FXML
+    public void initialize() {
+        tableViewXrays.setItems(listXrays);
+        colId.setCellValueFactory(new PropertyValueFactory("id"));
+        colDate.setCellValueFactory(new PropertyValueFactory("date"));
+        colWhatsOnRay.setCellValueFactory(new PropertyValueFactory("whatsOnRay"));
     }
 
     public void actionBack(ActionEvent actionEvent) {
@@ -83,6 +94,25 @@ public class XraysController {
                     e.printStackTrace();
                 }
             } );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void actionOpen(ActionEvent actionEvent) throws IOException, SQLException {
+        Xray xray = tableViewXrays.getSelectionModel().getSelectedItem();
+        Image image = dao.dajSliku(xray.getId());
+        Stage stage = new Stage();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/showXray.fxml"));
+            showXrayController ctrl = new showXrayController(image);
+            loader.setController(ctrl);
+            Parent root = loader.load();
+            stage.setTitle("X-ray");
+            stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
+//            stage.setResizable(false);
+            stage.setFullScreen(true);
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
