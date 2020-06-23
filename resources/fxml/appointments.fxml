@@ -2,6 +2,7 @@
 
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,13 +15,17 @@
     <children>
         <TableView fx:id="tableViewAppointments" layoutX="252.0" layoutY="-1.0" prefHeight="534.0" prefWidth="930.0">
             <columns>
-                <TableColumn fx:id="colId" minWidth="0.0" prefWidth="195.0" text="Id" />
-                <TableColumn fx:id="colName" prefWidth="203.0" text="Name and Surname" />
-                <TableColumn fx:id="colTime" minWidth="6.0" prefWidth="274.0" text="Time" />
-                <TableColumn fx:id="colReason" prefWidth="257.0" text="Reason" />
+                <TableColumn fx:id="colId" minWidth="0.0" prefWidth="136.0" text="Id" />
+                <TableColumn fx:id="colName" prefWidth="146.0" text="Name and Surname" />
+                <TableColumn fx:id="colTime" minWidth="6.0" prefWidth="106.0" text="Time" />
+                <TableColumn fx:id="colReason" prefWidth="152.0" text="Reason" />
+            <TableColumn fx:id="colDate" prefWidth="298.0" text="Date" />
             </columns>
         </TableView>
-        <Pane layoutX="-6.0" layoutY="-4.0" prefHeight="538.0" prefWidth="261.0" style="-fx-background-color: #2D3447;" />
+        <Pane layoutX="-6.0" layoutY="-4.0" prefHeight="538.0" prefWidth="261.0" style="-fx-background-color: #2D3447;">
+         <children>
+            <DatePicker fx:id="searchBox" layoutX="34.0" layoutY="158.0" promptText="Search by date" />
+         </children></Pane>
         <Button layoutY="200.0" mnemonicParsing="false" onAction="#actionNew" prefHeight="27.0" prefWidth="252.0" style="-fx-background-color: #2D3447;" text="New" textAlignment="CENTER" textFill="WHITE" />
         <Button layoutY="256.0" mnemonicParsing="false" onAction="#actionDelete" prefHeight="27.0" prefWidth="252.0" style="-fx-background-color: #2D3447;" text="Delete" textAlignment="CENTER" textFill="WHITE" />
         <Button layoutY="312.0" mnemonicParsing="false" onAction="#actionBack" prefHeight="27.0" prefWidth="252.0" style="-fx-background-color: #2D3447;" text="Back" textAlignment="CENTER" textFill="WHITE" />
