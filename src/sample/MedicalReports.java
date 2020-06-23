@@ -3,9 +3,9 @@ package sample;
 import java.time.LocalDate;
 
 public class MedicalReports {
-    public int id;
-    public LocalDate date;
-    public Patients patient;
+    private int id;
+    private LocalDate date;
+    private Patients patient;
 
     public MedicalReports() {
     }

@@ -37,9 +37,8 @@ public class AppointmentsController {
     public AnchorPane anchor2;
     public DatePicker searchBox;
 
-    public ClassDAO dao;
+    private ClassDAO dao;
     private ObservableList<Appointments> listAppointments;
-    private ObservableList<Appointments> listAppointmentsFinal;
     private ObservableList<Appointments> filteredData = FXCollections.observableArrayList();
 
 
@@ -51,7 +50,6 @@ public class AppointmentsController {
 
     @FXML
     public void initialize() {
-        //listAppointmentsFinal = inputTodaysAppointments(listAppointments);
         tableViewAppointments.setItems(filteredData);
         colId.setCellValueFactory(new PropertyValueFactory("id"));
         colName.setCellValueFactory(new PropertyValueFactory("nameAndSurname"));

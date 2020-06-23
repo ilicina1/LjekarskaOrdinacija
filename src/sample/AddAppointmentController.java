@@ -13,8 +13,8 @@ public class AddAppointmentController {
     public TextField tfReason;
     public DatePicker dpDate;
 
-    public ClassDAO dao;
-    public Appointments appointment;
+    private ClassDAO dao;
+    private Appointments appointment;
 
     public AddAppointmentController() {
         dao = ClassDAO.getInstance();

@@ -29,8 +29,9 @@ public class LoginController {
     public TextField tfUserName;
     public PasswordField pfPassword;
     public ImageView imgLogin;
-    public ClassDAO dao;
     public AnchorPane anchor;
+
+    private ClassDAO dao;
 
     public LoginController() {
         dao = ClassDAO.getInstance();

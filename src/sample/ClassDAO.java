@@ -13,14 +13,14 @@ public class ClassDAO {
     private static ClassDAO instance;
     private Connection conn;
     private Connection conn2;
-
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
     private PreparedStatement addUserNameQuery, addEmailQuery, addDoctorQuery, addPasswordQuery, addPatientsQuery, addPatientQuery, updatePatientQuery,
             deletePatientQuery, getDiagnosisByPatientQuery, addDiagnosisQuery, updateDiagnosisQuery, deleteDiagnosisQuery, getDiagnosisById, giveHistoriesQuery, addHistoryQuery, getMaxIdQuery,
             deleteHistoryQuery, getMedicalReportsQuery, addMedicalReportQuery, getMaxId2Query, deleteMedicalReportQuery, getResultsQuery, addResultQuery, getMaxId3Query, deleteResultQuery,
             deleteAllResultsQuery, updateResultQuery, deleteAllDiagnosisQuery, deleteAllHistoriesQuery, deleteAllMedicalReportsQuery, deleteAllResultsByPatientQuery, getAppointmentsQuery,
             deleteAppointmentQuery, getMaxId4Query, addAppointmentQuery, getXraysQuery, addXrayQuery, getMaxId5Query, getXrayQuery, deleteXrayQuery;
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
 
     public static ClassDAO getInstance() {
         if (instance == null) instance = new ClassDAO();

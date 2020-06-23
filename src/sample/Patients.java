@@ -3,12 +3,12 @@ package sample;
 import java.time.LocalDate;
 
 public class Patients {
-    public int medicalRecordNumber;
-    public String fullName;
-    public String phoneNumber;
-    public String city;
-    public String address;
-    public LocalDate birthDate;
+    private int medicalRecordNumber;
+    private String fullName;
+    private String phoneNumber;
+    private String city;
+    private String address;
+    private LocalDate birthDate;
 
     public Patients() {
     }

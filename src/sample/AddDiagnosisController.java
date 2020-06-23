@@ -12,9 +12,9 @@ import java.sql.SQLException;
 public class AddDiagnosisController {
     public TextField tfId;
     public TextArea taDiagnosis;
-    public Diagnosis dijagnoza;
-    public Patients pacijent;
-    public ClassDAO dao;
+    private Diagnosis dijagnoza;
+    private Patients pacijent;
+    private ClassDAO dao;
 
     public AddDiagnosisController(Diagnosis dijagnoza, Patients pacijent) {
         this.dijagnoza = dijagnoza;

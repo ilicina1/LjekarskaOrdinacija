@@ -30,8 +30,8 @@ public class DiagnosisController {
     public TableColumn colId;
     public TableColumn colDiagnosis;
     public AnchorPane anchor2;
-    public Patients pacijent;
-    public ClassDAO dao;
+    private Patients pacijent;
+    private ClassDAO dao;
     private ObservableList<Diagnosis> listDiagnoses;
 
     public DiagnosisController(Patients pacijent) throws SQLException {

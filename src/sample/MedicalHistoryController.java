@@ -36,7 +36,7 @@ public class MedicalHistoryController {
 
     private ObservableList<MedicalHistory> listMedicalHistory;
     private Patients pacijent;
-    public ClassDAO dao;
+    private ClassDAO dao;
 
     public MedicalHistoryController(Patients pacijent) throws SQLException {
         dao = ClassDAO.getInstance();

@@ -1,12 +1,12 @@
 package sample;
 
 public class MedicalHistory {
-    int id;
-    String allergies;
-    String familyMedicalIssues;
-    String addictions;
-    String currentHealthIssues;
-    Patients pacijent;
+    private int id;
+    private String allergies;
+    private String familyMedicalIssues;
+    private String addictions;
+    private String currentHealthIssues;
+    private  Patients pacijent;
 
     public MedicalHistory() {
     }

@@ -17,10 +17,10 @@ public class AddResultsController {
     public TextField tfResult;
     public TextField tfNormalValue;
 
-    public ClassDAO dao;
-    public Results rezultat;
+    private ClassDAO dao;
+    private Results rezultat;
     private ObservableList<Results> listResults;
-    public MedicalReports report;
+    private MedicalReports report;
 
 
     public AddResultsController(MedicalReports report) {

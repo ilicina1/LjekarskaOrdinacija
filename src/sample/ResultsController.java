@@ -34,9 +34,9 @@ public class ResultsController {
     public TableColumn colNormalValue;
     public AnchorPane anchor;
 
-    public Patients pacijent;
-    public ClassDAO dao;
-    public MedicalReports report;
+    private Patients pacijent;
+    private ClassDAO dao;
+    private MedicalReports report;
     private ObservableList<Results> listResults;
 
     public ResultsController(MedicalReports report, Patients pacijent) throws SQLException {

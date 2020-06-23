@@ -27,10 +27,10 @@ public class SignUpController {
     public TextField tfEmail;
     public PasswordField pfPassword1;
     public PasswordField pfPassword2;
-    public Button btnCancel;
-    public Button btnContinue;
     public AnchorPane anchorSign;
-    public ClassDAO dao;
+
+
+    private ClassDAO dao;
 
     public SignUpController() {
         dao = ClassDAO.getInstance();

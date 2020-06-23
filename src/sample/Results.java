@@ -1,12 +1,12 @@
 package sample;
 
 public class Results {
-    public int id;
-    public String sample;
-    public String typeOfAnalysis;
-    public double result;
-    public String normalValue;
-    public MedicalReports report;
+    private int id;
+    private String sample;
+    private String typeOfAnalysis;
+    private double result;
+    private String normalValue;
+    private MedicalReports report;
 
     public Results() {
     }

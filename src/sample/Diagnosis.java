@@ -1,9 +1,9 @@
 package sample;
 
 public class Diagnosis {
-    public int id;
-    public String text;
-    public Patients patient;
+    private int id;
+    private String text;
+    private Patients patient;
 
     public Diagnosis() {
     }

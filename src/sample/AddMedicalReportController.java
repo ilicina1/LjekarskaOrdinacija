@@ -16,9 +16,9 @@ import static javafx.scene.layout.Region.USE_PREF_SIZE;
 public class AddMedicalReportController {
     public DatePicker dpDate;
 
-    public ClassDAO dao;
-    public MedicalReports report;
-    public Patients pacijent;
+    private ClassDAO dao;
+    private MedicalReports report;
+    private Patients pacijent;
 
     public AddMedicalReportController(Patients pacijent) throws SQLException {
         this.pacijent = pacijent;

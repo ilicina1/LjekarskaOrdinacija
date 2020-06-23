@@ -14,10 +14,10 @@ public class AddHistoryController {
     public TextField tfAddictions;
     public TextField tfChi;
 
-    public ClassDAO dao;
-    public MedicalHistory historija;
+    private ClassDAO dao;
+    private MedicalHistory historija;
     private ObservableList<MedicalHistory> listHistorije;
-    public Patients pacijent;
+    private Patients pacijent;
 
     public AddHistoryController(Patients pacijent) {
         this.pacijent = pacijent;

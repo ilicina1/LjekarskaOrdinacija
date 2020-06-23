@@ -3,11 +3,11 @@ package sample;
 import java.time.LocalDate;
 
 public class Appointments {
-    public int id;
-    public String nameAndSurname;
-    public String time;
-    public String reason;
-    public LocalDate date;
+    private int id;
+    private String nameAndSurname;
+    private String time;
+    private String reason;
+    private LocalDate date;
 
     public Appointments() {
     }

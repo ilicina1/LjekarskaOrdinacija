@@ -32,8 +32,8 @@ public class MedicalReportsController {
     public TableColumn colId;
     public TableColumn colDate;
 
-    public ClassDAO dao;
-    public Patients pacijent;
+    private ClassDAO dao;
+    private Patients pacijent;
     private ObservableList<MedicalReports> listMedicalReports;
 
     public MedicalReportsController(Patients pacijent) throws SQLException {

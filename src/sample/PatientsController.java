@@ -38,7 +38,7 @@ public class PatientsController {
     public TextField searchBox;
     public AnchorPane anchor;
 
-    public ClassDAO dao;
+    private ClassDAO dao;
     private ObservableList<Patients> listPatients;
     private ObservableList<Patients> filteredData = FXCollections.observableArrayList();
 

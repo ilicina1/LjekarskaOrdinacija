@@ -14,9 +14,9 @@ public class EditResultController {
     public TextField tfResult;
     public TextField tfNormalValue;
 
-    public ClassDAO dao;
-    public Results rezultat;
-    public MedicalReports report;
+    private ClassDAO dao;
+    private Results rezultat;
+    private MedicalReports report;
     private ObservableList<Results> listResults;
 
     public EditResultController(Results rezultat, MedicalReports report) {

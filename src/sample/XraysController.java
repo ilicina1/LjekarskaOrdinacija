@@ -34,7 +34,7 @@ public class XraysController {
     public TableColumn colDate;
     public TableColumn colWhatsOnRay;
 
-    public ClassDAO dao;
+    private ClassDAO dao;
     private Patients pacijent;
     private ObservableList<Xray> listXrays;
 

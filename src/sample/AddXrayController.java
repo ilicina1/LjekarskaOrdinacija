@@ -14,9 +14,9 @@ public class AddXrayController {
     public DatePicker dpDate;
 
     private ClassDAO dao;
+    private Patients pacijent;
     private FileInputStream fis;
     private File file;
-    private Patients pacijent;
 
     public AddXrayController(Patients pacijent) {
         dao = ClassDAO.getInstance();
