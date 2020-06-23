@@ -32,14 +32,14 @@ public class MedicalReportsController {
     public TableColumn colId;
     public TableColumn colDate;
 
-    public KlasaDAO dao;
+    public ClassDAO dao;
     public Patients pacijent;
     private ObservableList<MedicalReports> listMedicalReports;
 
     public MedicalReportsController(Patients pacijent) throws SQLException {
-        dao = KlasaDAO.getInstance();
+        dao = ClassDAO.getInstance();
         this.pacijent = pacijent;
-        listMedicalReports = FXCollections.observableArrayList(dao.nalazi(pacijent.getMedicalRecordNumber()));
+        listMedicalReports = FXCollections.observableArrayList(dao.reports(pacijent.getMedicalRecordNumber()));
     }
 
     @FXML
@@ -90,9 +90,9 @@ public class MedicalReportsController {
             stage.setOnHiding( event -> {
                 MedicalReports noviNalaz = ctrl.getReport();
                 if (noviNalaz != null) {
-                    dao.dodajNalaz(noviNalaz);
+                    dao.addReport(noviNalaz);
                     try {
-                        listMedicalReports.setAll(dao.nalazi(pacijent.getMedicalRecordNumber()));
+                        listMedicalReports.setAll(dao.reports(pacijent.getMedicalRecordNumber()));
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
@@ -117,9 +117,9 @@ public class MedicalReportsController {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            dao.obrisiNalaz(nalaz);
-            dao.obrisiSveRezultate(nalaz);
-            listMedicalReports.setAll(dao.nalazi(pacijent.getMedicalRecordNumber()));
+            dao.deleteReport(nalaz);
+            dao.deleteResults(nalaz);
+            listMedicalReports.setAll(dao.reports(pacijent.getMedicalRecordNumber()));
         }
     }
 

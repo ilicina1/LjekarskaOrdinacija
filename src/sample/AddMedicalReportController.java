@@ -1,7 +1,5 @@
 package sample;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,20 +10,19 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
 
 public class AddMedicalReportController {
     public DatePicker dpDate;
 
-    public KlasaDAO dao;
+    public ClassDAO dao;
     public MedicalReports report;
     public Patients pacijent;
 
     public AddMedicalReportController(Patients pacijent) throws SQLException {
         this.pacijent = pacijent;
-        dao = KlasaDAO.getInstance();
+        dao = ClassDAO.getInstance();
     }
 
     public MedicalReports getReport() {
@@ -38,7 +35,7 @@ public class AddMedicalReportController {
     }
 
     public void actionConfirm(ActionEvent actionEvent) throws SQLException {
-        report = new MedicalReports(dao.dajNajveciId2() + 1 , dpDate.getValue(), pacijent);
+        report = new MedicalReports(dao.getMaxId2() + 1 , dpDate.getValue(), pacijent);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText(null);

@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 
-public class dodajPacijentaController {
+public class AddPatientController {
     public TextField tfMedicalRN;
     public TextField tfFullName;
     public TextField tfPhoneNum;
@@ -25,7 +25,7 @@ public class dodajPacijentaController {
     private Patients pacijent;
     private ObservableList<Patients> listPacijenti;
 
-    public dodajPacijentaController(Patients pacijent, ArrayList<Patients> pacijenti) {
+    public AddPatientController(Patients pacijent, ArrayList<Patients> pacijenti) {
         this.pacijent = pacijent;
         listPacijenti = FXCollections.observableArrayList(pacijenti);
     }

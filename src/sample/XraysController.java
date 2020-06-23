@@ -34,12 +34,12 @@ public class XraysController {
     public TableColumn colDate;
     public TableColumn colWhatsOnRay;
 
-    public KlasaDAO dao;
+    public ClassDAO dao;
     private Patients pacijent;
     private ObservableList<Xray> listXrays;
 
     public XraysController(Patients pacijent) throws SQLException {
-        dao = KlasaDAO.getInstance();
+        dao = ClassDAO.getInstance();
         this.pacijent = pacijent;
         listXrays = FXCollections.observableArrayList(dao.xrays(pacijent.getMedicalRecordNumber()));
     }
@@ -104,11 +104,11 @@ public class XraysController {
 
     public void actionOpen(ActionEvent actionEvent) throws IOException, SQLException {
         Xray xray = tableViewXrays.getSelectionModel().getSelectedItem();
-        Image image = dao.dajSliku(xray.getId());
+        Image image = dao.getImage(xray.getId());
         Stage stage = new Stage();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/showXray.fxml"));
-            showXrayController ctrl = new showXrayController(image);
+            ShowXrayController ctrl = new ShowXrayController(image);
             loader.setController(ctrl);
             Parent root = loader.load();
             stage.setTitle("X-ray");
@@ -131,7 +131,7 @@ public class XraysController {
         alert.setContentText("Are you sure you want to delete x-ray " + xray.getId()+"?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == Yes){
-            dao.obrisiXray(xray);
+            dao.deleteXray(xray);
             listXrays.setAll(dao.xrays(pacijent.getMedicalRecordNumber()));
         }
     }

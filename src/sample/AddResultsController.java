@@ -1,25 +1,15 @@
 package sample;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Optional;
-
-import static javafx.scene.layout.Region.USE_PREF_SIZE;
 
 public class AddResultsController {
     public TextField tfSample;
@@ -27,14 +17,14 @@ public class AddResultsController {
     public TextField tfResult;
     public TextField tfNormalValue;
 
-    public KlasaDAO dao;
+    public ClassDAO dao;
     public Results rezultat;
     private ObservableList<Results> listResults;
     public MedicalReports report;
 
 
     public AddResultsController(MedicalReports report) {
-        dao = KlasaDAO.getInstance();
+        dao = ClassDAO.getInstance();
         this.report = report;
     }
 
@@ -92,8 +82,8 @@ public class AddResultsController {
 
     public void actionConfirm(ActionEvent actionEvent) throws SQLException {
         rezultat = null;
-        rezultat = new Results(dao.dajNajveciId3() + 1 , tfSample.getText(), tfTypeOfAnalysis.getText(), Double.parseDouble(tfResult.getText()), tfNormalValue.getText(), report);
-        dao.dodajRezultat(rezultat);
+        rezultat = new Results(dao.getMaxId3() + 1 , tfSample.getText(), tfTypeOfAnalysis.getText(), Double.parseDouble(tfResult.getText()), tfNormalValue.getText(), report);
+        dao.addResult(rezultat);
         ButtonType Yes = new ButtonType("Yes");
         ButtonType No = new ButtonType("No");
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Would you like to add another one? \n Press Yes if you do!", Yes, No);

@@ -1,7 +1,5 @@
 package sample;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -10,19 +8,18 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 
-public class DodajDijagnozuController {
+public class AddDiagnosisController {
     public TextField tfId;
     public TextArea taDiagnosis;
     public Diagnosis dijagnoza;
     public Patients pacijent;
-    public KlasaDAO dao;
+    public ClassDAO dao;
 
-    public DodajDijagnozuController(Diagnosis dijagnoza, Patients pacijent) {
+    public AddDiagnosisController(Diagnosis dijagnoza, Patients pacijent) {
         this.dijagnoza = dijagnoza;
         this.pacijent = pacijent;
-        dao = KlasaDAO.getInstance();
+        dao = ClassDAO.getInstance();
     }
 
     @FXML

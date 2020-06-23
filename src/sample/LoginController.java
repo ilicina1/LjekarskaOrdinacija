@@ -29,11 +29,11 @@ public class LoginController {
     public TextField tfUserName;
     public PasswordField pfPassword;
     public ImageView imgLogin;
-    public KlasaDAO dao;
+    public ClassDAO dao;
     public AnchorPane anchor;
 
     public LoginController() {
-        dao = KlasaDAO.getInstance();
+        dao = ClassDAO.getInstance();
     }
 
     public void actionExit(ActionEvent actionEvent) {

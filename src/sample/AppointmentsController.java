@@ -35,13 +35,13 @@ public class AppointmentsController {
     public TableColumn colReason;
     public AnchorPane anchor2;
 
-    public KlasaDAO dao;
+    public ClassDAO dao;
     private ObservableList<Appointments> listAppointments;
     private ObservableList<Appointments> listAppointmentsFinal;
 
 
     public AppointmentsController() {
-        dao = KlasaDAO.getInstance();
+        dao = ClassDAO.getInstance();
         listAppointments = FXCollections.observableArrayList(dao.appointments());
     }
 
@@ -94,7 +94,7 @@ public class AppointmentsController {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            dao.obrisiAppointment(appointment);
+            dao.deleteAppointment(appointment);
             listAppointments = FXCollections.observableArrayList(dao.appointments());
             listAppointmentsFinal.setAll(inputTodaysAppointments(listAppointments));
         }
@@ -128,7 +128,7 @@ public class AppointmentsController {
                 result.add(listAppointments.get(i));
             }
             if(today.isAfter(listAppointments.get(i).getDate())){
-                dao.obrisiAppointment(listAppointments.get(i));
+                dao.deleteAppointment(listAppointments.get(i));
             }
         }
         return result;

@@ -13,13 +13,13 @@ public class AddXrayController {
     public TextField tfWhatsOnRay;
     public DatePicker dpDate;
 
-    private KlasaDAO dao;
+    private ClassDAO dao;
     private FileInputStream fis;
     private File file;
     private Patients pacijent;
 
     public AddXrayController(Patients pacijent) {
-        dao = KlasaDAO.getInstance();
+        dao = ClassDAO.getInstance();
         this.pacijent = pacijent;
     }
 
@@ -39,8 +39,8 @@ public class AddXrayController {
             return;
         }
         fis = new FileInputStream(file);
-        Xray xray = new Xray(dao.dajNajveciId5() + 1, tfWhatsOnRay.getText(), dpDate.getValue(), pacijent);
-        dao.dodajXray(xray, fis, (int)file.length());
+        Xray xray = new Xray(dao.getMaxId5() + 1, tfWhatsOnRay.getText(), dpDate.getValue(), pacijent);
+        dao.addXray(xray, fis, (int)file.length());
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");

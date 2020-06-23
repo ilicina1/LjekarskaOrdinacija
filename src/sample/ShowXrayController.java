@@ -7,12 +7,12 @@ import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class showXrayController {
+public class ShowXrayController {
     public Image image;
     public ImageView imgView;
     public AnchorPane anchor;
 
-    public showXrayController(Image image) {
+    public ShowXrayController(Image image) {
         this.image = image;
     }
 

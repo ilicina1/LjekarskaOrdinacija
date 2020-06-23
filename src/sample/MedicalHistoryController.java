@@ -36,12 +36,12 @@ public class MedicalHistoryController {
 
     private ObservableList<MedicalHistory> listMedicalHistory;
     private Patients pacijent;
-    public KlasaDAO dao;
+    public ClassDAO dao;
 
     public MedicalHistoryController(Patients pacijent) throws SQLException {
-        dao = KlasaDAO.getInstance();
+        dao = ClassDAO.getInstance();
         this.pacijent = pacijent;
-        listMedicalHistory = FXCollections.observableArrayList(dao.historije(pacijent.getMedicalRecordNumber()));
+        listMedicalHistory = FXCollections.observableArrayList(dao.history(pacijent.getMedicalRecordNumber()));
     }
 
     @FXML
@@ -94,9 +94,9 @@ public class MedicalHistoryController {
             stage.setOnHiding( event -> {
                 MedicalHistory novaHistorija = ctrl.getHistorija();
                 if (novaHistorija != null) {
-                    dao.dodajHistoriju(novaHistorija);
+                    dao.addHistory(novaHistorija);
                     try {
-                        listMedicalHistory.setAll(dao.historije(pacijent.getMedicalRecordNumber()));
+                        listMedicalHistory.setAll(dao.history(pacijent.getMedicalRecordNumber()));
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
@@ -119,8 +119,8 @@ public class MedicalHistoryController {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            dao.obrisiHistoriju(historija);
-            listMedicalHistory.setAll(dao.historije(pacijent.getMedicalRecordNumber()));
+            dao.deleteHistory(historija);
+            listMedicalHistory.setAll(dao.history(pacijent.getMedicalRecordNumber()));
         }
     }
 }

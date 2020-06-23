@@ -1,6 +1,5 @@
 package sample;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,7 +7,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class EditResultController {
     public TextField tfSample;
@@ -16,13 +14,13 @@ public class EditResultController {
     public TextField tfResult;
     public TextField tfNormalValue;
 
-    public KlasaDAO dao;
+    public ClassDAO dao;
     public Results rezultat;
     public MedicalReports report;
     private ObservableList<Results> listResults;
 
     public EditResultController(Results rezultat, MedicalReports report) {
-        dao = KlasaDAO.getInstance();
+        dao = ClassDAO.getInstance();
         this.rezultat = rezultat;
         this.report = report;
     }
@@ -76,7 +74,7 @@ public class EditResultController {
 
     public void actionConfirm(ActionEvent actionEvent) throws SQLException {
         rezultat = new Results(rezultat.getId() , tfSample.getText(), tfTypeOfAnalysis.getText(), Double.parseDouble(tfResult.getText()), tfNormalValue.getText(), report);
-        dao.izmijeniRezultat(rezultat);
+        dao.changeResult(rezultat);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText(null);

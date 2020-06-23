@@ -1,13 +1,13 @@
 package sample;
 
-public class UserDoktor {
+public class UserDoctor {
     private String firstName;
     private String lastName;
     private String userName;
     private String password;
     private String eMail;
 
-    public UserDoktor(String firstName, String lastName, String userName, String password, String eMail) {
+    public UserDoctor(String firstName, String lastName, String userName, String password, String eMail) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
@@ -15,7 +15,7 @@ public class UserDoktor {
         this.eMail = eMail;
     }
 
-    public UserDoktor() {
+    public UserDoctor() {
     }
 
     public String getFirstName() {

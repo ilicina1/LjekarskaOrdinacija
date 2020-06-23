@@ -30,10 +30,10 @@ public class SignUpController {
     public Button btnCancel;
     public Button btnContinue;
     public AnchorPane anchorSign;
-    public KlasaDAO dao;
+    public ClassDAO dao;
 
     public SignUpController() {
-        dao = KlasaDAO.getInstance();
+        dao = ClassDAO.getInstance();
     }
 
 

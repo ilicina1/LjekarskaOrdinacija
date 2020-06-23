@@ -35,14 +35,14 @@ public class ResultsController {
     public AnchorPane anchor;
 
     public Patients pacijent;
-    public KlasaDAO dao;
+    public ClassDAO dao;
     public MedicalReports report;
     private ObservableList<Results> listResults;
 
     public ResultsController(MedicalReports report, Patients pacijent) throws SQLException {
-        dao = KlasaDAO.getInstance();
+        dao = ClassDAO.getInstance();
         this.report = report;
-        listResults = FXCollections.observableArrayList(dao.rezultati(report.getId()));
+        listResults = FXCollections.observableArrayList(dao.results(report.getId()));
         this.pacijent = pacijent;
     }
 
@@ -95,8 +95,8 @@ public class ResultsController {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            dao.obrisiRezultat(rezultat);
-            listResults.setAll(dao.rezultati(report.getId()));
+            dao.deleteResult(rezultat);
+            listResults.setAll(dao.results(report.getId()));
         }
     }
 
@@ -115,7 +115,7 @@ public class ResultsController {
             stage.show();
             stage.setOnHiding( event -> {
                 try {
-                    listResults.setAll(dao.rezultati(report.getId()));
+                    listResults.setAll(dao.results(report.getId()));
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }

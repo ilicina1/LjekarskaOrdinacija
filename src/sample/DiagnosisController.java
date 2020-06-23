@@ -31,12 +31,12 @@ public class DiagnosisController {
     public TableColumn colDiagnosis;
     public AnchorPane anchor2;
     public Patients pacijent;
-    public KlasaDAO dao;
+    public ClassDAO dao;
     private ObservableList<Diagnosis> listDiagnoses;
 
     public DiagnosisController(Patients pacijent) throws SQLException {
-        dao = KlasaDAO.getInstance();
-        listDiagnoses = FXCollections.observableArrayList(dao.dijagnoze(pacijent.getMedicalRecordNumber()));
+        dao = ClassDAO.getInstance();
+        listDiagnoses = FXCollections.observableArrayList(dao.diagnosis(pacijent.getMedicalRecordNumber()));
         this.pacijent = pacijent;
     }
 
@@ -78,7 +78,7 @@ public class DiagnosisController {
         Stage stage = new Stage();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dodajDijagnozu.fxml"));
-            DodajDijagnozuController ctrl = new DodajDijagnozuController(null, pacijent);
+            AddDiagnosisController ctrl = new AddDiagnosisController(null, pacijent);
             loader.setController(ctrl);
             Parent root = loader.load();
             stage.setTitle("New diagnosis");
@@ -88,9 +88,9 @@ public class DiagnosisController {
             stage.setOnHiding( event -> {
                 Diagnosis novaDijagnoza = ctrl.getDijagnoza();
                 if (novaDijagnoza != null) {
-                    dao.dodajDijagnozu(novaDijagnoza);
+                    dao.addDiagnosis(novaDijagnoza);
                     try {
-                        listDiagnoses.setAll(dao.dijagnoze(pacijent.getMedicalRecordNumber()));
+                        listDiagnoses.setAll(dao.diagnosis(pacijent.getMedicalRecordNumber()));
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
@@ -113,8 +113,8 @@ public class DiagnosisController {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            dao.ObrisiDijagnozu(dijagnoza);
-            listDiagnoses.setAll(dao.dijagnoze(pacijent.getMedicalRecordNumber()));
+            dao.deleteDiagnosis(dijagnoza);
+            listDiagnoses.setAll(dao.diagnosis(pacijent.getMedicalRecordNumber()));
         }
     }
 }

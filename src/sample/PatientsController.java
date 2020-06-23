@@ -22,8 +22,6 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
@@ -39,12 +37,12 @@ public class PatientsController {
     public TableColumn colBirthDate;
     public AnchorPane anchor;
 
-    public KlasaDAO dao;
+    public ClassDAO dao;
     private ObservableList<Patients> listPacijenti;
 
     public PatientsController() {
-        dao = KlasaDAO.getInstance();
-        listPacijenti = FXCollections.observableArrayList(dao.pacijenti());
+        dao = ClassDAO.getInstance();
+        listPacijenti = FXCollections.observableArrayList(dao.patients());
     }
 
     @FXML
@@ -62,7 +60,7 @@ public class PatientsController {
         Stage stage = new Stage();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dodajPacijenta.fxml"));
-            dodajPacijentaController ctrl = new dodajPacijentaController(null, dao.pacijenti());
+            AddPatientController ctrl = new AddPatientController(null, dao.patients());
             loader.setController(ctrl);
             Parent root = loader.load();
             stage.setTitle("New patient");
@@ -72,8 +70,8 @@ public class PatientsController {
             stage.setOnHiding( event -> {
                 Patients noviPacijent = ctrl.getPacijent();
                 if (noviPacijent != null) {
-                    dao.dodajPacijenta(noviPacijent);
-                    listPacijenti.setAll(dao.pacijenti());
+                    dao.addPatient(noviPacijent);
+                    listPacijenti.setAll(dao.patients());
                 }
             } );
         } catch (IOException e) {
@@ -87,7 +85,7 @@ public class PatientsController {
         Stage stage = new Stage();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dodajPacijenta.fxml"));
-            dodajPacijentaController ctrl = new dodajPacijentaController(pacijent, dao.pacijenti());
+            AddPatientController ctrl = new AddPatientController(pacijent, dao.patients());
             loader.setController(ctrl);
             Parent root = loader.load();
             stage.setTitle("Edit patient");
@@ -97,8 +95,8 @@ public class PatientsController {
             stage.setOnHiding( event -> {
                 Patients noviPacijent = ctrl.getPacijent();
                 if (noviPacijent != null) {
-                    dao.izmijeniPacijenta(noviPacijent);
-                    listPacijenti.setAll(dao.pacijenti());
+                    dao.changePatient(noviPacijent);
+                    listPacijenti.setAll(dao.patients());
                 }
             } );
         } catch (IOException e) {
@@ -118,12 +116,8 @@ public class PatientsController {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            dao.obrisiPacijenta(pacijent);
-//            dao.obrisiSveDijagnoze(pacijent);
-//            dao.obrisiSveHistorije(pacijent);
-//            dao.obrisiSveNalaze(pacijent);
-
-            listPacijenti.setAll(dao.pacijenti());
+            dao.deletePatient(pacijent);
+            listPacijenti.setAll(dao.patients());
         }
     }
 

@@ -13,11 +13,11 @@ public class AddAppointmentController {
     public TextField tfReason;
     public DatePicker dpDate;
 
-    public KlasaDAO dao;
+    public ClassDAO dao;
     public Appointments appointment;
 
     public AddAppointmentController() {
-        dao = KlasaDAO.getInstance();
+        dao = ClassDAO.getInstance();
     }
 
     public Appointments getAppointment() {
@@ -31,8 +31,8 @@ public class AddAppointmentController {
 
     public void actionConfirm(ActionEvent actionEvent) throws SQLException {
         appointment = null;
-        appointment = new Appointments(dao.dajNajveciId4() + 1 , tfNameAndSurname.getText(), tfTime.getText(),tfReason.getText(), dpDate.getValue());
-        dao.dodajAppointment(appointment);
+        appointment = new Appointments(dao.getMaxId4() + 1 , tfNameAndSurname.getText(), tfTime.getText(),tfReason.getText(), dpDate.getValue());
+        dao.addAppointment(appointment);
         ButtonType Yes = new ButtonType("Yes");
         ButtonType No = new ButtonType("No");
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Would you like to add another one? \n Press Yes if you do!", Yes, No);
