@@ -34,16 +34,16 @@ public class ResultsController {
     public TableColumn colNormalValue;
     public AnchorPane anchor;
 
-    private Patients pacijent;
+    private Patients patient;
     private ClassDAO dao;
     private MedicalReports report;
     private ObservableList<Results> listResults;
 
-    public ResultsController(MedicalReports report, Patients pacijent) throws SQLException {
+    public ResultsController(MedicalReports report, Patients patient) throws SQLException {
         dao = ClassDAO.getInstance();
-        this.report = report;
         listResults = FXCollections.observableArrayList(dao.results(report.getId()));
-        this.pacijent = pacijent;
+        this.report = report;
+        this.patient = patient;
     }
 
     @FXML
@@ -61,7 +61,7 @@ public class ResultsController {
         Parent root = null;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/medicalReports.fxml"));
-            MedicalReportsController ctrl = new MedicalReportsController(pacijent);
+            MedicalReportsController ctrl = new MedicalReportsController(patient);
             loader.setController(ctrl);
             root = loader.load();
             stage.setTitle("Medical Reports");
@@ -84,29 +84,29 @@ public class ResultsController {
     }
 
     public void actionDelete(ActionEvent actionEvent) throws SQLException {
-        Results rezultat = tableViewResults.getSelectionModel().getSelectedItem();
+        Results result = tableViewResults.getSelectionModel().getSelectedItem();
 
-        if (rezultat == null) return;
+        if (result == null) return;
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("");
-        alert.setHeaderText("Deleting a result " + rezultat.getId());
-        alert.setContentText("Are you sure you want to delete result " + rezultat.getId()+"?");
+        alert.setHeaderText("Deleting a result " + result.getId());
+        alert.setContentText("Are you sure you want to delete result " + result.getId()+"?");
 
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK){
-            dao.deleteResult(rezultat);
+        Optional<ButtonType> resultOne = alert.showAndWait();
+        if (resultOne.get() == ButtonType.OK){
+            dao.deleteResult(result);
             listResults.setAll(dao.results(report.getId()));
         }
     }
 
     public void actionEdit(ActionEvent actionEvent) throws IOException, SQLException {
-        Results rezultat = tableViewResults.getSelectionModel().getSelectedItem();
-        if (rezultat == null) return;
+        Results result = tableViewResults.getSelectionModel().getSelectedItem();
+        if (result == null) return;
         Stage stage = new Stage();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/addResults.fxml"));
-            EditResultController ctrl = new EditResultController(rezultat, report);
+            EditResultController ctrl = new EditResultController(result, report);
             loader.setController(ctrl);
             Parent root = loader.load();
             stage.setTitle("Edit result");

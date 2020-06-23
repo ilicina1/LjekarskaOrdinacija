@@ -30,14 +30,15 @@ public class DiagnosisController {
     public TableColumn colId;
     public TableColumn colDiagnosis;
     public AnchorPane anchor2;
-    private Patients pacijent;
+
+    private Patients patient;
     private ClassDAO dao;
     private ObservableList<Diagnosis> listDiagnoses;
 
-    public DiagnosisController(Patients pacijent) throws SQLException {
+    public DiagnosisController(Patients patient) throws SQLException {
         dao = ClassDAO.getInstance();
-        listDiagnoses = FXCollections.observableArrayList(dao.diagnosis(pacijent.getMedicalRecordNumber()));
-        this.pacijent = pacijent;
+        listDiagnoses = FXCollections.observableArrayList(dao.diagnosis(patient.getMedicalRecordNumber()));
+        this.patient = patient;
     }
 
     @FXML
@@ -78,7 +79,7 @@ public class DiagnosisController {
         Stage stage = new Stage();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dodajDijagnozu.fxml"));
-            AddDiagnosisController ctrl = new AddDiagnosisController(null, pacijent);
+            AddDiagnosisController ctrl = new AddDiagnosisController(null, patient);
             loader.setController(ctrl);
             Parent root = loader.load();
             stage.setTitle("New diagnosis");
@@ -86,11 +87,11 @@ public class DiagnosisController {
             stage.setResizable(false);
             stage.show();
             stage.setOnHiding( event -> {
-                Diagnosis novaDijagnoza = ctrl.getDijagnoza();
+                Diagnosis novaDijagnoza = ctrl.getDiagnosis();
                 if (novaDijagnoza != null) {
                     dao.addDiagnosis(novaDijagnoza);
                     try {
-                        listDiagnoses.setAll(dao.diagnosis(pacijent.getMedicalRecordNumber()));
+                        listDiagnoses.setAll(dao.diagnosis(patient.getMedicalRecordNumber()));
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
@@ -102,19 +103,19 @@ public class DiagnosisController {
     }
 
     public void actionDelete(ActionEvent actionEvent) throws SQLException {
-        Diagnosis dijagnoza = tableViewDiagnosis.getSelectionModel().getSelectedItem();
+        Diagnosis diagnosis = tableViewDiagnosis.getSelectionModel().getSelectedItem();
 
-        if (dijagnoza == null) return;
+        if (diagnosis == null) return;
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("");
-        alert.setHeaderText("Brisanje dijagnoze " + dijagnoza.getId());
-        alert.setContentText("Da li ste sigurni da želite obrisati dijagnozu " + dijagnoza.getId()+"?");
+        alert.setHeaderText("Brisanje dijagnoze " + diagnosis.getId());
+        alert.setContentText("Da li ste sigurni da želite obrisati dijagnozu " + diagnosis.getId()+"?");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            dao.deleteDiagnosis(dijagnoza);
-            listDiagnoses.setAll(dao.diagnosis(pacijent.getMedicalRecordNumber()));
+            dao.deleteDiagnosis(diagnosis);
+            listDiagnoses.setAll(dao.diagnosis(patient.getMedicalRecordNumber()));
         }
     }
 }

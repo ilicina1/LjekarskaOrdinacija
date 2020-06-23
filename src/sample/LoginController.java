@@ -22,13 +22,8 @@ import java.sql.SQLException;
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
 
 public class LoginController {
-    public Button btnExit;
-    public Button btnSignUp;
-    public Button btnForgot;
-    public Button btnLogin;
     public TextField tfUserName;
     public PasswordField pfPassword;
-    public ImageView imgLogin;
     public AnchorPane anchor;
 
     private ClassDAO dao;

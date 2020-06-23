@@ -33,13 +33,13 @@ public class MedicalReportsController {
     public TableColumn colDate;
 
     private ClassDAO dao;
-    private Patients pacijent;
+    private Patients patient;
     private ObservableList<MedicalReports> listMedicalReports;
 
-    public MedicalReportsController(Patients pacijent) throws SQLException {
+    public MedicalReportsController(Patients patient) throws SQLException {
         dao = ClassDAO.getInstance();
-        this.pacijent = pacijent;
-        listMedicalReports = FXCollections.observableArrayList(dao.reports(pacijent.getMedicalRecordNumber()));
+        this.patient = patient;
+        listMedicalReports = FXCollections.observableArrayList(dao.reports(patient.getMedicalRecordNumber()));
     }
 
     @FXML
@@ -80,7 +80,7 @@ public class MedicalReportsController {
         Stage stage = new Stage();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/addReport.fxml"));
-            AddMedicalReportController ctrl = new AddMedicalReportController(pacijent);
+            AddMedicalReportController ctrl = new AddMedicalReportController(patient);
             loader.setController(ctrl);
             Parent root = loader.load();
             stage.setTitle("Create medical report");
@@ -92,7 +92,7 @@ public class MedicalReportsController {
                 if (noviNalaz != null) {
                     dao.addReport(noviNalaz);
                     try {
-                        listMedicalReports.setAll(dao.reports(pacijent.getMedicalRecordNumber()));
+                        listMedicalReports.setAll(dao.reports(patient.getMedicalRecordNumber()));
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
@@ -112,14 +112,14 @@ public class MedicalReportsController {
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("");
-        alert.setHeaderText("Brisanje nalaza " + nalaz.getId());
-        alert.setContentText("Da li ste sigurni da želite obrisati nalaz " + nalaz.getId()+"?");
+        alert.setHeaderText("Deleting report" + nalaz.getId());
+        alert.setContentText("Are u sure that u want to delete report: " + nalaz.getId()+"?");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
             dao.deleteReport(nalaz);
             dao.deleteResults(nalaz);
-            listMedicalReports.setAll(dao.reports(pacijent.getMedicalRecordNumber()));
+            listMedicalReports.setAll(dao.reports(patient.getMedicalRecordNumber()));
         }
     }
 
@@ -130,7 +130,7 @@ public class MedicalReportsController {
         Parent root = null;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/result.fxml"));
-            ResultsController ctrl = new ResultsController(report, pacijent);
+            ResultsController ctrl = new ResultsController(report, patient);
             loader.setController(ctrl);
             stage.setTitle("Results");
             root = loader.load();

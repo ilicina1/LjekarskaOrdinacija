@@ -6,18 +6,18 @@ public class MedicalHistory {
     private String familyMedicalIssues;
     private String addictions;
     private String currentHealthIssues;
-    private  Patients pacijent;
+    private Patients patient;
 
     public MedicalHistory() {
     }
 
-    public MedicalHistory(int id, String allergies, String familyMedicalIssues, String addictions, String currentHealthIssues, Patients pacijent) {
+    public MedicalHistory(int id, String allergies, String familyMedicalIssues, String addictions, String currentHealthIssues, Patients patient) {
         this.id = id;
         this.allergies = allergies;
         this.familyMedicalIssues = familyMedicalIssues;
         this.addictions = addictions;
         this.currentHealthIssues = currentHealthIssues;
-        this.pacijent = pacijent;
+        this.patient = patient;
     }
 
     public int getId() {
@@ -60,11 +60,11 @@ public class MedicalHistory {
         this.currentHealthIssues = currentHealthIssues;
     }
 
-    public Patients getPacijent() {
-        return pacijent;
+    public Patients getPatient() {
+        return patient;
     }
 
-    public void setPacijent(Patients pacijent) {
-        this.pacijent = pacijent;
+    public void setPatient(Patients patient) {
+        this.patient = patient;
     }
 }

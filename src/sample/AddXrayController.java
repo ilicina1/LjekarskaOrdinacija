@@ -14,13 +14,13 @@ public class AddXrayController {
     public DatePicker dpDate;
 
     private ClassDAO dao;
-    private Patients pacijent;
+    private Patients patient;
     private FileInputStream fis;
     private File file;
 
-    public AddXrayController(Patients pacijent) {
+    public AddXrayController(Patients patient) {
         dao = ClassDAO.getInstance();
-        this.pacijent = pacijent;
+        this.patient = patient;
     }
 
     public void actionCancel(ActionEvent actionEvent) {
@@ -39,7 +39,7 @@ public class AddXrayController {
             return;
         }
         fis = new FileInputStream(file);
-        Xray xray = new Xray(dao.getMaxId5() + 1, tfWhatsOnRay.getText(), dpDate.getValue(), pacijent);
+        Xray xray = new Xray(dao.getMaxId5() + 1, tfWhatsOnRay.getText(), dpDate.getValue(), patient);
         dao.addXray(xray, fis, (int)file.length());
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

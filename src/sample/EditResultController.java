@@ -15,71 +15,73 @@ public class EditResultController {
     public TextField tfNormalValue;
 
     private ClassDAO dao;
-    private Results rezultat;
+    private Results result;
     private MedicalReports report;
     private ObservableList<Results> listResults;
 
-    public EditResultController(Results rezultat, MedicalReports report) {
+    public EditResultController(Results result, MedicalReports report) {
         dao = ClassDAO.getInstance();
-        this.rezultat = rezultat;
+        this.result = result;
         this.report = report;
     }
 
     @FXML
     public void initialize() {
-        tfSample.setText(rezultat.getSample());
-        tfTypeOfAnalysis.setText(rezultat.getTypeOfAnalysis());
-        tfResult.setText(Double.toString(rezultat.getResult()));
-        tfNormalValue.setText(rezultat.getNormalValue());
+        tfSample.setText(result.getSample());
+        tfTypeOfAnalysis.setText(result.getTypeOfAnalysis());
+        tfResult.setText(Double.toString(result.getResult()));
+        tfNormalValue.setText(result.getNormalValue());
         tfSample.textProperty().addListener((obs, oldIme, newIme) -> {
             if (newIme.length() < 5) {
-                tfSample.getStyleClass().removeAll("poljeNijeIspravno");
-                tfSample.getStyleClass().add("poljeIspravno");
+                tfSample.getStyleClass().removeAll("fieldIncorrect");
+                tfSample.getStyleClass().add("fieldCorrect");
             } else {
-                tfSample.getStyleClass().removeAll("poljeIspravno");
-                tfSample.getStyleClass().add("poljeNijeIspravno");
+                tfSample.getStyleClass().removeAll("fieldCorrect");
+                tfSample.getStyleClass().add("fieldIncorrect");
             }
         });
 
         tfTypeOfAnalysis.textProperty().addListener((obs, oldIme, newIme) -> {
             if (!newIme.isEmpty()) {
-                tfTypeOfAnalysis.getStyleClass().removeAll("poljeNijeIspravno");
-                tfTypeOfAnalysis.getStyleClass().add("poljeIspravno");
+                tfTypeOfAnalysis.getStyleClass().removeAll("fieldIncorrect");
+                tfTypeOfAnalysis.getStyleClass().add("fieldCorrect");
             } else {
-                tfTypeOfAnalysis.getStyleClass().removeAll("poljeIspravno");
-                tfTypeOfAnalysis.getStyleClass().add("poljeNijeIspravno");
+                tfTypeOfAnalysis.getStyleClass().removeAll("fieldCorrect");
+                tfTypeOfAnalysis.getStyleClass().add("fieldIncorrect");
             }
         });
 
         tfResult.textProperty().addListener((obs, oldIme, newIme) -> {
             if (validateResult(newIme)) {
-                tfResult.getStyleClass().removeAll("poljeNijeIspravno");
-                tfResult.getStyleClass().add("poljeIspravno");
+                tfResult.getStyleClass().removeAll("fieldIncorrect");
+                tfResult.getStyleClass().add("fieldCorrect");
             } else {
-                tfResult.getStyleClass().removeAll("poljeIspravno");
-                tfResult.getStyleClass().add("poljeNijeIspravno");
+                tfResult.getStyleClass().removeAll("fieldCorrect");
+                tfResult.getStyleClass().add("fieldIncorrect");
             }
         });
 
         tfNormalValue.textProperty().addListener((obs, oldIme, newIme) -> {
             if (!newIme.isEmpty()) {
-                tfNormalValue.getStyleClass().removeAll("poljeNijeIspravno");
-                tfNormalValue.getStyleClass().add("poljeIspravno");
+                tfNormalValue.getStyleClass().removeAll("fieldIncorrect");
+                tfNormalValue.getStyleClass().add("fieldCorrect");
             } else {
-                tfNormalValue.getStyleClass().removeAll("poljeIspravno");
-                tfNormalValue.getStyleClass().add("poljeNijeIspravno");
+                tfNormalValue.getStyleClass().removeAll("fieldCorrect");
+                tfNormalValue.getStyleClass().add("fieldIncorrect");
             }
         });
     }
 
     public void actionConfirm(ActionEvent actionEvent) throws SQLException {
-        rezultat = new Results(rezultat.getId() , tfSample.getText(), tfTypeOfAnalysis.getText(), Double.parseDouble(tfResult.getText()), tfNormalValue.getText(), report);
-        dao.changeResult(rezultat);
+        result = new Results(result.getId() , tfSample.getText(), tfTypeOfAnalysis.getText(), Double.parseDouble(tfResult.getText()), tfNormalValue.getText(), report);
+        dao.changeResult(result);
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText(null);
         alert.setContentText("You have successfully edited the result!");
         alert.showAndWait();
+
         Stage stage = (Stage) tfSample.getScene().getWindow();
         stage.close();
     }

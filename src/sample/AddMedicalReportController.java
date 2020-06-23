@@ -18,10 +18,10 @@ public class AddMedicalReportController {
 
     private ClassDAO dao;
     private MedicalReports report;
-    private Patients pacijent;
+    private Patients patient;
 
-    public AddMedicalReportController(Patients pacijent) throws SQLException {
-        this.pacijent = pacijent;
+    public AddMedicalReportController(Patients patient) throws SQLException {
+        this.patient = patient;
         dao = ClassDAO.getInstance();
     }
 
@@ -35,21 +35,24 @@ public class AddMedicalReportController {
     }
 
     public void actionConfirm(ActionEvent actionEvent) throws SQLException {
-        report = new MedicalReports(dao.getMaxId2() + 1 , dpDate.getValue(), pacijent);
+        report = new MedicalReports(dao.getMaxId2() + 1 , dpDate.getValue(), patient);
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText(null);
         alert.setContentText("You have successfully added report! \n Write down the results");
         alert.showAndWait();
+
         Stage stage = (Stage) dpDate.getScene().getWindow();
         stage.close();
-        // ovdje treba ici otvaranje novog prozora za upis rezultata nalaza!!!
         Stage stage1 = new Stage();
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/addResults.fxml"));
             AddResultsController ctrl = new AddResultsController(report);
             loader.setController(ctrl);
             Parent root = loader.load();
+
             stage1.setTitle("Add results!");
             stage1.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
             stage1.setResizable(false);

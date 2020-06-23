@@ -12,13 +12,15 @@ import java.sql.SQLException;
 public class AddDiagnosisController {
     public TextField tfId;
     public TextArea taDiagnosis;
-    private Diagnosis dijagnoza;
-    private Patients pacijent;
+
+    private Diagnosis diagnosis;
+    private Patients patient;
     private ClassDAO dao;
 
-    public AddDiagnosisController(Diagnosis dijagnoza, Patients pacijent) {
-        this.dijagnoza = dijagnoza;
-        this.pacijent = pacijent;
+    public AddDiagnosisController(Diagnosis diagnosis, Patients patient) {
+        this.diagnosis = diagnosis;
+        this.patient = patient;
+
         dao = ClassDAO.getInstance();
     }
 
@@ -26,17 +28,17 @@ public class AddDiagnosisController {
     public void initialize() {
             tfId.textProperty().addListener((obs, oldIme, newIme) -> {
                 if (validateId(newIme)) {
-                    tfId.getStyleClass().removeAll("poljeNijeIspravno");
-                    tfId.getStyleClass().add("poljeIspravno");
+                    tfId.getStyleClass().removeAll("fieldIncorrect");
+                    tfId.getStyleClass().add("fieldCorrect");
                 } else {
-                    tfId.getStyleClass().removeAll("poljeIspravno");
-                    tfId.getStyleClass().add("poljeNijeIspravno");
+                    tfId.getStyleClass().removeAll("fieldCorrect");
+                    tfId.getStyleClass().add("fieldIncorrect");
                 }
             });
     }
 
-    public Diagnosis getDijagnoza() {
-        return dijagnoza;
+    public Diagnosis getDiagnosis() {
+        return diagnosis;
     }
 
     public void actionConfirm(ActionEvent actionEvent) throws SQLException {
@@ -44,20 +46,21 @@ public class AddDiagnosisController {
         boolean sveOk = true;
 
         id = dao.validateDiagnosis(Integer.parseInt(tfId.getText().trim()));
+
         if (validateId(tfId.getText().trim())) {
 
-            tfId.getStyleClass().removeAll("poljeNijeIspravno");
-            tfId.getStyleClass().add("poljeIspravno");
+            tfId.getStyleClass().removeAll("fieldIncorrect");
+            tfId.getStyleClass().add("fieldCorrect");
         } else {
-            tfId.getStyleClass().removeAll("poljeIspravno");
-            tfId.getStyleClass().add("poljeNijeIspravno");
+            tfId.getStyleClass().removeAll("fieldCorrect");
+            tfId.getStyleClass().add("fieldIncorrect");
             sveOk = false;
         }
 
         if(id) {
             sveOk = false;
-            tfId.getStyleClass().removeAll("poljeIspravno");
-            tfId.getStyleClass().add("poljeNijeIspravno");
+            tfId.getStyleClass().removeAll("fieldCorrect");
+            tfId.getStyleClass().add("fieldIncorrect");
         }
 
         if (!sveOk) {
@@ -68,7 +71,7 @@ public class AddDiagnosisController {
             alert.showAndWait();
             return;
         } else {
-            dijagnoza = new Diagnosis(Integer.parseInt(tfId.getText()), taDiagnosis.getText(), pacijent);
+            diagnosis = new Diagnosis(Integer.parseInt(tfId.getText()), taDiagnosis.getText(), patient);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information Dialog");
             alert.setHeaderText(null);

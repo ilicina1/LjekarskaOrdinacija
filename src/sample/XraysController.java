@@ -35,13 +35,13 @@ public class XraysController {
     public TableColumn colWhatsOnRay;
 
     private ClassDAO dao;
-    private Patients pacijent;
+    private Patients patient;
     private ObservableList<Xray> listXrays;
 
-    public XraysController(Patients pacijent) throws SQLException {
+    public XraysController(Patients patient) throws SQLException {
         dao = ClassDAO.getInstance();
-        this.pacijent = pacijent;
-        listXrays = FXCollections.observableArrayList(dao.xrays(pacijent.getMedicalRecordNumber()));
+        this.patient = patient;
+        listXrays = FXCollections.observableArrayList(dao.xrays(patient.getMedicalRecordNumber()));
     }
 
     @FXML
@@ -83,7 +83,7 @@ public class XraysController {
         Stage stage = new Stage();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/addXray.fxml"));
-            AddXrayController ctrl = new AddXrayController(pacijent);
+            AddXrayController ctrl = new AddXrayController(patient);
             loader.setController(ctrl);
             Parent root = loader.load();
             stage.setTitle("Add x-ray");
@@ -92,7 +92,7 @@ public class XraysController {
             stage.show();
             stage.setOnHiding( event -> {
                 try {
-                    listXrays.setAll(dao.xrays(pacijent.getMedicalRecordNumber()));
+                    listXrays.setAll(dao.xrays(patient.getMedicalRecordNumber()));
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -122,17 +122,20 @@ public class XraysController {
         Xray xray = tableViewXrays.getSelectionModel().getSelectedItem();
 
         if (xray == null) return;
+
         ButtonType Yes = new ButtonType("Yes");
         ButtonType No = new ButtonType("No");
+
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.getButtonTypes().setAll(Yes, No);
         alert.setTitle("");
         alert.setHeaderText("Deleting x-ray " + xray.getId());
         alert.setContentText("Are you sure you want to delete x-ray " + xray.getId()+"?");
+
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == Yes){
             dao.deleteXray(xray);
-            listXrays.setAll(dao.xrays(pacijent.getMedicalRecordNumber()));
+            listXrays.setAll(dao.xrays(patient.getMedicalRecordNumber()));
         }
     }
 }

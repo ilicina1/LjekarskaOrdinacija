@@ -37,7 +37,7 @@ public class ClassDAO {
         try {
             addUserNameQuery = conn.prepareStatement("SELECT * FROM Doctors WHERE user_name=?");
         } catch (SQLException e) {
-            regenerisiBazu();
+            regenerateDataBase();
             try {
                 addUserNameQuery = conn.prepareStatement("SELECT * FROM Doctors WHERE user_name=?");
             } catch (SQLException e1) {
@@ -92,19 +92,19 @@ public class ClassDAO {
 
     }
 
-    private void regenerisiBazu() {
+    private void regenerateDataBase() {
         Scanner ulaz = null;
         try {
             ulaz = new Scanner(new FileInputStream("bazz.db.sql"));
-            String sqlUpit = "";
+            String sqlQuery = "";
             while (ulaz.hasNext()) {
-                sqlUpit += ulaz.nextLine();
-                if ( sqlUpit.charAt( sqlUpit.length()-1 ) == ';') {
-                    System.out.println("Izvrsavam upit: "+sqlUpit);
+                sqlQuery += ulaz.nextLine();
+                if ( sqlQuery.charAt( sqlQuery.length()-1 ) == ';') {
+                    System.out.println("Query: "+sqlQuery);
                     try {
                         Statement stmt = conn.createStatement();
-                        stmt.execute(sqlUpit);
-                        sqlUpit = "";
+                        stmt.execute(sqlQuery);
+                        sqlQuery = "";
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
@@ -372,7 +372,7 @@ public class ClassDAO {
             addHistoryQuery.setString(3, historija.getFamilyMedicalIssues());
             addHistoryQuery.setString(4, historija.getAddictions());
             addHistoryQuery.setString(5, historija.getCurrentHealthIssues());
-            addHistoryQuery.setInt(6, historija.getPacijent().getMedicalRecordNumber());
+            addHistoryQuery.setInt(6, historija.getPatient().getMedicalRecordNumber());
             addHistoryQuery.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

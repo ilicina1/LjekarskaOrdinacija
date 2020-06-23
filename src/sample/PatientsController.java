@@ -129,12 +129,12 @@ public class PatientsController {
     }
 
     public void actionEdit(ActionEvent actionEvent) throws IOException, SQLException {
-        Patients pacijent = tableViewPacijenti.getSelectionModel().getSelectedItem();
-        if (pacijent == null) return;
+        Patients patient = tableViewPacijenti.getSelectionModel().getSelectedItem();
+        if (patient == null) return;
         Stage stage = new Stage();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dodajPacijenta.fxml"));
-            AddPatientController ctrl = new AddPatientController(pacijent, dao.patients());
+            AddPatientController ctrl = new AddPatientController(patient, dao.patients());
             loader.setController(ctrl);
             Parent root = loader.load();
             stage.setTitle("Edit patient");
@@ -154,29 +154,29 @@ public class PatientsController {
     }
 
     public void actionDelete(ActionEvent actionEvent) {
-        Patients pacijent = tableViewPacijenti.getSelectionModel().getSelectedItem();
+        Patients patient = tableViewPacijenti.getSelectionModel().getSelectedItem();
 
-        if (pacijent == null) return;
+        if (patient == null) return;
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("");
-        alert.setHeaderText("Brisanje pacijenta " + pacijent.getFullName());
-        alert.setContentText("Da li ste sigurni da želite obrisati pacijenta " + pacijent.getFullName()+"?");
+        alert.setHeaderText("Brisanje pacijenta " + patient.getFullName());
+        alert.setContentText("Da li ste sigurni da želite obrisati pacijenta " + patient.getFullName()+"?");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            dao.deletePatient(pacijent);
+            dao.deletePatient(patient);
             listPatients.setAll(dao.patients());
         }
     }
 
     public void actionDiagnosis(ActionEvent actionEvent) throws IOException, SQLException {
-        Patients pacijent = tableViewPacijenti.getSelectionModel().getSelectedItem();
+        Patients patient = tableViewPacijenti.getSelectionModel().getSelectedItem();
         Stage stage = new Stage();
         Parent root = null;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnosis.fxml"));
-            DiagnosisController ctrl = new DiagnosisController(pacijent);
+            DiagnosisController ctrl = new DiagnosisController(patient);
             loader.setController(ctrl);
             stage.setTitle("Diagnosis");
             root = loader.load();
@@ -199,12 +199,12 @@ public class PatientsController {
     }
 
     public void actionMedicalHistory(ActionEvent actionEvent) throws IOException, SQLException {
-        Patients pacijent = tableViewPacijenti.getSelectionModel().getSelectedItem();
+        Patients patient = tableViewPacijenti.getSelectionModel().getSelectedItem();
         Stage stage = new Stage();
         Parent root = null;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/medicalHistory.fxml"));
-            MedicalHistoryController ctrl = new MedicalHistoryController(pacijent);
+            MedicalHistoryController ctrl = new MedicalHistoryController(patient);
             loader.setController(ctrl);
             stage.setTitle("Medical History");
             root = loader.load();
@@ -227,12 +227,12 @@ public class PatientsController {
     }
 
     public void actionMedicalReports(ActionEvent actionEvent) throws IOException, SQLException {
-        Patients pacijent = tableViewPacijenti.getSelectionModel().getSelectedItem();
+        Patients patient = tableViewPacijenti.getSelectionModel().getSelectedItem();
         Stage stage = new Stage();
         Parent root = null;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/medicalReports.fxml"));
-            MedicalReportsController ctrl = new MedicalReportsController(pacijent);
+            MedicalReportsController ctrl = new MedicalReportsController(patient);
             loader.setController(ctrl);
             stage.setTitle("Medical Findings");
             root = loader.load();
@@ -282,12 +282,12 @@ public class PatientsController {
     }
 
     public void actionXrays(ActionEvent actionEvent) throws IOException, SQLException {
-        Patients pacijent = tableViewPacijenti.getSelectionModel().getSelectedItem();
+        Patients patient = tableViewPacijenti.getSelectionModel().getSelectedItem();
         Stage stage = new Stage();
         Parent root = null;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/xrays.fxml"));
-            XraysController ctrl = new XraysController(pacijent);
+            XraysController ctrl = new XraysController(patient);
             loader.setController(ctrl);
             stage.setTitle("X-rays");
             root = loader.load();

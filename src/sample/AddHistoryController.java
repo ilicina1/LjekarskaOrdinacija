@@ -15,17 +15,17 @@ public class AddHistoryController {
     public TextField tfChi;
 
     private ClassDAO dao;
-    private MedicalHistory historija;
-    private ObservableList<MedicalHistory> listHistorije;
-    private Patients pacijent;
+    private MedicalHistory history;
+    private ObservableList<MedicalHistory> historyList;
+    private Patients patient;
 
-    public AddHistoryController(Patients pacijent) {
-        this.pacijent = pacijent;
+    public AddHistoryController(Patients patient) {
+        this.patient = patient;
         dao = ClassDAO.getInstance();
     }
 
-    public MedicalHistory getHistorija() {
-        return historija;
+    public MedicalHistory getHistory() {
+        return history;
     }
 
     public void actionCancel(ActionEvent actionEvent) {
@@ -34,12 +34,14 @@ public class AddHistoryController {
     }
 
     public void actionConfirm(ActionEvent actionEvent) throws SQLException {
-        historija = new MedicalHistory(dao.getMaxId() + 1 ,tfAllergies.getText(), tfFmi.getText(), tfAddictions.getText(), tfChi.getText(), pacijent);
+        history = new MedicalHistory(dao.getMaxId() + 1 ,tfAllergies.getText(), tfFmi.getText(), tfAddictions.getText(), tfChi.getText(), patient);
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText(null);
         alert.setContentText("You have successfully added a history");
         alert.showAndWait();
+
         Stage stage = (Stage) tfAllergies.getScene().getWindow();
         stage.close();
     }

@@ -35,13 +35,13 @@ public class MedicalHistoryController {
     public AnchorPane anchor2;
 
     private ObservableList<MedicalHistory> listMedicalHistory;
-    private Patients pacijent;
+    private Patients patient;
     private ClassDAO dao;
 
-    public MedicalHistoryController(Patients pacijent) throws SQLException {
+    public MedicalHistoryController(Patients patient) throws SQLException {
         dao = ClassDAO.getInstance();
-        this.pacijent = pacijent;
-        listMedicalHistory = FXCollections.observableArrayList(dao.history(pacijent.getMedicalRecordNumber()));
+        this.patient = patient;
+        listMedicalHistory = FXCollections.observableArrayList(dao.history(patient.getMedicalRecordNumber()));
     }
 
     @FXML
@@ -84,7 +84,7 @@ public class MedicalHistoryController {
         Stage stage = new Stage();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/addHistory.fxml"));
-            AddHistoryController ctrl = new AddHistoryController(pacijent);
+            AddHistoryController ctrl = new AddHistoryController(patient);
             loader.setController(ctrl);
             Parent root = loader.load();
             stage.setTitle("New medical history");
@@ -92,11 +92,11 @@ public class MedicalHistoryController {
             stage.setResizable(false);
             stage.show();
             stage.setOnHiding( event -> {
-                MedicalHistory novaHistorija = ctrl.getHistorija();
+                MedicalHistory novaHistorija = ctrl.getHistory();
                 if (novaHistorija != null) {
                     dao.addHistory(novaHistorija);
                     try {
-                        listMedicalHistory.setAll(dao.history(pacijent.getMedicalRecordNumber()));
+                        listMedicalHistory.setAll(dao.history(patient.getMedicalRecordNumber()));
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
@@ -108,19 +108,19 @@ public class MedicalHistoryController {
     }
 
     public void actionDelete(ActionEvent actionEvent) throws SQLException {
-        MedicalHistory historija = tableViewMedicalHistory.getSelectionModel().getSelectedItem();
+        MedicalHistory history = tableViewMedicalHistory.getSelectionModel().getSelectedItem();
 
-        if (historija == null) return;
+        if (history == null) return;
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("");
-        alert.setHeaderText("Brisanje historije " + historija.getId());
-        alert.setContentText("Da li ste sigurni da želite obrisati historiju " + historija.getId()+"?");
+        alert.setHeaderText("Deleting history " + history.getId());
+        alert.setContentText("Are us sure that u want to delete history: " + history.getId()+"?");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            dao.deleteHistory(historija);
-            listMedicalHistory.setAll(dao.history(pacijent.getMedicalRecordNumber()));
+            dao.deleteHistory(history);
+            listMedicalHistory.setAll(dao.history(patient.getMedicalRecordNumber()));
         }
     }
 }

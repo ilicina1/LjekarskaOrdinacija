@@ -141,11 +141,11 @@
     -fx-border-color: #0093EF;
 }
 
-.poljeIspravno {
+.fieldCorrect {
     -fx-control-inner-background: greenyellow;
     -fx-text-fill: greenyellow;
 }
-.poljeNijeIspravno {
+.fieldIncorrect {
     -fx-control-inner-background: #FF4500;
     -fx-text-fill: #FF4500;
 }
