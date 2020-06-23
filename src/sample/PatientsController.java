@@ -4,6 +4,8 @@ import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,10 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -22,6 +21,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Optional;
 
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
@@ -35,25 +35,74 @@ public class PatientsController {
     public TableColumn colCity;
     public TableColumn colAddress;
     public TableColumn colBirthDate;
+    public TextField searchBox;
     public AnchorPane anchor;
 
     public ClassDAO dao;
-    private ObservableList<Patients> listPacijenti;
+    private ObservableList<Patients> listPatients;
+    private ObservableList<Patients> filteredData = FXCollections.observableArrayList();
+
 
     public PatientsController() {
         dao = ClassDAO.getInstance();
-        listPacijenti = FXCollections.observableArrayList(dao.patients());
+        listPatients = FXCollections.observableArrayList(dao.patients());
+        filteredData.addAll(listPatients);
     }
 
     @FXML
     public void initialize() {
-        tableViewPacijenti.setItems(listPacijenti);
+        tableViewPacijenti.setItems(filteredData);
+        searchBox.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable,
+                                String oldValue, String newValue) {
+
+                updateFilteredData();
+            }
+        });
         colMedicalRN.setCellValueFactory(new PropertyValueFactory("medicalRecordNumber"));
         colFullName.setCellValueFactory(new PropertyValueFactory("fullName"));
         colPhoneNum.setCellValueFactory(new PropertyValueFactory("phoneNumber"));
         colCity.setCellValueFactory(new PropertyValueFactory("city"));
         colAddress.setCellValueFactory(new PropertyValueFactory("address"));
         colBirthDate.setCellValueFactory(new PropertyValueFactory("birthDate"));
+    }
+
+    private void updateFilteredData() {
+        filteredData.clear();
+
+        for (Patients p : listPatients) {
+            if (matchesFilter(p)) {
+                filteredData.add(p);
+            }
+        }
+
+        // Must re-sort table after items changed
+        reapplyTableSortOrder();
+    }
+
+    private boolean matchesFilter(Patients patient) {
+        String filterString = searchBox.getText();
+        if (filterString == null || filterString.isEmpty()) {
+            // No filter --> Add all.
+            return true;
+        }
+
+        String lowerCaseFilterString = filterString.toLowerCase();
+
+        if (patient.getFullName().toLowerCase().indexOf(lowerCaseFilterString) != -1) {
+            return true;
+        } else if (patient.getFullName().toLowerCase().indexOf(lowerCaseFilterString) != -1) {
+            return true;
+        }
+
+        return false; // Does not match
+    }
+
+    private void reapplyTableSortOrder() {
+        ArrayList<TableColumn<Patients, ?>> sortOrder = new ArrayList<>(tableViewPacijenti.getSortOrder());
+        tableViewPacijenti.getSortOrder().clear();
+        tableViewPacijenti.getSortOrder().addAll(sortOrder);
     }
 
     public void actionNew(ActionEvent actionEvent) throws IOException, SQLException {
@@ -71,7 +120,7 @@ public class PatientsController {
                 Patients noviPacijent = ctrl.getPacijent();
                 if (noviPacijent != null) {
                     dao.addPatient(noviPacijent);
-                    listPacijenti.setAll(dao.patients());
+                    listPatients.setAll(dao.patients());
                 }
             } );
         } catch (IOException e) {
@@ -96,7 +145,7 @@ public class PatientsController {
                 Patients noviPacijent = ctrl.getPacijent();
                 if (noviPacijent != null) {
                     dao.changePatient(noviPacijent);
-                    listPacijenti.setAll(dao.patients());
+                    listPatients.setAll(dao.patients());
                 }
             } );
         } catch (IOException e) {
@@ -117,7 +166,7 @@ public class PatientsController {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
             dao.deletePatient(pacijent);
-            listPacijenti.setAll(dao.patients());
+            listPatients.setAll(dao.patients());
         }
     }
 
