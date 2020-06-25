@@ -30,6 +30,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.concurrent.Executors;
 
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
 
@@ -322,8 +323,10 @@ public class PatientsController {
         }
     }
 
-    public void close(ActionEvent actionEvent) {
-        Stage stage = (Stage) anchor.getScene().getWindow();
-        stage.close();
+    public void close(ActionEvent actionEvent) throws InterruptedException, IOException {
+        Runtime.getRuntime().exec("klijentNovi.jar -jar CRUDapp1.jar");
+
+//        Stage stage = (Stage) anchor.getScene().getWindow();
+//        stage.close();
     }
 }
