@@ -37,13 +37,13 @@ public class AppointmentsController {
     public AnchorPane anchor2;
     public DatePicker searchBox;
 
-    private ClassDAO dao;
+    private ClassDAOBase dao;
     private ObservableList<Appointments> listAppointments;
     private ObservableList<Appointments> filteredData = FXCollections.observableArrayList();
 
 
     public AppointmentsController() {
-        dao = ClassDAO.getInstance();
+        dao = ClassDAOBase.getInstance();
         listAppointments = FXCollections.observableArrayList(dao.appointments());
         filteredData.addAll(listAppointments);
     }

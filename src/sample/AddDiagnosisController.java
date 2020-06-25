@@ -15,13 +15,13 @@ public class AddDiagnosisController {
 
     private Diagnosis diagnosis;
     private Patients patient;
-    private ClassDAO dao;
+    private ClassDAOBase dao;
 
     public AddDiagnosisController(Diagnosis diagnosis, Patients patient) {
         this.diagnosis = diagnosis;
         this.patient = patient;
 
-        dao = ClassDAO.getInstance();
+        dao = ClassDAOBase.getInstance();
     }
 
     @FXML

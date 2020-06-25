@@ -35,12 +35,12 @@ public class ResultsController {
     public AnchorPane anchor;
 
     private Patients patient;
-    private ClassDAO dao;
+    private ClassDAOBase dao;
     private MedicalReports report;
     private ObservableList<Results> listResults;
 
     public ResultsController(MedicalReports report, Patients patient) throws SQLException {
-        dao = ClassDAO.getInstance();
+        dao = ClassDAOBase.getInstance();
         listResults = FXCollections.observableArrayList(dao.results(report.getId()));
         this.report = report;
         this.patient = patient;

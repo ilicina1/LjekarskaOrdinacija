@@ -17,14 +17,14 @@ public class AddResultsController {
     public TextField tfResult;
     public TextField tfNormalValue;
 
-    private ClassDAO dao;
+    private ClassDAOBase dao;
     private Results result;
     private ObservableList<Results> listResults;
     private MedicalReports report;
 
 
     public AddResultsController(MedicalReports report) {
-        dao = ClassDAO.getInstance();
+        dao = ClassDAOBase.getInstance();
         this.report = report;
     }
 

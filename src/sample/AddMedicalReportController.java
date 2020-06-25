@@ -16,13 +16,13 @@ import static javafx.scene.layout.Region.USE_PREF_SIZE;
 public class AddMedicalReportController {
     public DatePicker dpDate;
 
-    private ClassDAO dao;
+    private ClassDAOBase dao;
     private MedicalReports report;
     private Patients patient;
 
     public AddMedicalReportController(Patients patient) throws SQLException {
         this.patient = patient;
-        dao = ClassDAO.getInstance();
+        dao = ClassDAOBase.getInstance();
     }
 
     public MedicalReports getReport() {

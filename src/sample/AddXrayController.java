@@ -13,13 +13,13 @@ public class AddXrayController {
     public TextField tfWhatsOnRay;
     public DatePicker dpDate;
 
-    private ClassDAO dao;
+    private ClassDAOBase dao;
     private Patients patient;
     private FileInputStream fis;
     private File file;
 
     public AddXrayController(Patients patient) {
-        dao = ClassDAO.getInstance();
+        dao = ClassDAOBase.getInstance();
         this.patient = patient;
     }
 

@@ -26,10 +26,10 @@ public class LoginController {
     public PasswordField pfPassword;
     public AnchorPane anchor;
 
-    private ClassDAO dao;
+    private ClassDAOBase dao;
 
     public LoginController() {
-        dao = ClassDAO.getInstance();
+        dao = ClassDAOBase.getInstance();
     }
 
     public void actionExit(ActionEvent actionEvent) {

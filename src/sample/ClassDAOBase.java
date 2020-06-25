@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ClassDAOBase implements ClassDAO{
+public class ClassDAOBase implements  ClassDAO{
     private static ClassDAOBase instance;
     private Connection conn;
     private PreparedStatement addUserNameQuery, addEmailQuery, addDoctorQuery, addPasswordQuery, addPatientsQuery, addPatientQuery, updatePatientQuery,
@@ -21,7 +21,7 @@ public class ClassDAOBase implements ClassDAO{
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 
-    public static ClassDAO getInstance() {
+    public static ClassDAOBase getInstance() {
         if (instance == null) instance = new ClassDAOBase();
         return instance;
     }
@@ -116,7 +116,6 @@ public class ClassDAOBase implements ClassDAO{
     }
 
 
-    @Override
     public void registerDoctor(String firstName, String lastName, String userName, String password, String eMail) throws SQLException {
         addDoctorQuery.setString(1, firstName);
         addDoctorQuery.setString(2, lastName);
@@ -188,7 +187,6 @@ public class ClassDAOBase implements ClassDAO{
         return xray;
     }
 
-    @Override
     public ArrayList<Patients> patients() {
         ArrayList<Patients> result = new ArrayList();
         try {
@@ -203,7 +201,6 @@ public class ClassDAOBase implements ClassDAO{
         return result;
     }
 
-    @Override
     public ArrayList<Diagnosis> diagnosis(int id) throws SQLException {
         getDiagnosisByPatientQuery.setInt(1,id);
         ArrayList<Diagnosis> result = new ArrayList();
@@ -219,7 +216,6 @@ public class ClassDAOBase implements ClassDAO{
         return result;
     }
 
-    @Override
     public ArrayList<MedicalHistory> history(int id) throws SQLException {
         giveHistoriesQuery.setInt(1,id);
         ArrayList<MedicalHistory> result = new ArrayList();
@@ -235,7 +231,6 @@ public class ClassDAOBase implements ClassDAO{
         return result;
     }
 
-    @Override
     public ArrayList<MedicalReports> reports(int id) throws SQLException {
         getMedicalReportsQuery.setInt(1,id);
         ArrayList<MedicalReports> result = new ArrayList();
@@ -251,7 +246,6 @@ public class ClassDAOBase implements ClassDAO{
         return result;
     }
 
-    @Override
     public ArrayList<Results> results(int id) throws SQLException {
         getResultsQuery.setInt(1,id);
         ArrayList<Results> results = new ArrayList();
@@ -267,7 +261,6 @@ public class ClassDAOBase implements ClassDAO{
         return results;
     }
 
-    @Override
     public ArrayList<Appointments> appointments() {
         ArrayList<Appointments> result = new ArrayList();
         try {
@@ -282,7 +275,6 @@ public class ClassDAOBase implements ClassDAO{
         return result;
     }
 
-    @Override
     public ArrayList<Xray> xrays(int id) throws SQLException {
         getXraysQuery.setInt(1,id);
         ArrayList<Xray> result = new ArrayList();
@@ -298,7 +290,6 @@ public class ClassDAOBase implements ClassDAO{
         return result;
     }
 
-    @Override
     public void changePatient(Patients pacijent){
         // LocalDate id = LocalDate.parse(rs.getString(6), formatter);
         try {
@@ -314,7 +305,6 @@ public class ClassDAOBase implements ClassDAO{
         }
     }
 
-    @Override
     public void addPatient(Patients pacijent) {
         try {
             addPatientQuery.setInt(1, pacijent.getMedicalRecordNumber());
@@ -329,7 +319,6 @@ public class ClassDAOBase implements ClassDAO{
         }
     }
 
-    @Override
     public void deletePatient(Patients pacijent){
         try {
             deletePatientQuery.setInt(1, pacijent.getMedicalRecordNumber());
@@ -343,7 +332,6 @@ public class ClassDAOBase implements ClassDAO{
         }
     }
 
-    @Override
     public void addDiagnosis(Diagnosis dijagnoza) {
         try {
             addDiagnosisQuery.setInt(1, dijagnoza.getId());
@@ -355,7 +343,6 @@ public class ClassDAOBase implements ClassDAO{
         }
     }
 
-    @Override
     public void changeDiagnosis(Diagnosis dijagnoza){
         try {
             updateDiagnosisQuery.setString(1, dijagnoza.getText());
@@ -366,7 +353,6 @@ public class ClassDAOBase implements ClassDAO{
         }
     }
 
-    @Override
     public void deleteDiagnosis(Diagnosis dijagnoza){
         try {
             deleteDiagnosisQuery.setInt(1, dijagnoza.getId());
@@ -377,7 +363,6 @@ public class ClassDAOBase implements ClassDAO{
     }
 
 
-    @Override
     public void addHistory(MedicalHistory historija) {
         try {
             addHistoryQuery.setInt(1, historija.getId());
@@ -450,7 +435,6 @@ public class ClassDAOBase implements ClassDAO{
         return rs.getInt(1);
     }
 
-    @Override
     public void deleteHistory(MedicalHistory historija){
         try {
             deleteHistoryQuery.setInt(1, historija.getId());
@@ -460,7 +444,6 @@ public class ClassDAOBase implements ClassDAO{
         }
     }
 
-    @Override
     public void addReport(MedicalReports medicalReport) {
         try {
             addMedicalReportQuery.setInt(1, medicalReport.getId());
@@ -472,7 +455,6 @@ public class ClassDAOBase implements ClassDAO{
         }
     }
 
-    @Override
     public void deleteReport(MedicalReports nalaz){
         try {
             deleteMedicalReportQuery.setInt(1, nalaz.getId());
@@ -482,7 +464,6 @@ public class ClassDAOBase implements ClassDAO{
         }
     }
 
-    @Override
     public void addResult(Results rezultat) {
         try {
             addResultQuery.setInt(1, rezultat.getId());
@@ -497,7 +478,6 @@ public class ClassDAOBase implements ClassDAO{
         }
     }
 
-    @Override
     public void deleteResult(Results rezultat){
         try {
             deleteResultQuery.setInt(1, rezultat.getId());
@@ -507,7 +487,6 @@ public class ClassDAOBase implements ClassDAO{
         }
     }
 
-    @Override
     public void deleteResults(MedicalReports nalaz){
         try {
             deleteAllResultsQuery.setInt(1, nalaz.getId());
@@ -517,7 +496,6 @@ public class ClassDAOBase implements ClassDAO{
         }
     }
 
-    @Override
     public void changeResult(Results rezultat){
         try {
             updateResultQuery.setString(1, rezultat.getSample());
@@ -567,7 +545,6 @@ public class ClassDAOBase implements ClassDAO{
         }
     }
 
-    @Override
     public void deleteAppointment(Appointments appointment){
         try {
             deleteAppointmentQuery.setInt(1, appointment.getId());
@@ -577,7 +554,6 @@ public class ClassDAOBase implements ClassDAO{
         }
     }
 
-    @Override
     public void addAppointment(Appointments appointment) {
         try {
             addAppointmentQuery.setInt(1, appointment.getId());
@@ -591,7 +567,6 @@ public class ClassDAOBase implements ClassDAO{
         }
     }
 
-    @Override
     public void addXray(Xray xray, FileInputStream fis, int len) {
         try {
             addXrayQuery.setInt(1, xray.getId());
@@ -627,7 +602,6 @@ public class ClassDAOBase implements ClassDAO{
         return image;
     }
 
-    @Override
     public void deleteXray(Xray xray){
         try {
             deleteXrayQuery.setInt(1, xray.getId());

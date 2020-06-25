@@ -14,13 +14,13 @@ public class EditResultController {
     public TextField tfResult;
     public TextField tfNormalValue;
 
-    private ClassDAO dao;
+    private ClassDAOBase dao;
     private Results result;
     private MedicalReports report;
     private ObservableList<Results> listResults;
 
     public EditResultController(Results result, MedicalReports report) {
-        dao = ClassDAO.getInstance();
+        dao = ClassDAOBase.getInstance();
         this.result = result;
         this.report = report;
     }

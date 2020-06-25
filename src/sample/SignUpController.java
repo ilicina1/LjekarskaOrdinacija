@@ -30,10 +30,10 @@ public class SignUpController {
     public AnchorPane anchorSign;
 
 
-    private ClassDAO dao;
+    private ClassDAOBase dao;
 
     public SignUpController() {
-        dao = ClassDAO.getInstance();
+        dao = ClassDAOBase.getInstance();
     }
 
 

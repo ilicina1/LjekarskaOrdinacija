@@ -36,10 +36,10 @@ public class MedicalHistoryController {
 
     private ObservableList<MedicalHistory> listMedicalHistory;
     private Patients patient;
-    private ClassDAO dao;
+    private ClassDAOBase dao;
 
     public MedicalHistoryController(Patients patient) throws SQLException {
-        dao = ClassDAO.getInstance();
+        dao = ClassDAOBase.getInstance();
         this.patient = patient;
         listMedicalHistory = FXCollections.observableArrayList(dao.history(patient.getMedicalRecordNumber()));
     }

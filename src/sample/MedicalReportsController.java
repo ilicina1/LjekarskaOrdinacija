@@ -32,12 +32,12 @@ public class MedicalReportsController {
     public TableColumn colId;
     public TableColumn colDate;
 
-    private ClassDAO dao;
+    private ClassDAOBase dao;
     private Patients patient;
     private ObservableList<MedicalReports> listMedicalReports;
 
     public MedicalReportsController(Patients patient) throws SQLException {
-        dao = ClassDAO.getInstance();
+        dao = ClassDAOBase.getInstance();
         this.patient = patient;
         listMedicalReports = FXCollections.observableArrayList(dao.reports(patient.getMedicalRecordNumber()));
     }

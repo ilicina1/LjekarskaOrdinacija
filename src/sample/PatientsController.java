@@ -19,8 +19,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.beans.Encoder;
+import java.beans.Expression;
+import java.beans.PersistenceDelegate;
+import java.beans.XMLEncoder;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -38,13 +45,13 @@ public class PatientsController {
     public TextField searchBox;
     public AnchorPane anchor;
 
-    private ClassDAO dao;
+    private ClassDAOBase dao;
     private ObservableList<Patients> listPatients;
     private ObservableList<Patients> filteredData = FXCollections.observableArrayList();
 
 
     public PatientsController() {
-        dao = ClassDAO.getInstance();
+        dao = ClassDAOBase.getInstance();
         listPatients = FXCollections.observableArrayList(dao.patients());
         filteredData.addAll(listPatients);
     }
@@ -307,5 +314,11 @@ public class PatientsController {
             anchor.getChildren().remove(anchor);
         });
         timeline.play();
+    }
+
+    public void saveXML(ActionEvent actionEvent) throws IOException, SQLException {
+        for(int i = 0; i < listPatients.size(); i++){
+            new ClassXML(dao.patients(), dao.xrays(listPatients.get(i).getMedicalRecordNumber()), dao.results(listPatients.get(i).getMedicalRecordNumber()), dao.appointments(), dao.reports(listPatients.get(i).getMedicalRecordNumber()), dao.history(listPatients.get(i).getMedicalRecordNumber()), dao.diagnosis(listPatients.get(i).getMedicalRecordNumber()));
+        }
     }
 }

@@ -32,11 +32,11 @@ public class DiagnosisController {
     public AnchorPane anchor2;
 
     private Patients patient;
-    private ClassDAO dao;
+    private ClassDAOBase dao;
     private ObservableList<Diagnosis> listDiagnoses;
 
     public DiagnosisController(Patients patient) throws SQLException {
-        dao = ClassDAO.getInstance();
+        dao = ClassDAOBase.getInstance();
         listDiagnoses = FXCollections.observableArrayList(dao.diagnosis(patient.getMedicalRecordNumber()));
         this.patient = patient;
     }

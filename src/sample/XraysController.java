@@ -34,12 +34,12 @@ public class XraysController {
     public TableColumn colDate;
     public TableColumn colWhatsOnRay;
 
-    private ClassDAO dao;
+    private ClassDAOBase dao;
     private Patients patient;
     private ObservableList<Xray> listXrays;
 
     public XraysController(Patients patient) throws SQLException {
-        dao = ClassDAO.getInstance();
+        dao = ClassDAOBase.getInstance();
         this.patient = patient;
         listXrays = FXCollections.observableArrayList(dao.xrays(patient.getMedicalRecordNumber()));
     }

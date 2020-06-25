@@ -13,11 +13,11 @@ public class AddAppointmentController {
     public TextField tfReason;
     public DatePicker dpDate;
 
-    private ClassDAO dao;
+    private ClassDAOBase dao;
     private Appointments appointment;
 
     public AddAppointmentController() {
-        dao = ClassDAO.getInstance();
+        dao = ClassDAOBase.getInstance();
     }
 
     public Appointments getAppointment() {
