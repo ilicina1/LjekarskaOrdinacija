@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="12.0.1" class="java.beans.XMLDecoder">
+ <object class="java.util.ArrayList">
+  <void method="add">
+   <object class="sample.Appointments">
+    <void property="id">
+     <int>2</int>
+    </void>
+    <void property="nameAndSurname">
+     <string>adda</string>
+    </void>
+    <void property="reason">
+     <string>mario</string>
+    </void>
+    <void property="time">
+     <string>22:00</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="sample.Appointments">
+    <void property="id">
+     <int>3</int>
+    </void>
+    <void property="nameAndSurname">
+     <string>hamdija</string>
+    </void>
+    <void property="reason">
+     <string>mario</string>
+    </void>
+    <void property="time">
+     <string>22:00</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="sample.Appointments">
+    <void property="id">
+     <int>4</int>
+    </void>
+    <void property="nameAndSurname">
+     <string>asdasddddddd</string>
+    </void>
+    <void property="reason">
+     <string>adaadaaaaavvvvvvvvvvvv</string>
+    </void>
+    <void property="time">
+     <string>22</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="sample.Appointments">
+    <void property="id">
+     <int>5</int>
+    </void>
+    <void property="nameAndSurname">
+     <string>ajvar</string>
+    </void>
+    <void property="reason">
+     <string>kijavica</string>
+    </void>
+    <void property="time">
+     <string>12:00</string>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>

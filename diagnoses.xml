@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="12.0.1" class="java.beans.XMLDecoder">
+ <object class="java.util.ArrayList">
+  <void method="add">
+   <object class="sample.Diagnosis">
+    <void property="id">
+     <int>3</int>
+    </void>
+    <void property="text">
+     <string>Poremecaj posteljice</string>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>

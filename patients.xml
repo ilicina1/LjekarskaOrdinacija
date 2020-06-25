@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="12.0.1" class="java.beans.XMLDecoder">
+ <object class="java.util.ArrayList">
+  <void method="add">
+   <object class="sample.Patients">
+    <void property="address">
+     <string>Aleja Pamuka 21</string>
+    </void>
+    <void property="birthDate">
+     <object class="java.time.LocalDate" method="parse">
+      <string>1999-05-12</string>
+     </object>
+    </void>
+    <void property="city">
+     <string>Sarajevo</string>
+    </void>
+    <void property="fullName">
+     <string>Manga Mangafic</string>
+    </void>
+    <void property="medicalRecordNumber">
+     <int>123</int>
+    </void>
+    <void property="phoneNumber">
+     <string>062322477</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="sample.Patients">
+    <void property="address">
+     <string>Brcanska 1</string>
+    </void>
+    <void property="birthDate">
+     <object class="java.time.LocalDate" method="parse">
+      <string>2000-05-29</string>
+     </object>
+    </void>
+    <void property="city">
+     <string>Sarajevo</string>
+    </void>
+    <void property="fullName">
+     <string>Belma Sehovic</string>
+    </void>
+    <void property="medicalRecordNumber">
+     <int>12</int>
+    </void>
+    <void property="phoneNumber">
+     <string>062311783</string>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>

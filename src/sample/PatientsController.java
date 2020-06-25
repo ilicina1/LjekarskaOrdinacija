@@ -321,4 +321,9 @@ public class PatientsController {
             new ClassXML(dao.patients(), dao.xrays(listPatients.get(i).getMedicalRecordNumber()), dao.results(listPatients.get(i).getMedicalRecordNumber()), dao.appointments(), dao.reports(listPatients.get(i).getMedicalRecordNumber()), dao.history(listPatients.get(i).getMedicalRecordNumber()), dao.diagnosis(listPatients.get(i).getMedicalRecordNumber()));
         }
     }
+
+    public void close(ActionEvent actionEvent) {
+        Stage stage = (Stage) anchor.getScene().getWindow();
+        stage.close();
+    }
 }

@@ -33,13 +33,7 @@
                 <Menu mnemonicParsing="false" text="File">
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#saveXML" text="Export" />
-                        <MenuItem mnemonicParsing="false" text="Import" />
-                        <MenuItem mnemonicParsing="false" text="Close" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
+                        <MenuItem mnemonicParsing="false" onAction="#close" text="Close" />
                   </items>
                 </Menu>
               </menus>

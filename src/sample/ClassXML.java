@@ -1,7 +1,5 @@
 package sample;
 
-import javafx.event.ActionEvent;
-
 import java.beans.*;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
