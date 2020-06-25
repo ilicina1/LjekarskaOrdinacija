@@ -2,6 +2,9 @@
 
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -25,9 +28,25 @@
             <Button layoutX="1.0" layoutY="111.0" mnemonicParsing="false" onAction="#actionEdit" prefHeight="27.0" prefWidth="260.0" style="-fx-background-color: #2D3447;" text="Edit" textFill="WHITE" />
             <Button layoutY="60.0" mnemonicParsing="false" onAction="#actionNew" prefHeight="27.0" prefWidth="260.0" style="-fx-background-color: #2D3447;" text="New" textAlignment="CENTER" textFill="WHITE" />
             <TextField fx:id="searchBox" layoutX="46.0" layoutY="469.0" promptText="Search by name" />
+            <MenuBar minWidth="763.0" prefHeight="29.0" prefWidth="1175.0">
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Export" />
+                        <MenuItem mnemonicParsing="false" text="Import" />
+                        <MenuItem mnemonicParsing="false" text="Close" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
          </children></Pane>
       <Button layoutX="-1.0" layoutY="410.0" mnemonicParsing="false" onAction="#actionMedicalReports" prefHeight="27.0" prefWidth="260.0" style="-fx-background-color: #2D3447;" text="Medical reports" textFill="WHITE" />
-      <TableView fx:id="tableViewPacijenti" layoutX="260.0" prefHeight="538.0" prefWidth="915.0">
+      <TableView fx:id="tableViewPacijenti" layoutX="260.0" layoutY="29.0" prefHeight="509.0" prefWidth="915.0">
         <columns>
           <TableColumn fx:id="colMedicalRN" prefWidth="150.0" text="Medical record number" />
           <TableColumn minWidth="0.0" prefWidth="0.0" text="C2" />
