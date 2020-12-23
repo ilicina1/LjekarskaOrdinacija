@@ -16,4 +16,4 @@
 * U klasi ClassDAO nalaze se sve metode i preparedstatementsi i nude ih aplikaciji na koristenje. 
 * Izgled aplikacije je jako elegantan i konzistentan kroz cijelu aplikaciju iako je prioritet demostracija funkcionalnosti. 
 * Takodje je napravljen chat koji je implementiran odvojeno od ove aplikacije. 
-* Pokrece se tako sto se prvo ”serverSide” projekt pokrene, a zatim se pokrenu dvije instance ”klijentSide” projekta i onda se kroz gui klijentNovog mogu dopi- sivati.
+* Pokrece se tako sto se prvo ”serverSide” projekat pokrene (nalazi se odvojeno na repozitoriju), a zatim se pokrenu dvije instance ”klijentSide” (nalazi se odvojeno na repozitoriju) projekta i onda se kroz gui klijentNovog mogu dopi- sivati.
